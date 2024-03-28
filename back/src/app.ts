@@ -1,9 +1,13 @@
 import express from 'express';
 import { sequelize } from './db/sequelize';
 import router from './routes';
+import cors from 'cors';
+import corsOptions from './config/corsOptions';
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
