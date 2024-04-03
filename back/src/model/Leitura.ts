@@ -1,12 +1,11 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db/sequelize";
 
-class Monitoramento extends Model {
+class Leitura extends Model {
     public id!: number;
-    public id_cliente!: string;
-    public id_aparelho!: string;
+    public id_aparelho_es!: string;
+    
     public data_hora!: Date;
-
     public ph!: number;
     public temperatura!: number;
     public orp!: number;
@@ -16,13 +15,9 @@ class Monitoramento extends Model {
     public turbidez!: number;
 };
 
-Monitoramento.init(
+Leitura.init(
     {
-        id_cliente: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        id_aparelho: {
+        id_aparelho_es: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -32,32 +27,60 @@ Monitoramento.init(
         },
         ph: {
             type: DataTypes.DECIMAL,
+            validate: {
+                min: 0,
+                max: 14,
+            },
         },
         temperatura: {
             type: DataTypes.DECIMAL,
+            validate: {
+                min: 5,
+                max: 40,
+            },
         },
         orp: {
             type: DataTypes.DECIMAL,
+            validate: {
+                min: -400,
+                max: 400,
+            },
         },
         tds: {
             type: DataTypes.DECIMAL,
+            validate: {
+                min: 0,
+                max: 300,
+            },
         },
         o2: {
             type: DataTypes.DECIMAL,
+            validate: {
+                min: 0,
+                max: 100,
+            },
         },
         o2_mg: {
             type: DataTypes.DECIMAL,
+            validate: {
+                min: 0,
+                max: 20,
+            },
         },
         turbidez: {
             type: DataTypes.DECIMAL,
-        }
+            validate: {
+                min: 1,
+                max: 150,
+            },
+        },
     },
     {
         sequelize,
-        modelName: 'Monitoramento',
-        tableName: 'monitoramento',
+        modelName: 'Leitura',
+        tableName: 'leitura',
         timestamps: false,
     },
 );
 
-export default Monitoramento;
+export default Leitura;

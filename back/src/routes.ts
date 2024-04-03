@@ -2,9 +2,9 @@ import express from 'express';
 const router = express.Router();
 
 import homeRouter from './routers/homeRouter';
-import monitoramentoRouter from './routers/monitoramentoRouter';
+import leituraRouter from './routers/leituraRouter';
 
 router.use('/', homeRouter);
-router.use('/monitoramentos', monitoramentoRouter);
+router.use('/leituras', leituraRouter);
 
 export default router;
