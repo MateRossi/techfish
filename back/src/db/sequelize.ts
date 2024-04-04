@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize';
+import pg from 'pg';
 
 const { POSTGRES_DATABASE, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST, POSTGRES_PORT } = process.env;
 
@@ -12,6 +13,7 @@ export const sequelize = new Sequelize(POSTGRES_DATABASE, POSTGRES_USER, POSTGRE
     host: POSTGRES_HOST,
     port: parseInt(POSTGRES_PORT), // Ensure to parse the port as an integer
     dialect: 'postgres',
+    dialectModule: pg,
     dialectOptions: {
         ssl: {
             require: true,
