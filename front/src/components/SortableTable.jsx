@@ -1,4 +1,4 @@
-import { GoArrowDown, GoArrowUp } from 'react-icons/go';
+import { FaCaretDown, FaCaretUp } from 'react-icons/fa6';
 import useSort from "../hooks/use-sort";
 import Table from './Table';
 
@@ -15,9 +15,9 @@ function SortableTable(props) {
             ...column,
             header: () => (
                 <th onClick={() => setSortColumn(column.label)}>
-                    <div>
-                        {getIcons(column.label, sortBy, sortOrder)}
+                    <div className='column-label'>
                         {column.label}
+                        {getIcons(column.label, sortBy, sortOrder)}
                     </div>
                 </th>
             ),
@@ -29,24 +29,24 @@ function SortableTable(props) {
 
 function getIcons(label, sortBy, sortOrder) {
     if (label !== sortBy) {
-        return <div>
-            <GoArrowUp />
-            <GoArrowDown />
+        return <div className="icons">
+            <FaCaretUp style={{marginBottom:'-10px'}}/>
+            <FaCaretDown />
         </div>;
     }
 
     if (sortOrder === null) {
-        return <div>
-            <GoArrowUp />
-            <GoArrowDown />
+        return <div className="icons">
+            <FaCaretUp style={{marginBottom:'-10px'}}/>
+            <FaCaretDown />
         </div>;
     } else if (sortOrder === 'asc') {
-        return <div>
-            <GoArrowUp />
+        return <div className="icons">
+            <FaCaretUp/>
         </div>;
     } else if (sortOrder === 'desc') {
-        return <div>
-            <GoArrowDown />
+        return <div className="icons">
+            <FaCaretDown />
         </div>
     }
 }

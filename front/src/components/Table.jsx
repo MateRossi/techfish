@@ -1,4 +1,5 @@
 import {Fragment} from 'react';
+import './Table.css';
 
 function Table({ data, config, keyFn }) {
     const renderedHeaders = config.map((column) => {
@@ -26,7 +27,7 @@ function Table({ data, config, keyFn }) {
     });
 
     return (
-        <table border={1}>
+        <table>
             <thead>
                 <tr>{renderedHeaders}</tr>
             </thead>
