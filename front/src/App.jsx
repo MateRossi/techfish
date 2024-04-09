@@ -1,9 +1,9 @@
 import './App.css'
-import MonitoramentoPage from './pages/MonitoramentosPage'
+import LeiturasPage from './pages/LeiturasPage'
 
 function App() {
   return (
-    <MonitoramentoPage />
+    <LeiturasPage />
   )
 }
 
