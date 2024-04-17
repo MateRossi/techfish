@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import Leitura from "../model/Leitura";
 
 export class LeituraService {
@@ -66,6 +67,25 @@ export class LeituraService {
     static async deleteLeitura(id: number) {
         const leitura = await this.jaExiste(id);;
         return leitura.destroy();
+    };
+
+    static async getLeiturasPorData(data: string) {
+        if (!data) {
+            throw new Error ('Erro ao filtrar, data inválida');
+        };
+        const dataAlvo = new Date(data);
+        const fimDia = new Date(dataAlvo);
+        fimDia.setDate(dataAlvo.getDate() + 1);
+        console.log("Fim dia: ", fimDia);
+        const {count, rows} = await Leitura.findAndCountAll({
+            where: {
+                data_hora: {
+                    [Op.between]: [dataAlvo, fimDia],
+                },
+            },
+        });
+
+        return { count, rows };
     };
 
     static async jaExiste(id: number) {

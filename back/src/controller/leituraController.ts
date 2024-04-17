@@ -51,4 +51,14 @@ export const leituraController = {
             res.status(400).json({ erro: "Erro ao deletar a leitura", datalhes: error.message })
         };
     },
+
+    async getLeiturasPorData(req: Request, res: Response) {
+        try {
+            const data = req.body.data;
+            const leiturasFiltradas = await LeituraService.getLeiturasPorData(data);
+            res.json(leiturasFiltradas);
+        } catch (error: any) {
+            res.status(400).json({ erro: 'Erro ao obter leituras por data', detalhes: error.message });
+        };
+    },
 };
