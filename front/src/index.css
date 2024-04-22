@@ -32,7 +32,6 @@ a {
 }
 
 h1 {
-  line-height: 1.1;
   text-transform: capitalize;
 }
 
@@ -142,6 +141,47 @@ input {
 input:hover,
 input:focus {
   background-color: #f8f8f8;
+}
+
+.PageTitle {
+  position: fixed;
+  top: 0;
+  left: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 4rem;
+  background: #2BBEE2;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+  width: calc(100% - 300px);
+  padding: 0 3rem;
+  overflow-x: hidden;
+  z-index: 2;
+  gap: 2rem;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+}
+
+.PageTitle h1 {
+  margin-top: auto;
+  font-weight: 900;
+  margin-left: 1rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: 900;
+}
+
+h1 {
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: 5rem;
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 button:focus,

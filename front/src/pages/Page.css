@@ -1,8 +1,14 @@
-.Content {
+.Page {
+    top: 4rem;
+    left: 300px;
+    position: fixed;
     display: flex;
     flex-grow: 1;
-    width: 100%;
+    width: calc(100% - 300px);
+    min-height: calc(100vh - 4rem);
     flex-direction: column;
     align-items: center;
     padding: 1rem;
+    background-size: cover;
+    z-index: 0;
 }

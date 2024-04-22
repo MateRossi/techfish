@@ -32,22 +32,6 @@
     font-size: 0.9rem;
 }
 
-h2 {
-    font-size: 2rem;
-    color: rgba(0, 0, 0, 0.7);
-    font-weight: 900;
-}
-
-h1 {
-    color: rgba(0, 0, 0, 0.7);
-    margin-top: 5rem;
-    font-size: 1.8rem;
-    font-style: normal;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 p {
     color: rgba(0, 0, 0, 0.7);
     font-weight: 100;

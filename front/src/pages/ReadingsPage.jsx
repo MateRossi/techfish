@@ -17,7 +17,7 @@ function ReadingsPage() {
         { label: 'Temperatura', value: 'temperatura' },
         { label: 'ORP', value: 'orp' },
         { label: 'TDS', value: 'tds' },
-        { label: 'O2', value: 'o2'},
+        { label: 'O2', value: 'o2' },
         { label: 'O2 mg', value: 'o2_mg' },
         { label: 'Turbidez', value: 'turbidez' },
     ];
@@ -29,10 +29,10 @@ function ReadingsPage() {
     }
 
     return (
-        <main className='Content'>
+        <main className='Page'>
             <Dropdown options={options} value={selection} onChange={handleSelection} />
             <div className='GraphContainer'>
-                <div><Grafico dados={readings} campoParaMostrar={selection.value} /></div>
+                <div><Grafico dados={readings} campoParaMostrar={selection?.value} /></div>
             </div>
 
             {/*<SortableTable data={readings} config={config} keyFn={keyFn} />*/}

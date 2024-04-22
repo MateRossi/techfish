@@ -1,0 +1,54 @@
+.NavBar header {
+    text-align: center;
+    position: fixed;
+    height: 4rem;
+    background-color: #ffffff;
+    width: 300px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.NavBar header img {
+    max-width: 3rem;
+    margin-left: 1rem;
+}
+
+.NavBar {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: #ffffff;
+    width: 300px;
+    display: block;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+}
+
+.NavBar li {
+    display: block;
+    list-style: none;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    width: auto;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem 2rem;
+    transition: background-color 0.25s;
+}
+
+.NavBar li:hover {
+    background-color: #f8f8f8;
+}
+
+.NavBar li:first-of-type {
+    margin-top: 4rem;
+}
+
+.NavBar li:last-of-type {
+    margin-bottom: 1rem;
+}

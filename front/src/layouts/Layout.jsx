@@ -1,8 +1,8 @@
 import { Outlet, useLocation } from "react-router-dom";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Menu from "../components/Menu";
 import './layout.css';
 import logoBranco from '../img/logoContornoBranco.png';
+import Title from "../components/Title";
 
 function Layout() {
     const location = useLocation();
@@ -18,9 +18,9 @@ function Layout() {
 
     return (
         <div className="mainLayout">
-            <Header title={getTitle()} />
+            <Menu title={getTitle()} />
+            <Title />
             <Outlet />
-            <Footer />
         </div>
     );
 }
