@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import MissingPage from './pages/MissingPage'
 import LoginPage from './pages/LoginPage'
 import LogonPage from './pages/LogonPage'
+import TankPage from './pages/TankPage'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path='/' element={<Layout />}>
         {/* Rotas publicas */}
         <Route path='monitoramento' element={<ReadingsPage />} />
+        <Route path='tanque' element={<TankPage />}/>
       </Route>
 
       <Route path='*' element={<MissingPage />} />

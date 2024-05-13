@@ -1,0 +1,76 @@
+.TankDetails {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.625rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.TankDetailsHeader {
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, #176e17, #56a756);
+    border-radius: .625rem .625rem 0 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.TankDetailsImg {
+    max-width: 5rem;
+}
+
+.TankDetailsName {
+    height: 5rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    background-color: #f8f8f8;
+    border-radius: 0.625rem;
+    padding: 0.5rem;
+}
+
+.DateTime {
+    text-decoration: underline;
+    color: #f9f9f9;
+    text-align: center;
+}
+
+.DateTime p {
+    text-decoration: underline;
+    color: #f9f9f9;
+}
+
+.TankDetailsName p {
+    margin: 0;
+    font-weight: 400;
+}
+
+.TankDetailsName h3 {
+    font-weight: 400;
+}
+
+.TankDetailsCurrent {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+}
+
+.FilterContainer {
+    gap: 1rem;
+    flex-grow: 1;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.FilterContainer input[type='date'] {
+    max-width: 150px;
+}

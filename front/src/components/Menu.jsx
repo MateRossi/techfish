@@ -1,18 +1,21 @@
 import './NavBar.css';
-import logo from '../img/logoContornoPreto.png';
+import aquario from '../img/contornoAquario.svg';
+import dinheiro from '../img/dinheiro.svg';
+import peixe from '../img/peixe.svg';
+import perfil from '../img/perfil.svg';
 
 function NavBar() {
     return (
         <nav className="NavBar">
             <header>
-                <img src={logo} alt="logo" />
+                <h2>tecfish</h2>
             </header>
             <div className='NavContent'>
                 <ul>
-                    <li>Link 1</li>
-                    <li>Link 2</li>
-                    <li>Link 3</li>
-                    <li>Link 4</li>
+                    <li><img className='ListItemIcon' src={aquario} alt="ícone tanque" />Tanques</li>
+                    <li><img className='ListItemIcon' src={peixe} alt="ícone peixe" />Espécies</li>
+                    <li><img className='ListItemIcon' src={dinheiro} alt="ícone faturamento" />Faturamento</li>
+                    <li><img className='ListItemIcon' src={perfil} alt="ícone perfil" />Perfil</li>
                 </ul>
             </div>
         </nav>

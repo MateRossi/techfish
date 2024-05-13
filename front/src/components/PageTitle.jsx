@@ -1,4 +1,4 @@
-function Title() {
+function PageTitle() {
     return (
         <div className="PageTitle">
         <h1>Monitoramento</h1>
@@ -6,4 +6,4 @@ function Title() {
     )
 }
 
-export default Title;
+export default PageTitle;

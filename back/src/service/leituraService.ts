@@ -1,5 +1,6 @@
 import { Op } from "sequelize";
 import Leitura from "../model/Leitura";
+import { sequelize } from "../db/sequelize";
 
 export class LeituraService {
     static async getAllLeituras() {
@@ -76,7 +77,6 @@ export class LeituraService {
         const dataAlvo = new Date(data);
         const fimDia = new Date(dataAlvo);
         fimDia.setDate(dataAlvo.getDate() + 1);
-        console.log("Fim dia: ", fimDia);
         const {count, rows} = await Leitura.findAndCountAll({
             where: {
                 data_hora: {
