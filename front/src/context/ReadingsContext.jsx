@@ -42,6 +42,7 @@ function ReadingsProvider({ children }) {
                 }
             });
             setReadingsDetails(readingsDetails);
+            console.log(readingsDetails);
         }
     }
 

@@ -1,18 +1,29 @@
+import { useEffect, useState } from 'react';
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 
 function Grafico({ dados, campoParaMostrar, ranges }) {
+    const [minValue, setMinValue] = useState(0);
+    const [maxValue, setMaxValue] = useState(100);
+    const [dataWithTime, setDataWithTime] = useState([]);
 
-    if (!dados || dados.length === 0) {
-        return <div>Carregando...</div>;
-    }
+    useEffect(() => {
+        if (ranges[campoParaMostrar]) {
+            setMinValue(ranges[campoParaMostrar].min);
+            setMaxValue(ranges[campoParaMostrar].max);
+        }
+    }, [campoParaMostrar, ranges]);
 
-    const dataWithTime = dados.map(item => ({
-        ...item,
-        time: item?.data_hora.match(/(\d{2}):(\d{2})/)[0]
-    }));
+    console.log(minValue, maxValue);
 
-    const minValue = ranges[campoParaMostrar].min;
-    const maxValue = ranges[campoParaMostrar].max;
+    useEffect(() => {
+        setDataWithTime(() => {
+            const updatedData = dados.map(item => ({
+                ...item,
+                time: item?.data_hora.match(/(\d{2}):(\d{2})/)[0]
+            }));
+            return updatedData;
+        });
+    }, [dados]);
 
     return (
         <ResponsiveContainer minHeight={400} >

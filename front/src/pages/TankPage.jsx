@@ -4,7 +4,7 @@ import aquario from '../img/aquario.svg';
 import { useReadings } from '../hooks/use-readings';
 import AttributeItem from '../components/AttributeItem';
 import Dropdown from '../components/Dropdown';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Grafico from '../components/Grafico';
 import moment from 'moment';
 
@@ -17,12 +17,15 @@ function TankPage() {
         selectedDate,
         lastReadingTime,
     } = useReadings();
+    const [formatedDate, setFormatedDate] = useState(moment(lastReadingTime).add(3, 'hours').format('DD/MM/yyyy HH:mm:ss'));
 
-    const formattedDate = moment(lastReadingTime).add(3, 'hours').format('DD/MM/yyyy HH:mm:ss');
+    useEffect(() => {
+        setFormatedDate(moment(lastReadingTime).add(3, 'hours').format('DD/MM/yyyy HH:mm:ss'));
+    }, [lastReadingTime]);
 
     const renderedAttributeItems = Object.keys(readingsDetails).map((attributeName, index) => {
-        const { max, min } = readingsDetails[attributeName];
-        return <AttributeItem attributeName={attributeName} maxValue={max} minValue={min} key={index} />
+        const { max, min, lastValue } = readingsDetails[attributeName];
+        return <AttributeItem attributeName={attributeName} maxValue={max} minValue={min} key={index} lastValue={lastValue} />
     });
 
     const options = [
@@ -46,14 +49,13 @@ function TankPage() {
                     <img src={aquario} alt='peixe em um aquário' className='TankDetailsImg'></img>
                     <div className='DateTime'>
                         <h3> Última Atualização </h3>
-                        <p>{formattedDate}</p>
+                        <p>{formatedDate}</p>
                     </div>
                     <div className='TankDetailsName'>
                         <h3>Tanque</h3>
                         <p>#JF0044239</p>
                     </div>
                 </header>
-                
                 <div className='TankDetailsCurrent'>
                     {renderedAttributeItems}
                 </div>
@@ -62,7 +64,7 @@ function TankPage() {
                     <Dropdown options={options} value={selection} onChange={handleSelection} />
                 </div>
                 <div className='GraphContainer'>
-                    <Grafico dados={readings?.rows} campoParaMostrar={selection?.value || 'ph'} ranges={readingsDetails} />
+                    {readings && <Grafico dados={readings?.rows} campoParaMostrar={selection?.value || 'ph'} ranges={readingsDetails} />}
                 </div>
             </div>
         </main>

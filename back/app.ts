@@ -12,6 +12,7 @@ import refresh from './src/routers/publicRoutes/RefreshRouter';
 import logout from './src/routers/publicRoutes/LogoutRouter';
 import verifyJwt from './src/middleware/verifyJwt';
 import router from './src/routes';
+import { Tanque, Especie, EspeciesTanque } from './src/model';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -24,14 +25,12 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-//associateModels();
-
 app.use('/auth', auth);
 app.use('/register', register);
 app.use('/refresh', refresh);
 app.use('/logout', logout);
 
-app.use(verifyJwt);
+//app.use(verifyJwt);
 
 app.use(router);
 
