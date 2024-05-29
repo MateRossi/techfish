@@ -5,7 +5,9 @@ import bcrypt from 'bcrypt';
 
 export class UserService {
     static async getAllUsers() {
-        return User.findAll();
+        return User.findAll({
+            attributes: { exclude: ['senha', 'role', 'refreshToken'] },
+        });
     };
 
     static async getUserById(id: number) {

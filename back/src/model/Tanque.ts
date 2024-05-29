@@ -1,5 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db/sequelize";
+import User from "./User";
 
 class Tanque extends Model {
     public id!: number;
@@ -8,8 +9,12 @@ class Tanque extends Model {
     public volumeAgua!: number;
     public totalPeixes!: number;
 
+    public userId!: number;
+
     static associate(models: any) {
+        this.belongsTo(models.User, { foreignKey: 'userId' })
         this.belongsToMany(models.Especie, { through: models.EspeciesTanque, foreignKey: 'especieId' });
+        this.belongsToMany(models.Aparelho, { through: models.AparelhosTanque, foreignKey: 'aparelhoId' });
     };
 };
 
@@ -26,9 +31,17 @@ Tanque.init(
         volumeAgua: {
             type: DataTypes.DECIMAL,
         },
-        quantidadePeixes: {
+        totalPeixes: {
             type: DataTypes.INTEGER,
         },
+        userId: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: User,
+                key: 'id'
+            },
+            allowNull: false,
+        }
     },
     {
         sequelize,

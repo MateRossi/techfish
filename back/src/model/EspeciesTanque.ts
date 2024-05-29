@@ -41,7 +41,7 @@ EspeciesTanque.init(
     {
         sequelize,
         modelName: 'EspeciesTanque',
-        tableName: 'especiesTanque',
+        tableName: 'especies_tanque',
     }
 );
 

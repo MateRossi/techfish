@@ -60,5 +60,25 @@ export const tanqueController = {
         } catch (error: any) {
             res.status(400).json({ erro: 'Erro ao adicionar espécie ao tanque', detalhes: error.message });
         }
-    }
+    },
+
+    async addAparelhoToTanque(req: Request, res: Response) {
+        try {
+            const { tanqueId, aparelhoId } = req.body;
+            const response = await TanqueService.addAparelhoToTanque(aparelhoId, tanqueId);
+            res.json({ response });
+        } catch (error: any) {
+            res.status(400).json({ erro: 'Erro ao adicionar aparelho ao tanque', detalhes: error.message });
+        }
+    },
+
+    async getUserTanksWithLatestValues(req: Request, res: Response) {
+        try {
+            const userId = Number(req.params.id);
+            const response = await TanqueService.getUserTanksWithLatestValues(userId);
+            res.json({ response });
+        } catch (error: any) {
+            res.status(400).json({ erro: 'Erro ao buscar tanques do usuário', detalhes: error.message });
+        }
+    },
 };

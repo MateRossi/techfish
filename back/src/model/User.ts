@@ -11,6 +11,11 @@ class User extends Model {
 
     public role!: string;
     public refreshToken!: string;
+
+    static associate(models: any) {
+        this.hasMany(models.Aparelho, { foreignKey: 'userId' })
+        this.hasMany(models.Tanque, { foreignKey: 'userId' })
+    }
 };
 
 User.init(

@@ -1,6 +1,8 @@
 import { Op } from "sequelize";
 import Leitura from "../model/Leitura";
 import { sequelize } from "../db/sequelize";
+import { Aparelho } from "../model";
+import { NotFoundError } from "../error/NotFoundError";
 
 export class LeituraService {
     static async getAllLeituras() {

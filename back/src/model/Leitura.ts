@@ -13,6 +13,10 @@ class Leitura extends Model {
     public o2!: number;
     public o2_mg!: number;
     public turbidez!: number;
+
+    static associate(models: any) {
+        this.belongsTo(models.Aparelho, { foreignKey: 'id_aparelho_es' })
+    }
 };
 
 Leitura.init(
@@ -79,7 +83,6 @@ Leitura.init(
         sequelize,
         modelName: 'Leitura',
         tableName: 'leitura',
-        timestamps: false,
     },
 );
 
