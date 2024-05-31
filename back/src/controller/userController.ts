@@ -80,7 +80,10 @@ export const userController = {
                 { expiresIn: '1h' }
             );
             const refreshToken = jwt.sign(
-                { "email": user.email },
+                { 
+                    "email": user.email,
+                    "id": user.id, 
+                },
                 process.env.JWT_SECRET || 'SEAG@2024TTCCMR',
                 { expiresIn: '1d' }
             );

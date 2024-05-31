@@ -30,7 +30,7 @@ app.use('/register', register);
 app.use('/refresh', refresh);
 app.use('/logout', logout);
 
-//app.use(verifyJwt);
+app.use(verifyJwt);
 
 app.use(router);
 

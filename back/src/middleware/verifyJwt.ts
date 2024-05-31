@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 interface AuthRequest extends Request {
-    email?: string;
+    id?: number;
+    name?: string;
     role?: string;
 }
 
@@ -21,7 +22,8 @@ const verifyJWT = (req: AuthRequest, res: Response, next: NextFunction) => {
         (err: any, decoded: any) => {
             if (err) return res.sendStatus(403);
             if (decoded?.UserInfo) {
-                req.email = decoded.UserInfo.email;
+                req.id = decoded.UserInfo.id;
+                req.name = decoded.UserInfo.name;
                 req.role = decoded.UserInfo.role;
             }
             next();

@@ -76,7 +76,7 @@ export const tanqueController = {
         try {
             const userId = Number(req.params.id);
             const response = await TanqueService.getUserTanksWithLatestValues(userId);
-            res.json({ response });
+            res.json(response);
         } catch (error: any) {
             res.status(400).json({ erro: 'Erro ao buscar tanques do usuário', detalhes: error.message });
         }
