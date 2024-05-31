@@ -7,6 +7,8 @@ import Dropdown from '../components/Dropdown';
 import { useEffect, useState } from 'react';
 import Grafico from '../components/Grafico';
 import moment from 'moment';
+import TankName from '../components/TankName';
+import DateShow from '../components/DateShow';
 
 function TankPage() {
     const [selection, setSelection] = useState(null);
@@ -47,14 +49,8 @@ function TankPage() {
             <div className='TankDetails'>
                 <header className='TankDetailsHeader'>
                     <img src={aquario} alt='peixe em um aquário' className='TankDetailsImg'></img>
-                    <div className='DateTime'>
-                        <h3> Última Atualização </h3>
-                        <p>{formatedDate}</p>
-                    </div>
-                    <div className='TankDetailsName'>
-                        <h3>Tanque</h3>
-                        <p>#JF0044239</p>
-                    </div>
+                    <DateShow formatedDate={formatedDate} />
+                    <TankName tankName={'JFAPES007'}/>
                 </header>
                 <div className='TankDetailsCurrent'>
                     {renderedAttributeItems}

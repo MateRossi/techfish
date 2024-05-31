@@ -32,17 +32,6 @@
     padding: 0.5rem;
 }
 
-.DateTime {
-    text-decoration: underline;
-    color: #f9f9f9;
-    text-align: center;
-}
-
-.DateTime p {
-    text-decoration: underline;
-    color: #f9f9f9;
-}
-
 .TankDetailsName p {
     margin: 0;
     font-weight: 400;
