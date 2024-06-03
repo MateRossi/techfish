@@ -7,8 +7,9 @@ import TankPage from './pages/TankPage'
 import ReadingsProvider from './context/ReadingsContext'
 import TankListPage from './pages/TankListPage'
 import PersistLogin from './components/PersistLogin'
+import TanquePage from './pages/TanquePage'
 
-function App() {
+function App() {  
   return (
     <Routes>
       <Route path='/' element={<LoginPage />} />
@@ -16,9 +17,10 @@ function App() {
       
       {/*rotas particulares ao usuário*/}
       <Route element={<PersistLogin />}>
-        <Route path='/user' element={<Layout />}>
-          <Route path='/user/tanques' element={<TankListPage />} />
-          <Route path='user/tanqus/1' element={<ReadingsProvider><TankPage /></ReadingsProvider>} />
+        <Route path='/users' element={<Layout />}>
+          <Route path='/users/:userId/tanques' element={<TankListPage />} />
+          {/*<Route path='/user/:userId/tanque/:tanqueId' element={<ReadingsProvider><TankPage /></ReadingsProvider>} />*/}
+          <Route path='/users/:userId/tanques/:tanqueId' element={<TanquePage />} />
         </Route>
       </Route>
 

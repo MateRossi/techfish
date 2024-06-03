@@ -94,18 +94,6 @@ li a {
   color: #f9f9f9;
 }
 
-.TankItemContainer {
-  border-radius: 0.625rem;
-  min-width: 400px;
-  background-color: #f3f3f3;
-  cursor: pointer;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.TankItemContainer:hover {
-  opacity: 0.8;
-}
-
 #root {
   display: flex;
   flex-grow: 1;

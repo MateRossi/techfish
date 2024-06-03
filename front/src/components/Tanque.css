@@ -1,0 +1,23 @@
+.tank-item-info {
+    padding: 1rem;
+}
+
+.tank-item-info p {
+    margin-bottom: 0.5rem;
+    margin-left: 5px;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.TankItemContainer {
+    border-radius: 0.625rem;
+    min-width: 600px;
+    background-color: #f3f3f3;
+    cursor: pointer;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.TankItemContainer:hover {
+    opacity: 0.8;
+}

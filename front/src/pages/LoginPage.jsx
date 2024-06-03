@@ -54,7 +54,7 @@ function LoginPage() {
             setAuth({ id, name, role, accessToken });
             resetUser();
             setPwd('');
-            navigate('/user/tanques', { replace: true });
+            navigate(`users/${id}/tanques`, { replace: true });
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('Sem resposta do servidor.');

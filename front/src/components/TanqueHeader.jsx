@@ -1,10 +1,10 @@
-function TankName({ tankName }) {
+function TanqueHeader({ nomeTanque }) {
     return (
         <div className='TankDetailsName'>
             <h3>Tanque</h3>
-            <p>{tankName}</p>
+            <p>{nomeTanque}</p>
         </div>
     )
 }
 
-export default TankName;
+export default TanqueHeader;

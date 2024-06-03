@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "../api/axios";
+import Carregando from "../components/Carregando";
 
 export const ReadingsContext = createContext();
 
@@ -51,7 +52,9 @@ function ReadingsProvider({ children }) {
     }
 
     if (loading) {
-        return <div>Carregando...</div>;
+        return <main className="Page">
+            <Carregando width='50px' height='50px' />
+        </main>
     }
 
     return (

@@ -7,7 +7,7 @@ import Dropdown from '../components/Dropdown';
 import { useEffect, useState } from 'react';
 import Grafico from '../components/Grafico';
 import moment from 'moment';
-import TankName from '../components/TankName';
+import TanqueHeader from '../components/TanqueHeader';
 import DateShow from '../components/DateShow';
 
 function TankPage() {
@@ -50,7 +50,7 @@ function TankPage() {
                 <header className='TankDetailsHeader'>
                     <img src={aquario} alt='peixe em um aquário' className='TankDetailsImg'></img>
                     <DateShow formatedDate={formatedDate} />
-                    <TankName tankName={'JFAPES007'}/>
+                    <TanqueHeader nomeTanque={'JFAPES007'}/>
                 </header>
                 <div className='TankDetailsCurrent'>
                     {renderedAttributeItems}
