@@ -11,10 +11,11 @@ export const tanqueController = {
         };
     },
 
-    async getTanqueById(req: Request, res: Response) {
+    async getUserTanqueById(req: Request, res: Response) {
         try {
-            const tanqueId = Number(req.params.id);
-            const tanque = await TanqueService.getTanqueById(tanqueId);
+            const tanqueId = Number(req.params.tanqueId);
+            const userId = Number(req.params.userId);
+            const tanque = await TanqueService.getUserTanqueById(userId, tanqueId);
             res.json(tanque);
         } catch (error: any) {
             res.status(400).json({ erro: "Erro ao obter tanque ", detalhes: error.message });
@@ -56,9 +57,29 @@ export const tanqueController = {
         try {
             const { tanqueId, especieId } = req.body;
             const response = await TanqueService.addEspecieToTanque(especieId, tanqueId);
-            res.json({ response });
+            res.json(response);
         } catch (error: any) {
             res.status(400).json({ erro: 'Erro ao adicionar espécie ao tanque', detalhes: error.message });
+        }
+    },
+
+    async getEspeciesFromTanque(req: Request, res: Response) {
+        try {
+            const id = Number(req.params.id);
+            const response = await TanqueService.getEspeciesFromTanque(id);
+            res.json(response);
+        } catch (error: any) {
+            res.status(400).json({ erro: 'Erro ao obter especies do tanque', detalhes: error.message });
+        }
+    },
+
+    async getAparelhosFromTanque(req: Request, res: Response) {
+        try {
+            const id = Number(req.params.id);
+            const response = await TanqueService.getAparelhosFromTanque(id);
+            res.json(response);
+        } catch (error: any) {
+            res.status(400).json({ erro: 'Erro ao obter aparelhos do tanque', detalhes: error.message });
         }
     },
 

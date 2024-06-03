@@ -9,6 +9,7 @@ userRouter.get('/', userController.getAllUsers);
 userRouter.get('/:id', userController.getUserById);
 
 userRouter.get('/:id/tanques', tanqueController.getUserTanksWithLatestValues);
+userRouter.get('/:userId/tanques/:tanqueId', tanqueController.getUserTanqueById);
 
 //comentar essa linha
 //userRouter.post('/', userController.createUser);

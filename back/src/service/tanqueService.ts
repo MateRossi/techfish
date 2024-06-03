@@ -1,13 +1,32 @@
 import { NotFoundError } from "../error/NotFoundError";
-import { Tanque, Especie, Aparelho, Leitura, AparelhosTanque } from '../model';
+import { Tanque, Especie, Aparelho, Leitura, AparelhosTanque, User } from '../model';
 
 export class TanqueService {
     static async getAllTanques() {
         return Tanque.findAll();
     };
 
-    static async getTanqueById(id: number) {
-        const tanque = await this.jaExiste(id);
+    static async getUserTanqueById(userId: number, id: number) {
+        const user = User.findByPk(userId);
+
+        if (!user) {
+            throw new NotFoundError('Usuário não encontrado');
+        }
+        
+        const tanque = await Tanque.findOne({
+            where: {
+                id,
+                userId: userId,
+            },
+            include: [
+                {
+                    model: Aparelho
+                },
+                {
+                    model: Especie
+                },
+            ],
+        });
         return tanque;
     };
 
@@ -76,6 +95,23 @@ export class TanqueService {
         }
     };
 
+    static async getEspeciesFromTanque(tanqueId: number) {
+        try {
+            const tanque = await Tanque.findByPk(tanqueId);
+
+            if (!tanque) {
+                throw new NotFoundError('Tanque não encontrado');
+            }
+
+            const especiesNoTanque = await (tanque as any).getEspecies();
+
+            return especiesNoTanque;
+        } catch (err: any) {
+            console.error('Erro ao obter especies do tanque', err.message);
+            throw err;
+        }
+    };
+
     //métodos de relação entre aparelho e tanque
     static async addAparelhoToTanque(aparelhoId: string, tanqueId: number) {
         try {
@@ -100,12 +136,34 @@ export class TanqueService {
         }
     };
 
+    static async getAparelhosFromTanque(tanqueId: number) {
+        try {
+            const tanque = await Tanque.findByPk(tanqueId);
+
+            if (!tanque) {
+                throw new NotFoundError('Tanque não encontrado');
+            }
+
+            const aparelhosNoTanque = await (tanque as any).getAparelhos();
+
+            return aparelhosNoTanque;
+        } catch (err: any) {
+            console.error('Erro ao obter Aparelhos do tanque', err.message);
+            throw err;
+        }
+    };
+
     static async jaExiste(id: number) {
         const tanque = await Tanque.findOne({
             where: {id},
-            include: {
-                model: Aparelho,
-            },
+            include: [
+                {
+                    model: Aparelho
+                },
+                {
+                    model: Especie
+                },
+            ],
         });
         if (!tanque) {
             throw new Error('Tanque não encontrado');
