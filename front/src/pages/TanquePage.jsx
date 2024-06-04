@@ -59,6 +59,10 @@ function TanquePage() {
                         <InfoCounter nomePropriedade={"Espécies: "} valor={tanqueData?.Especies?.length || 0} />
                         <InfoCounter nomePropriedade={"Aparelhos: "} valor={tanqueData?.Aparelhos?.length || 0} />
                     </div>
+                    {/*Infos de cada aparelho: obter as leituras das últimas 24 horas para cada aparelho, já possui o id do aparelho através d
+                        um possível .MAP no array de Aparelhos do tanque.
+                    */}
+                    {/*Infos de cada espécie presente no tanque. obtidas da mesma forma que os aparelhos*/}
                 </section>
             </div>
         </main>
