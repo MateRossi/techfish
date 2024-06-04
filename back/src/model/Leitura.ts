@@ -50,14 +50,14 @@ Leitura.init(
             type: DataTypes.DECIMAL,
             validate: {
                 min: 0,
-                max: 300,
+                max: 1500,
             },
         },
         o2: {
             type: DataTypes.DECIMAL,
             validate: {
                 min: 0,
-                max: 100,
+                max: 200,
             },
         },
         o2_mg: {
@@ -71,7 +71,7 @@ Leitura.init(
             type: DataTypes.DECIMAL,
             validate: {
                 min: 1,
-                max: 150,
+                max: 1000,
             },
         },
     },
