@@ -70,7 +70,7 @@ Leitura.init(
         turbidez: {
             type: DataTypes.DECIMAL,
             validate: {
-                min: 1,
+                min: 0,
                 max: 1000,
             },
         },
