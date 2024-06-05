@@ -90,6 +90,28 @@ export class LeituraService {
         return { count, rows };
     };
 
+    //métodos de consulta às leituras de monitoramento de um aparelho.
+    static async getUltimasLeiturasPorAparelhoId(aparelhoId: string) {
+        const aparelho = await Aparelho.findByPk(aparelhoId);
+
+        if (!aparelho) {
+            throw new NotFoundError('Aparelho não encontrado');
+        }
+
+        const leituras = await Leitura.findAll({
+            where: { id_aparelho_es: aparelhoId },
+            order: [['data_hora', 'DESC']],
+            limit: 96,
+            attributes: {exclude: ['createdAt', 'updatedAt', 'id']}
+        });
+
+        return leituras.reverse();
+    };
+
+    static async getLeiturasMensaisPorAparelhoId(aparelhoId: string) {
+        return 'teste'
+    }
+
     static async jaExiste(id: number) {
         const leitura = await Leitura.findByPk(id);
         if (!leitura) {

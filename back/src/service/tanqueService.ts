@@ -12,21 +12,26 @@ export class TanqueService {
         if (!user) {
             throw new NotFoundError('Usuário não encontrado');
         }
-        
+
         const tanque = await Tanque.findOne({
-            where: {
-                id,
-                userId: userId,
-            },
+            where: { id, userId: userId },
             include: [
                 {
-                    model: Aparelho
+                    model: Aparelho,
+                    include: [
+                        {
+                            model: Leitura,
+                            limit: 96,
+                            order: [['data_hora', 'DESC']]
+                        }
+                    ],
                 },
                 {
                     model: Especie
                 },
             ],
         });
+
         return tanque;
     };
 
@@ -155,7 +160,7 @@ export class TanqueService {
 
     static async jaExiste(id: number) {
         const tanque = await Tanque.findOne({
-            where: {id},
+            where: { id },
             include: [
                 {
                     model: Aparelho
@@ -178,12 +183,12 @@ export class TanqueService {
             include: [
                 {
                     model: Aparelho,
-                    attributes: {exclude: ['AparelhosTanque', 'createdAt', 'updatedAt']},
+                    attributes: { exclude: ['AparelhosTanque', 'createdAt', 'updatedAt'] },
                     include: [
                         {
                             model: Leitura,
                             order: [['data_hora', 'DESC']],
-                            limit: 1,                            
+                            limit: 1,
                         },
                     ],
                 },
