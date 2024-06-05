@@ -1,9 +1,11 @@
 import './Aparelho.css'
+import DateShow from './DateShow';
 
-function Aparelho({ valoresAtuais, aparelhoId }) {    
+function Aparelho({ valoresAtuais, aparelhoId }) {
     return (
         <div className='device-info'>
-            Aparelho: {aparelhoId}
+            Aparelho: {aparelhoId} <br />
+            Última atualização feita em: <DateShow listaLeituras={valoresAtuais} />
             <ul className="device-info-list">
                 <li>O&#8322;: {valoresAtuais[0].o2}</li>
                 <li>O&#8322;mg: {valoresAtuais[0].o2_mg}</li>

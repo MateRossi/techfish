@@ -8,7 +8,10 @@ import DateShow from "../components/DateShow";
 import TanqueHeader from "../components/TanqueHeader";
 import ListaAtributosTanque from "../components/ListaAtributosTanque";
 import InfoCounter from "../components/InfoCounter";
+import Grafico2 from "../components/Grafico2";
+import useLocalStorage from '../hooks/use-local-storage';
 import './TanquePage.css';
+import SeletorAtributo from "../components/SeletorAtributo";
 
 function TanquePage() {
     const [tanqueData, setTanqueData] = useState([]);
@@ -17,13 +20,13 @@ function TanquePage() {
     const { tanqueId } = useParams();
     const navigate = useNavigate();
     const axiosPrivate = useAxiosPrivate();
+    const [atributoLeitura, setAtributoLeitura] = useLocalStorage('atributoLeitura', 'ph');
 
     useEffect(() => {
         let isMounted = true;
         const getTanqueData = async () => {
             try {
                 const response = await axiosPrivate.get(`/users/${auth?.id}/tanques/${tanqueId}`);
-                console.log(response);
                 isMounted && setTanqueData(response.data);
                 setIsLoading(false);
             } catch (err) {
@@ -50,20 +53,39 @@ function TanquePage() {
             <div className="TankDetails">
                 <header className="TankDetailsHeader">
                     <img src={aquario} alt='peixe em um aquário' className='TankDetailsImg'></img>
-                    <DateShow formatedDate={'23/04/2023 20:33'} />
                     <TanqueHeader nomeTanque={tanqueData.nome} />
                 </header>
                 <section className="infos-basicas-tanque">
                     <ListaAtributosTanque tanque={tanqueData} />
-                    <div className="counters">
-                        <InfoCounter nomePropriedade={"Espécies: "} valor={tanqueData?.Especies?.length || 0} />
-                        <InfoCounter nomePropriedade={"Aparelhos: "} valor={tanqueData?.Aparelhos?.length || 0} />
+                    <div className="tanque-options">
+                        <div>
+                            <InfoCounter nomePropriedade={"Espécies: "} valor={tanqueData?.Especies?.length || 0} />
+                            <InfoCounter nomePropriedade={"Aparelhos: "} valor={tanqueData?.Aparelhos?.length || 0} />
+                        </div>
+                        <div>
+                            <button className="edit-button">Editar Tanque</button>
+                            <button className="delete-button">Excluir Tanque</button>
+                        </div>
                     </div>
-                    {/*Infos de cada aparelho: obter as leituras das últimas 24 horas para cada aparelho, já possui o id do aparelho através d
-                        um possível .MAP no array de Aparelhos do tanque.
-                    */}
-                    {/*Infos de cada espécie presente no tanque. obtidas da mesma forma que os aparelhos*/}
                 </section>
+                {tanqueData.Aparelhos &&
+                    <section className="aparelhos-tanque">
+                        <SeletorAtributo setAtributoLeitura={setAtributoLeitura} />
+                        {tanqueData.Aparelhos ? (
+                            tanqueData.Aparelhos.map(aparelho => (
+                                <div key={aparelho.id_aparelho_es} className="aparelho-tanque">
+                                    <div className="infos-grafico">
+                                        <p>Gráfico referente ao aparelho: {aparelho.id_aparelho_es}</p>
+                                        <p>Última atualização feita em: <DateShow listaLeituras={aparelho.Leituras} /></p>
+                                    </div>
+                                    <Grafico2 dados={aparelho.Leituras} campoParaMostrar={atributoLeitura} />
+                                </div>
+                            ))
+                        ) : (
+                            <div>Este tanque ainda não possui dados de monitoramento.</div>
+                        )}
+                    </section>
+                }
             </div>
         </main>
     )

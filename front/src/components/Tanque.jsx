@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import TanqueHeader from "./TanqueHeader";
-import DateShow from "./DateShow";
 import Aparelho from "./Aparelho";
 import './Tanque.css';
 import useAuth from "../hooks/use-auth";
@@ -14,10 +13,10 @@ function Tanque({ tanqueId, nomeTanque, areaTanque, volumeAgua, totalPeixes, apa
     }
 
     return (
-        <div className="TankItemContainer" onClick={handleClick} >
+        <div className="TankItemContainer">
             <header className="tankItemHeader">
-                <DateShow formatedDate={'31/05/2025 15:34'} />
                 <TanqueHeader nomeTanque={nomeTanque} />
+                <button onClick={handleClick}>Detalhes</button>
             </header>
             <section className="tank-item-info">
                 <p>Area do tanque: {areaTanque || 'Não informado'}m²</p>

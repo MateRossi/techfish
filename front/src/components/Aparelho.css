@@ -10,4 +10,7 @@
     border-top: 1px solid rgb(0, 0, 0);
 }
 
-.device-info-list {}
+.device-info-header {
+    display: flex;
+    justify-content: space-between;
+}

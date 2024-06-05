@@ -5,7 +5,7 @@ import useAuth from "../hooks/use-auth";
 import Tanque from "../components/Tanque";
 import Carregando from "../components/Carregando";
 
-function TankListPage() {
+function TanqueListPage() {
     const [tanques, setTanques] = useState([]);
     const [loading, setLoading] = useState(true);
     const axiosPrivate = useAxiosPrivate();
@@ -56,4 +56,4 @@ function TankListPage() {
     )
 }
 
-export default TankListPage;
+export default TanqueListPage;

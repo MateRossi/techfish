@@ -73,16 +73,6 @@ li a {
   padding: 1rem 2rem;
 }
 
-.tankItemHeader {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  padding: 0.5rem 0;
-  border-radius: 0.625rem 0.625rem 0 0;
-  align-items: center;
-  background: linear-gradient(to right, #176e17, #56a756);
-}
-
 .DateTime {
   text-decoration: underline;
   color: #f9f9f9;
@@ -92,6 +82,14 @@ li a {
 .DateTime p {
   text-decoration: underline;
   color: #f9f9f9;
+}
+
+.edit-button {
+  background-color: gold;
+}
+
+.delete-button {
+  background-color: rgb(255, 93, 93);
 }
 
 #root {

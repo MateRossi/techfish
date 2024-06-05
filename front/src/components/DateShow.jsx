@@ -1,10 +1,16 @@
-function DateShow({ formatedDate }) {
+import { useEffect, useState } from "react";
+import moment from "moment";
+
+function DateShow({ listaLeituras }) {
+    const [dataHoraUltimaLeitura, setDataHoraUltimaLeitura] = useState(moment(listaLeituras[listaLeituras.length - 1].data_hora).format('DD/MM/yyyy HH:mm:ss'));
+
+    useEffect(() => {
+        setDataHoraUltimaLeitura(moment(listaLeituras[listaLeituras.length - 1].data_hora).format('DD/MM/yyyy HH:mm:ss'));
+    }, [listaLeituras]);
+
     return (
-        <div className='DateTime'>
-            <h3> Última Atualização </h3>
-            <p>{formatedDate}</p>
-        </div>
-    )
+        <>{dataHoraUltimaLeitura}</>
+    );
 }
 
 export default DateShow;
