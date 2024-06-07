@@ -22,13 +22,17 @@ function Tanque({ tanqueId, nomeTanque, areaTanque, volumeAgua, totalPeixes, apa
                 <p>Area do tanque: {areaTanque || 'Não informado'}m²</p>
                 <p>Volume de água: {volumeAgua || 'Não informado'}L</p>
                 <p>Quantidade de peixes: {totalPeixes || 'Não informado'}</p>
-                {aparelhos.map(aparelho => (
-                    <Aparelho
-                        key={aparelho.id_aparelho_es}
-                        aparelhoId={aparelho.id_aparelho_es}
-                        valoresAtuais={aparelho.Leituras}
-                    />
-                ))}
+                {aparelhos && aparelhos.length > 0 ? (
+                    aparelhos.map(aparelho => (
+                        <Aparelho
+                            key={aparelho.id_aparelho_es}
+                            aparelhoId={aparelho.id_aparelho_es}
+                            valoresAtuais={aparelho.Leituras}
+                        />
+                    ))
+                ) : (
+                    <p className="aviso-sem-aparelho">Nenhum aparelho encontrado.</p>
+                )}
             </section>
         </div>
     )

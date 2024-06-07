@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 
-function Grafico2({dados, campoParaMostrar}) {
+function Grafico2({dados, camposParaMostrar}) {
     const [minValue, setMinValue] = useState(0);
     const [maxValue, setMaxValue] = useState(100);
     const [dadosComHora, setDadosComHora] = useState([]);
@@ -17,19 +17,28 @@ function Grafico2({dados, campoParaMostrar}) {
     }, [dados]);
 
     useEffect(() => {
-        const valores = dados.map(item => item[campoParaMostrar]);
-        const min = Math.min(...valores);
-        const max = Math.max(...valores);
+        if (camposParaMostrar.length === 0) return;
+        const todosValores = camposParaMostrar.flatMap(campo => dados.map(item => item[campo]));
+        const min = Math.min(...todosValores);
+        const max = Math.max(...todosValores);
         setMinValue(min);
         setMaxValue(max);
-    }, [dados, campoParaMostrar]);
+    }, [dados, camposParaMostrar]);
 
     return (
         <ResponsiveContainer minHeight={400} >
-            <LineChart data={dadosComHora} margin={{ top: 5, right: 55, left: 0, bottom: 5 }} >
-                <Line type='monotone' dataKey={campoParaMostrar} strokeWidth={2} stroke="#176e17" />
+             <LineChart data={dadosComHora} margin={{ top: 5, right: 55, left: 0, bottom: 5 }} >
+                {camposParaMostrar.map(campo => (
+                    <Line
+                        key={campo}
+                        type='monotone'
+                        dataKey={campo}
+                        strokeWidth={2}
+                        stroke={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+                    />
+                ))}
                 <CartesianGrid stroke='#ccc' strokeDasharray='2 2' />
-                <XAxis dataKey={'time'} interval="PreserveStartEnd" />
+                <XAxis dataKey={'time'} interval="preserveStartEnd" />
                 <YAxis domain={[minValue, maxValue]} padding={{ top: 5, bottom: 5 }} />
                 <Tooltip />
             </LineChart>

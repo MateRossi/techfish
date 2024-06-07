@@ -9,18 +9,22 @@ import TanqueHeader from "../components/TanqueHeader";
 import ListaAtributosTanque from "../components/ListaAtributosTanque";
 import InfoCounter from "../components/InfoCounter";
 import Grafico2 from "../components/Grafico2";
+import Modal from '../components/Modal';
 import useLocalStorage from '../hooks/use-local-storage';
 import './TanquePage.css';
 import SeletorAtributo from "../components/SeletorAtributo";
+import TanqueEdit from "../components/TanqueEdit";
 
 function TanquePage() {
     const [tanqueData, setTanqueData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showCancelModal, setShowCancelModal] = useState(false);
     const { auth } = useAuth();
     const { tanqueId } = useParams();
     const navigate = useNavigate();
     const axiosPrivate = useAxiosPrivate();
-    const [atributoLeitura, setAtributoLeitura] = useLocalStorage('atributoLeitura', 'ph');
+    const [atributosLeitura, setAtributosLeitura] = useLocalStorage('atributosLeitura', []);
 
     useEffect(() => {
         let isMounted = true;
@@ -40,6 +44,15 @@ function TanquePage() {
         return () => isMounted = false;
     }, []);
 
+    const handleDelete = async () => {
+        try {
+            await axiosPrivate.delete(`/users/${auth.id}/tanques/${tanqueData.id}`);
+            navigate(-1);
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
+
     if (isLoading || !tanqueData) {
         return (
             <main className="Page">
@@ -47,6 +60,43 @@ function TanquePage() {
             </main>
         )
     }
+
+    const handleEditClick = () => {
+        setShowEditModal(true);
+    }
+
+    const handleEditClose = () => {
+        setShowEditModal(false);
+    }
+
+    const handleDeleteClose = () => {
+        setShowCancelModal(false);
+    }
+
+    const handleDeleteClick = () => {
+        setShowCancelModal(true);
+    }
+
+    const editActionbar = <div>
+        <button onClick={handleEditClose} className="modal-close-button">Cancelar</button>
+    </div>
+
+    const editModal = (
+        <Modal onClose={handleEditClose} actionBar={editActionbar}>
+            <TanqueEdit tanqueData={tanqueData} setShowEditModal={setShowEditModal} setTanqueData={setTanqueData} />
+        </Modal>
+    )
+
+    const cancelActionbar = <div style={{ width: '100%' }}>
+        <button onClick={handleDelete} className="modal-delete-button">Confirmar</button>
+        <button onClick={handleDeleteClose} className="modal-cancel-delete-button">Cancelar</button>
+    </div>
+
+    const cancelModal = (
+        <Modal onClose={handleDeleteClose} actionBar={cancelActionbar}>
+            <h2>Deseja realmente deletar o tanque {tanqueData.nome}?</h2>
+        </Modal>
+    )
 
     return (
         <main className="Page">
@@ -63,29 +113,32 @@ function TanquePage() {
                             <InfoCounter nomePropriedade={"Aparelhos: "} valor={tanqueData?.Aparelhos?.length || 0} />
                         </div>
                         <div>
-                            <button className="edit-button">Editar Tanque</button>
-                            <button className="delete-button">Excluir Tanque</button>
+                            <button className="edit-button" onClick={handleEditClick}>Editar Tanque</button>
+                            {showEditModal && editModal}
+                            <button className="delete-button" onClick={handleDeleteClick}>Excluir Tanque</button>
+                            {showCancelModal && cancelModal}
                         </div>
                     </div>
                 </section>
-                {tanqueData.Aparelhos &&
+                {tanqueData.Aparelhos && tanqueData.Aparelhos.length > 0 && (
                     <section className="aparelhos-tanque">
-                        <SeletorAtributo setAtributoLeitura={setAtributoLeitura} />
-                        {tanqueData.Aparelhos ? (
-                            tanqueData.Aparelhos.map(aparelho => (
-                                <div key={aparelho.id_aparelho_es} className="aparelho-tanque">
-                                    <div className="infos-grafico">
-                                        <p>Gráfico referente ao aparelho: {aparelho.id_aparelho_es}</p>
-                                        <p>Última atualização feita em: <DateShow listaLeituras={aparelho.Leituras} /></p>
-                                    </div>
-                                    <Grafico2 dados={aparelho.Leituras} campoParaMostrar={atributoLeitura} />
+                        <SeletorAtributo setAtributosLeitura={setAtributosLeitura} atributosLeitura={atributosLeitura} />
+                        {tanqueData.Aparelhos.map(aparelho => (
+                            <div key={aparelho.id_aparelho_es} className="aparelho-tanque">
+                                <div className="infos-grafico">
+                                    <p>Gráfico referente ao aparelho: {aparelho.id_aparelho_es}</p>
+                                    <p>Última atualização feita em: <DateShow listaLeituras={aparelho.Leituras} /></p>
                                 </div>
-                            ))
-                        ) : (
-                            <div>Este tanque ainda não possui dados de monitoramento.</div>
-                        )}
+                                <Grafico2 dados={aparelho.Leituras} camposParaMostrar={atributosLeitura} />
+                            </div>
+                        ))}
                     </section>
-                }
+                )}
+
+                {(!tanqueData.Aparelhos || tanqueData.Aparelhos.length === 0) && (
+                    <div className="aviso-sem-aparelhos">Este tanque ainda não possui dados de monitoramento.</div>
+                )}
+
             </div>
         </main>
     )

@@ -2,7 +2,7 @@
     padding: 1rem;
 }
 
-.tank-item-info p {
+.tank-item-info > p {
     margin-bottom: 0.5rem;
     margin-left: 5px;
     font-weight: 400;
@@ -31,4 +31,13 @@
 .tankItemHeader button {
     opacity: 1;
     background-color: white;
+}
+
+.tank-item-info > .aviso-sem-aparelho {
+    text-decoration: none;
+    color: rgb(254, 169, 1);
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
 }

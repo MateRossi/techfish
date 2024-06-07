@@ -6,3 +6,7 @@
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     padding: 1rem;
 }
+
+.seletores-atributo > .selected {
+    background-color: aquamarine;
+}

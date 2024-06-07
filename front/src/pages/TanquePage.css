@@ -55,3 +55,11 @@
 .aparelho-tanque {
     background-color: #f9f9f9;
 }
+
+.aviso-sem-aparelhos {
+    text-decoration: none;
+    color: rgb(254, 169, 1);
+    text-align: center;
+    font-weight: 600;
+    padding: 0.25rem;
+}

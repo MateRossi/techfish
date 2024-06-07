@@ -4,10 +4,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/use-auth";
 import Tanque from "../components/Tanque";
 import Carregando from "../components/Carregando";
+import AddButton from "../components/AddButton";
+import Modal from "../components/Modal";
+import TanqueAdd from "../components/TanqueAdd";
 
 function TanqueListPage() {
     const [tanques, setTanques] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showAddModal, setShowAddModal] = useState(false);
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
@@ -29,7 +33,25 @@ function TanqueListPage() {
         getTanques();
 
         return () => isMounted = false;
-    }, []);
+    }, [auth?.id, axiosPrivate, location, navigate, setTanques]);
+
+    const handleAddClick = () => {
+        setShowAddModal(true);
+    }
+
+    const handleAddClose = () => {
+        setShowAddModal(false);
+    }
+
+    const addActionbar = <div>
+        <button onClick={handleAddClose} className="modal-close-button">Cancelar</button>
+    </div>
+
+    const addModal = (
+        <Modal onClose={handleAddClose} actionBar={addActionbar}>
+            <TanqueAdd setTanques={setTanques} setShowModal={setShowAddModal} />
+        </Modal>
+    )
 
     if (loading) {
         return (
@@ -40,7 +62,7 @@ function TanqueListPage() {
     }
 
     return (
-        <main className="Page">
+        <main className="tank-list-page">
             {tanques.map(tanque => (
                 <Tanque
                 key={tanque.id}
@@ -51,7 +73,9 @@ function TanqueListPage() {
                 areaTanque={tanque.areaTanque}
                 volumeAgua={tanque.volumeAgua} 
                 />
-            ))}
+            )).reverse()}
+            <AddButton handleClick={handleAddClick}/>
+            {showAddModal && addModal}
         </main>
     )
 }
