@@ -22,31 +22,34 @@ export const tanqueController = {
         };
     },
 
-    async createTanque(req: Request, res: Response) {
+    async createTanqueByUserId(req: Request, res: Response) {
         try {
             const dadosTanque = req.body;
-            const novaTanque = await TanqueService.createTanque(dadosTanque);
-            res.status(201).json({ novaTanque, msg: 'Tanque salvo' });
+            const userId = Number(req.params.userId);
+            const novoTanque = await TanqueService.createTanqueByUserId(userId, dadosTanque);
+            res.status(201).json(novoTanque);
         } catch (error: any) {
             res.status(400).json({ erro: "Erro ao salvar tanque", detalhes: error.message });
         };
     },
 
-    async updateTanque(req: Request, res: Response) {
+    async updateTanqueByUserId(req: Request, res: Response) {
         try {
-            const tanqueId = Number(req.params.id);
+            const tanqueId = Number(req.params.tanqueId);
+            const userId = Number(req.params.userId);
             const dadosTanque = req.body;
-            const tanqueAtualizado = await TanqueService.updateTanque(tanqueId, dadosTanque); 
-            res.json({ tanqueAtualizado, msg: 'Tanque atualizado' });
+            const tanqueAtualizado = await TanqueService.updateTanqueByUserId(tanqueId, userId, dadosTanque); 
+            res.json(tanqueAtualizado);
         } catch (error: any) {
-            res.status(400).json({ erro: "Erro ao atualizar a Tanque", datalhes: error.message })
+            res.status(400).json({ erro: "Erro ao atualizar o Tanque", datalhes: error.message })
         };
     },
 
-    async deleteTanque(req: Request, res: Response) {
+    async deleteTanqueByUserId(req: Request, res: Response) {
         try {
-            const tanqueId = Number(req.params.id); 
-            await TanqueService.deleteTanque(tanqueId);
+            const tanqueId = Number(req.params.tanqueId);
+            const userId = Number(req.params.userId);
+            await TanqueService.deleteTanqueByUserId(userId, tanqueId);
             res.status(204).end();
         } catch (error: any) {
             res.status(400).json({ erro: "Erro ao deletar o tanque", datalhes: error.message })

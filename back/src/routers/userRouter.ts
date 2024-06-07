@@ -10,7 +10,9 @@ userRouter.get('/:id', userController.getUserById);
 
 userRouter.get('/:id/tanques', tanqueController.getUserTanksWithLatestValues);
 userRouter.get('/:userId/tanques/:tanqueId', tanqueController.getUserTanqueById);
-
+userRouter.post('/:userId/tanques', tanqueController.createTanqueByUserId);
+userRouter.put('/:userId/tanques/:tanqueId', tanqueController.updateTanqueByUserId);
+userRouter.delete('/:userId/tanques/:tanqueId', tanqueController.deleteTanqueByUserId);
 //comentar essa linha
 //userRouter.post('/', userController.createUser);
 

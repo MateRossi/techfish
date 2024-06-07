@@ -10,8 +10,8 @@ tanqueRouter.get('/:id/aparelhos', tanqueController.getAparelhosFromTanque);
 
 tanqueRouter.get('/', tanqueController.getAllTanques);
 //tanqueRouter.get('/:id', tanqueController.getTanqueById);
-tanqueRouter.post('/', tanqueController.createTanque);
-tanqueRouter.put('/:id', tanqueController.updateTanque);
-tanqueRouter.delete('/:id', tanqueController.deleteTanque);
+//tanqueRouter.post('/', tanqueController.createTanque);
+//tanqueRouter.put('/:id', tanqueController.updateTanque);
+//tanqueRouter.delete('/:id', tanqueController.deleteTanque);
 
 export default tanqueRouter;

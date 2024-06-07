@@ -35,13 +35,18 @@ export class TanqueService {
         return tanque;
     };
 
-    static async createTanque(dadosTanque: Tanque) {
+    static async createTanqueByUserId(userId: number, dadosTanque: Tanque) {
+        const user = User.findByPk(userId);
+
+        if (!user) {
+            throw new NotFoundError('Usuário não encontrado');
+        }
+        
         const {
             nome,
             areaTanque,
             volumeAgua,
             totalPeixes,
-            userId
         } = dadosTanque;
 
         return Tanque.create({
@@ -53,14 +58,41 @@ export class TanqueService {
         });
     };
 
-    static async updateTanque(id: number, dadosAtualizados: Tanque) {
-        const tanque = await this.jaExiste(id);
+    static async updateTanqueByUserId(id: number, userId: number, dadosAtualizados: Tanque) {
+        const user = User.findByPk(userId);
+
+        if (!user) {
+            throw new NotFoundError('Usuário não encontrado');
+        }
+
+        const tanque = await Tanque.findOne({
+            where: { id, userId: userId },
+            include: [
+                {
+                    model: Aparelho,
+                    include: [
+                        {
+                            model: Leitura,
+                            limit: 96,
+                            order: [['data_hora', 'DESC']]
+                        }
+                    ],
+                },
+                {
+                    model: Especie
+                },
+            ],
+        });
+
+        if (!tanque) {
+            throw new NotFoundError('Tanque não encontrado');
+        }
+
         const {
             nome,
             areaTanque,
             volumeAgua,
             totalPeixes,
-            userId
         } = dadosAtualizados;
 
         return tanque.update({
@@ -68,12 +100,17 @@ export class TanqueService {
             areaTanque,
             volumeAgua,
             totalPeixes,
-            userId,
         });
     };
 
-    static async deleteTanque(id: number) {
-        const tanque = await this.jaExiste(id);;
+    static async deleteTanqueByUserId(userId: number, idTanque: number) {
+        const user = User.findByPk(userId);
+
+        if (!user) {
+            throw new NotFoundError('Usuário não encontrado');
+        }
+        
+        const tanque = await this.jaExiste(idTanque);
         return tanque.destroy();
     };
 
