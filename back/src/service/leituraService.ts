@@ -1,5 +1,8 @@
 import { Op } from "sequelize";
 import Leitura from "../model/Leitura";
+import { sequelize } from "../db/sequelize";
+import { Aparelho } from "../model";
+import { NotFoundError } from "../error/NotFoundError";
 
 export class LeituraService {
     static async getAllLeituras() {
@@ -76,7 +79,6 @@ export class LeituraService {
         const dataAlvo = new Date(data);
         const fimDia = new Date(dataAlvo);
         fimDia.setDate(dataAlvo.getDate() + 1);
-        console.log("Fim dia: ", fimDia);
         const {count, rows} = await Leitura.findAndCountAll({
             where: {
                 data_hora: {
@@ -87,6 +89,28 @@ export class LeituraService {
 
         return { count, rows };
     };
+
+    //métodos de consulta às leituras de monitoramento de um aparelho.
+    static async getUltimasLeiturasPorAparelhoId(aparelhoId: string) {
+        const aparelho = await Aparelho.findByPk(aparelhoId);
+
+        if (!aparelho) {
+            throw new NotFoundError('Aparelho não encontrado');
+        }
+
+        const leituras = await Leitura.findAll({
+            where: { id_aparelho_es: aparelhoId },
+            order: [['data_hora', 'DESC']],
+            limit: 96,
+            attributes: {exclude: ['createdAt', 'updatedAt', 'id']}
+        });
+
+        return leituras.reverse();
+    };
+
+    static async getLeiturasMensaisPorAparelhoId(aparelhoId: string) {
+        return 'teste'
+    }
 
     static async jaExiste(id: number) {
         const leitura = await Leitura.findByPk(id);

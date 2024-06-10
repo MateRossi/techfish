@@ -61,4 +61,14 @@ export const leituraController = {
             res.status(400).json({ erro: 'Erro ao obter leituras por data', detalhes: error.message });
         };
     },
+
+    async getUltimasLeiturasPorAparelhoId(req: Request, res: Response) {
+        try {
+            const aparelhoId = req.params.aparelhoId;
+            const leituras = await LeituraService.getUltimasLeiturasPorAparelhoId(aparelhoId);
+            res.json(leituras);
+        } catch (error: any) {
+            res.status(400).json({ erro: 'Erro ao obter dados de monitoramento', detalhes: error.message });
+        };
+    },
 };

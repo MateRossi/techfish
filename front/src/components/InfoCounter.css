@@ -1,0 +1,17 @@
+.info-counter {
+    width: 100%;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    align-self: center;
+    font-size: 1.2rem;
+    background-color: rgb(102, 186, 255);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.5rem;
+    cursor: pointer;
+}
+
+.info-counter:hover {
+    background-color: rgb(122, 197, 250);
+}

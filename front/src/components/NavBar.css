@@ -31,14 +31,20 @@
 }
 
 .NavBar li {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
     list-style: none;
     color: rgb(0, 0, 0);
     cursor: pointer;
     width: auto;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 1rem 2rem;
     transition: background-color 0.25s;
+}
+
+.NavBar li .ListItemIcon {
+    max-width: 1.5rem;
+    margin-right: 0.25rem;
 }
 
 .NavBar li:hover {
