@@ -12,6 +12,12 @@ export const sequelize = new Sequelize(POSTGRES_DATABASE, POSTGRES_USER, POSTGRE
     port: parseInt(POSTGRES_PORT), // Ensure to parse the port as an integer
     dialect: 'postgres',
     dialectModule: pg,
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false // desabilitando a verificação do certificado.
+        }
+    },
     timezone: '+00:00',
 });
 
