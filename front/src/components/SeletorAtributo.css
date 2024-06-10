@@ -1,0 +1,12 @@
+.seletores-atributo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.seletores-atributo > .selected {
+    background-color: aquamarine;
+}

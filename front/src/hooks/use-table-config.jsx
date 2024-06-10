@@ -3,21 +3,6 @@ import { useMemo } from "react";
 function useTableConfig() {
     const config =  useMemo(() => [
         {
-            label: "ID",
-            render: (reading) => reading.id,
-            sortValue: (reading) => reading.id,
-        },
-        {
-            label: "ID Aparelho",
-            render: (reading) => reading.id_aparelho_es,
-            sortValue: (reading) => reading.id_aparelho_es,
-        },
-        {
-            label: "Data/Hora",
-            render: (reading) => reading.data_hora,
-            sortValue: (reading) => reading.data_hora,
-        },
-        {
             label: "PH",
             render: (reading) => reading.ph,
             sortValue: (reading) => reading.ph,

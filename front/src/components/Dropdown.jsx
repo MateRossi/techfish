@@ -3,7 +3,7 @@ import { GoChevronDown } from "react-icons/go";
 import './Dropdown.css'
 
 
-function Dropdown({ options, value, onChange }) {
+function Dropdown({ options, value, onChange, labelPadrao }) {
     const [isOpen, setIsOpen] = useState(false);
     const divEl = useRef();
 
@@ -45,7 +45,7 @@ function Dropdown({ options, value, onChange }) {
     return (
         <div ref={divEl} className="Dropdown">
             <div className="DropdownPanel" onClick={handleClick} >
-                {value?.label || 'Selecione...'}
+                {value?.label || labelPadrao || 'Selecione...'}
                 <GoChevronDown className="ChevronDown" />        
             </div>
             {isOpen && (

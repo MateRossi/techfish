@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 function ReadingsPage() {
     const [selection, setSelection] = useState(null);
-    const readings = useReadings();
+    const { readings, handleDateChange, selectedDate } = useReadings();
     //const {config, keyFn} = useTableConfig();
 
     const options = [
@@ -22,17 +22,18 @@ function ReadingsPage() {
         { label: 'Turbidez', value: 'turbidez' },
     ];
 
-    console.log(selection)
-
     const handleSelection = (option) => {
         setSelection(option);
-    }
+    };
 
     return (
         <main className='Page'>
+            <div className='Filters'>
+            <input type="date" value={selectedDate} onChange={(e) => handleDateChange(e.target.value)}/> 
             <Dropdown options={options} value={selection} onChange={handleSelection} />
+            </div>
             <div className='GraphContainer'>
-                <div><Grafico dados={readings} campoParaMostrar={selection?.value} /></div>
+                <div><Grafico dados={readings?.rows} campoParaMostrar={selection?.value} /></div>
             </div>
 
             {/*<SortableTable data={readings} config={config} keyFn={keyFn} />*/}

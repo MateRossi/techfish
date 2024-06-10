@@ -1,0 +1,8 @@
+.add-button {
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+    padding: 1.5rem;
+    background-color: lime;
+    border-radius: 100%;
+}
