@@ -22,7 +22,7 @@ export class TanqueService {
                         {
                             model: Leitura,
                             limit: 96,
-                            order: [['data_hora', 'DESC']]
+                            order: [['data_hora', 'ASC']]
                         }
                     ],
                 },
