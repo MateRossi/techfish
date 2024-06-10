@@ -20,7 +20,7 @@ const verifyJWT = (req: AuthRequest, res: Response, next: NextFunction) => {
         token,
         process.env.JWT_SECRET as string,
         (err: any, decoded: any) => {
-            if (err) return res.sendStatus(422);
+            if (err) return res.sendStatus(403);
             if (decoded?.UserInfo) {
                 req.id = decoded.UserInfo.id;
                 req.name = decoded.UserInfo.name;
