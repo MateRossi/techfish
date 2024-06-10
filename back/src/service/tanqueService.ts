@@ -220,7 +220,6 @@ export class TanqueService {
             include: [
                 {
                     model: Aparelho,
-                    attributes: { exclude: ['AparelhosTanque', 'createdAt', 'updatedAt'] },
                     include: [
                         {
                             model: Leitura,
