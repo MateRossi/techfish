@@ -31,8 +31,18 @@ function TanquePage() {
         const getTanqueData = async () => {
             try {
                 const response = await axiosPrivate.get(`/users/${auth?.id}/tanques/${tanqueId}`);
-                isMounted && setTanqueData(response.data);
-                setIsLoading(false);
+                if (isMounted) {
+                    const data = response.data;
+
+                    data.Aparelhos.forEach(aparelho => {
+                        if (aparelho.Leituras) {
+                            aparelho.Leituras.reverse();
+                        }
+                    });
+
+                    setTanqueData(data);
+                    setIsLoading(false);
+                }
             } catch (err) {
                 console.error(err);
                 navigate('/', { state: { from: location }, replace: true });

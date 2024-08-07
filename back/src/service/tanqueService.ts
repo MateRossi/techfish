@@ -7,7 +7,7 @@ export class TanqueService {
     };
 
     static async getUserTanqueById(userId: number, id: number) {
-        const user = User.findByPk(userId);
+        const user = await User.findByPk(userId);
 
         if (!user) {
             throw new NotFoundError('Usuário não encontrado');
@@ -36,7 +36,7 @@ export class TanqueService {
     };
 
     static async createTanqueByUserId(userId: number, dadosTanque: Tanque) {
-        const user = User.findByPk(userId);
+        const user = await User.findByPk(userId);
 
         if (!user) {
             throw new NotFoundError('Usuário não encontrado');
@@ -59,7 +59,7 @@ export class TanqueService {
     };
 
     static async updateTanqueByUserId(id: number, userId: number, dadosAtualizados: Tanque) {
-        const user = User.findByPk(userId);
+        const user = await User.findByPk(userId);
 
         if (!user) {
             throw new NotFoundError('Usuário não encontrado');
@@ -104,7 +104,7 @@ export class TanqueService {
     };
 
     static async deleteTanqueByUserId(userId: number, idTanque: number) {
-        const user = User.findByPk(userId);
+        const user = await User.findByPk(userId);
 
         if (!user) {
             throw new NotFoundError('Usuário não encontrado');
