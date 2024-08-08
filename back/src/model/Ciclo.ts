@@ -1,6 +1,5 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db/sequelize";
-import Producao from "./Producao";
 
 class Ciclo extends Model {
     public id!: number;

@@ -12,6 +12,7 @@ class Producao extends Model {
     static associate(models: any) {
         this.belongsTo(models.Tanque, { foreignKey: 'tanqueId' })
         this.belongsTo(models.Especie, { foreignKey: 'especieId' })
+        this.belongsToMany(models.Ciclo, { through: models.CiclosProducao, foreignKey: 'cicloId' })
     };
 };
 

@@ -6,6 +6,7 @@ import Producao from './Producao';
 class CiclosProducao extends Model {
     public cicloId!: number;
     public producaoId!: number;
+    public atual!: boolean;
 };
 
 CiclosProducao.init(
@@ -24,6 +25,10 @@ CiclosProducao.init(
                 key: 'id',
             },
         },
+        atual: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+        }
     },
     {
         sequelize,
