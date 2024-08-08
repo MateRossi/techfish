@@ -1,6 +1,6 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db/sequelize";
-import Tanque from "./Tanque";
+import User from "./User";
 
 class Especie extends Model {
     public id!: number;
@@ -14,7 +14,10 @@ class Especie extends Model {
     public o2_mgIdeal!: number;
     public turbidezIdeal!: number;
 
+    public userId!: number;
+
     static associate(models: any) {
+        this.belongsTo(models.User, { foreignKey: 'userId' })
         this.belongsToMany(models.Tanque, { through: models.EspeciesTanque, foreignKey: 'tanqueId' })
     };
 }
@@ -74,6 +77,14 @@ Especie.init(
                 min: 1,
                 max: 150,
             },
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: User,
+                key: 'id'
+            },
+            allowNull: false,
         },
     },
     {

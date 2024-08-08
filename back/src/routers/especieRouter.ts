@@ -3,6 +3,8 @@ import { especieController } from '../controller/especieController';
 
 const especieRouter = express.Router();
 
+especieRouter.post('/:userId')
+
 especieRouter.get('/', especieController.getAllEspecies);
 especieRouter.get('/:id', especieController.getEspecieById);
 especieRouter.post('/', especieController.createEspecie);

@@ -12,7 +12,6 @@ import refresh from './src/routers/publicRoutes/RefreshRouter';
 import logout from './src/routers/publicRoutes/LogoutRouter';
 import verifyJwt from './src/middleware/verifyJwt';
 import router from './src/routes';
-import * as associations from './src/model';
 import addLeitura from './src/routers/publicRoutes/AddLeituraRouter';
 
 const app = express();
