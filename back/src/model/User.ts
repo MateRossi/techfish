@@ -16,6 +16,8 @@ class User extends Model {
         this.hasMany(models.Aparelho, { foreignKey: 'userId' })
         this.hasMany(models.Tanque, { foreignKey: 'userId' })
         this.hasMany(models.Especie, { foreignKey: 'userId' })
+        this.hasMany(models.Producao, { foreignKey: 'userId' })
+        this.hasMany(models.Fase, { foreignKey: 'userId' })
     }
 };
 

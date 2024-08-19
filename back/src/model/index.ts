@@ -5,18 +5,19 @@ import Aparelho from "./Aparelho";
 import User from "./User";
 import Leitura from "./Leitura";
 import AparelhosTanque from "./AparelhosTanque";
-import Ciclo from "./Ciclo";
-import CiclosProducao from "./CiclosProducao";
+import Fase from "./Fase";
 import Producao from "./Producao";
+import HistoricoFasesProducao from "./HistoricoFasesProducao";
 
-const models = { Aparelho, AparelhosTanque, Ciclo, CiclosProducao, Especie, EspeciesTanque, Leitura, Producao, Tanque, User };
+const models = { Aparelho, AparelhosTanque, Fase, HistoricoFasesProducao, Especie, EspeciesTanque, Leitura, Producao, Tanque, User };
 
 Aparelho.associate(models);
 Especie.associate(models);
 Leitura.associate(models);
 Tanque.associate(models);
 User.associate(models);
-Ciclo.associate(models);
+Fase.associate(models);
+HistoricoFasesProducao.associate(models);
 Producao.associate(models);
 
-export { Aparelho, AparelhosTanque, Ciclo, CiclosProducao, Especie, EspeciesTanque, Leitura, Producao, Tanque, User };
+export { Aparelho, AparelhosTanque, Fase, HistoricoFasesProducao, Especie, EspeciesTanque, Leitura, Producao, Tanque, User };

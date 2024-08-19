@@ -3,6 +3,7 @@ import { userController } from '../controller/userController';
 import verifyRoles from '../middleware/verifyRoles';
 import { tanqueController } from '../controller/tanqueController';
 import { especieController } from '../controller/especieController';
+import { faseController } from '../controller/faseController';
 
 const userRouter = express.Router();
 
@@ -23,6 +24,13 @@ userRouter.get('/:userId/especies/:especieId', especieController.getEspecieByUse
 userRouter.post('/:userId/especies', especieController.createEspecieByUserId);
 userRouter.put('/:userId/especies/:especieId', especieController.updateEspecieByUserId);
 userRouter.delete('/:userId/especies/:especieId', especieController.deleteEspecieByUserId);
+
+//FASES DO CICLO DE PRODUCAO
+userRouter.get('/:userId/fases', faseController.getFasesByUserId);
+userRouter.get('/:userId/fases/:faseId', faseController.getFaseByUserId);
+userRouter.post('/:userId/fases', faseController.createFaseByUserId);
+userRouter.put('/:userId/fases/:faseId', faseController.updateFaseByUserId);
+userRouter.delete('/:userId/fases/:faseId', faseController.deletefaseByUserId);
 
 userRouter.put('/:id', verifyRoles('cliente'), userController.updateUser);
 userRouter.delete('/:id', verifyRoles('cliente'), userController.deleteUser);
