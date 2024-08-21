@@ -45,6 +45,16 @@ export class UserService {
         return user.destroy();
     };
 
+    static async register(nome: string, email: string, senha: string, confirmarSenha: string) {
+        if (senha !== confirmarSenha) {
+            throw new UnauthorizedError('As senhas devem coincidir');
+        }
+        
+        const hashedSenha = await bcrypt.hash(senha, 10);
+
+        return User.create({ nome, email, senha: hashedSenha });
+    }
+
     static async login(email: string, senha: string) {
         const user = await User.findOne({ where: { email } });
 
