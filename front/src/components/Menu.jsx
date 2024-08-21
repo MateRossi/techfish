@@ -3,6 +3,7 @@ import aquario from '../img/contornoAquario.svg';
 import dinheiro from '../img/dinheiro.svg';
 import peixe from '../img/peixe.svg';
 import perfil from '../img/perfil.svg';
+import logo from '../img/logo.svg';
 import { Link } from 'react-router-dom';
 import useAuth from '../hooks/use-auth';
 
@@ -12,7 +13,7 @@ function NavBar() {
     return (
         <nav className="NavBar">
             <header>
-                <h2>tecfish</h2>
+                <img src={logo} alt="logo tecfish" /><h2>tec<span style = {{color:'#0A84FF'}} >fish</span></h2>
             </header>
             <div className='NavContent'>
                 <ul>
