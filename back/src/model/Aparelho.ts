@@ -1,10 +1,13 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from '../db/sequelize';
 import User from "./User";
+import Leitura from "./Leitura";
 
 class Aparelho extends Model {
     public id_aparelho_es!: string;
     public userId!: number;
+
+    Leituras!: Leitura[];
 
     static associate(models: any) {
         this.belongsTo(models.User, { foreignKey: 'userId' })

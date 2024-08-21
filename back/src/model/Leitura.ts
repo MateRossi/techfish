@@ -30,49 +30,49 @@ Leitura.init(
             allowNull: false,
         },
         ph: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: 0,
                 max: 14,
             },
         },
         temperatura: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: 5,
                 max: 40,
             },
         },
         orp: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: -400,
                 max: 400,
             },
         },
         tds: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: 0,
                 max: 1500,
             },
         },
         o2: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: 0,
                 max: 200,
             },
         },
         o2_mg: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: 0,
                 max: 20,
             },
         },
         turbidez: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: 0,
                 max: 1000,

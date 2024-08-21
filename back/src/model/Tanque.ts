@@ -1,6 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db/sequelize";
 import User from "./User";
+import Aparelho from "./Aparelho";
 
 class Tanque extends Model {
     public id!: number;
@@ -10,6 +11,10 @@ class Tanque extends Model {
     public totalPeixes!: number;
 
     public userId!: number;
+    public Aparelhos!: Aparelho[];
+
+    public createdAt!: Date;
+    public updatedAt!: Date;
 
     static associate(models: any) {
         this.belongsTo(models.User, { foreignKey: 'userId' })

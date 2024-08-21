@@ -10,6 +10,7 @@ const userRouter = express.Router();
 userRouter.get('/', userController.getAllUsers);
 userRouter.get('/:id', userController.getUserById);
 
+//TANQUES
 userRouter.get('/:id/tanques', tanqueController.getUserTanksWithLatestValues);
 userRouter.get('/:userId/tanques/:tanqueId', tanqueController.getUserTanqueById);
 userRouter.post('/:userId/tanques', tanqueController.createTanqueByUserId);
