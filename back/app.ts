@@ -25,8 +25,8 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use('/auth', auth);
 app.use('/register', register);
+app.use('/auth', auth);
 app.use('/refresh', refresh);
 app.use('/logout', logout);
 app.use('/leituras', addLeitura);

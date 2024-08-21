@@ -98,7 +98,7 @@ export const tanqueController = {
 
     async getUserTanksWithLatestValues(req: Request, res: Response) {
         try {
-            const userId = Number(req.params.id);
+            const userId = Number(req.params.userId);
             const response = await TanqueService.getUserTanksWithLatestValues(userId);
             res.json(response);
         } catch (error: any) {
