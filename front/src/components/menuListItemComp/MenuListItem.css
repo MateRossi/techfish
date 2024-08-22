@@ -1,0 +1,29 @@
+.menu-list-item {
+    list-style: none;
+    color: #828282;
+    cursor: pointer;
+    width: auto;
+    transition: all 0.25s;
+}
+
+.menu-list-item-link {
+    transition: all 0.25s;
+    box-sizing: border-box;
+}
+
+.menu-list-item-icon {
+    width: 1.5rem;
+    margin-right: 0.5rem;
+    height: 2rem;
+}
+
+.menu-list-item-link:hover, .selected {
+    border-left: 0.8rem solid #3949AB;
+    color: #3949AB;
+    background-color: #F3F4FC;
+}
+
+.menu-list-item .menu-list-item-icon {
+    max-width: 1.5rem;
+    margin-right: 0.25rem;
+}

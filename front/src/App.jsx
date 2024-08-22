@@ -3,11 +3,12 @@ import { Routes, Route } from 'react-router-dom'
 import MissingPage from './pages/MissingPage'
 import LoginPage from './pages/LoginPage'
 import LogonPage from './pages/LogonPage'
-import TankPage from './pages/TankPage'
-import ReadingsProvider from './context/ReadingsContext'
 import TanqueListPage from './pages/TanqueListPage'
 import PersistLogin from './components/PersistLogin'
 import TanquePage from './pages/TanquePage'
+import FasesPage from './pages/FasesPage'
+import EspeciesPage from './pages/EspeciesPage'
+import Faturamento from './pages/FaturamentoPage'
 
 function App() {  
   return (
@@ -21,6 +22,9 @@ function App() {
           <Route path='/users/:userId/tanques' element={<TanqueListPage />} />
           {/*<Route path='/user/:userId/tanque/:tanqueId' element={<ReadingsProvider><TankPage /></ReadingsProvider>} />*/}
           <Route path='/users/:userId/tanques/:tanqueId' element={<TanquePage />} />
+          <Route path='/users/:userId/fases' element={<FasesPage />} />
+          <Route path='/users/:userId/especies' element={<EspeciesPage />} />
+          <Route path='/users/:userId/faturamento' element={<Faturamento />} />
         </Route>
       </Route>
 
