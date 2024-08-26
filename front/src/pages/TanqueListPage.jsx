@@ -7,6 +7,8 @@ import Carregando from "../components/Carregando";
 import AddButton from "../components/AddButton";
 import Modal from "../components/Modal";
 import TanqueAdd from "../components/TanqueAdd";
+import PageTitle from "../components/pageTitleComp/PageTitle";
+import SearchBar from "../components/searchBarComp/SearchBar";
 
 function TanqueListPage() {
     const [tanques, setTanques] = useState([]);
@@ -63,6 +65,8 @@ function TanqueListPage() {
 
     return (
         <main className="tank-list-page">
+            <PageTitle title="Meus Tanques" description="Adicione, edite, monitore ou exclua tanques."/>
+            <SearchBar elementToAdd={"Tanque"} />
             {tanques.map(tanque => (
                 <Tanque
                 key={tanque.id}
