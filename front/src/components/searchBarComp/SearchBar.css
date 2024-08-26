@@ -6,10 +6,9 @@
 }
 
 .search-bar-input {
-    width: 400px;
+    min-width: 250px;
     height: 2.5rem;
-    border: 1px solid #0A84FF;
-    border-radius: 0.25rem;
+    border: none; 
 }
 
 .search-bar-input::placeholder {
@@ -23,4 +22,19 @@
     padding-right: 1.2rem;
     background-color: #0A84FF;
     color: #fff;
+}
+
+.search-bar-lupe-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    color: #0A84FF;
+    padding-right: 0.2rem;
+}
+
+.search-bar-input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #0A84FF;
+    border-radius: 0.25rem;
+    padding-left: 0.5rem;
 }
