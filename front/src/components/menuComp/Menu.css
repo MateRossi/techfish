@@ -21,8 +21,7 @@
 
 .nav-bar {
     position: fixed;
-    top: 0px;
-    left: 0px;
+    left: 0;
     background-color: #ffffff;
     width: 300px;
     display: block;

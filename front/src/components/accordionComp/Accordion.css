@@ -1,0 +1,54 @@
+.accordion-container {
+    width: 100%;
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.accordion-header-icon {
+    height: 4rem;
+    width: 4rem;
+    color: #0A84FF;
+}
+
+.accordion-header-icons {
+    display: flex;
+    flex-direction: row;
+    padding: 0 1rem;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.accordion-header-info {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+    justify-content: space-between;
+}
+
+.accordion-header-info > p, .accordion-header-info h3 {
+    margin: 0;
+}
+
+.accordion-item {
+    border-radius: 0.5rem;
+    box-shadow: 0px 2px 7px 3px rgba(0, 0, 0, 0.4);
+}
+
+.accordion-item-header {
+    box-sizing: border-box;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+}
+
+.accordion-content {
+    padding: 1rem;
+}
+
+.accordion-item-options button {
+    height: 1rem;
+    width: 1rem;
+}

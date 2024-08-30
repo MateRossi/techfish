@@ -9,6 +9,7 @@ import Modal from "../components/Modal";
 import TanqueAdd from "../components/TanqueAdd";
 import PageTitle from "../components/pageTitleComp/PageTitle";
 import SearchBar from "../components/searchBarComp/SearchBar";
+import Accordion from "../components/accordionComp/Accordion";
 
 function TanqueListPage() {
     const [tanques, setTanques] = useState([]);
@@ -64,9 +65,10 @@ function TanqueListPage() {
     }
 
     return (
-        <main className="tank-list-page">
+        <main className="page">
             <PageTitle title="Meus Tanques" description="Adicione, edite, monitore ou exclua tanques."/>
             <SearchBar elementToAdd={"Tanque"} />
+            <Accordion value={tanques} />
             {tanques.map(tanque => (
                 <Tanque
                 key={tanque.id}
