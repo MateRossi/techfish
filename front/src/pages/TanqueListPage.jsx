@@ -69,18 +69,6 @@ function TanqueListPage() {
             <PageTitle title="Meus Tanques" description="Adicione, edite, monitore ou exclua tanques."/>
             <SearchBar elementToAdd={"Tanque"} />
             <Accordion value={tanques} />
-            {tanques.map(tanque => (
-                <Tanque
-                key={tanque.id}
-                tanqueId={tanque.id} 
-                nomeTanque={tanque.nome}
-                aparelhos={tanque.Aparelhos}
-                totalPeixes={tanque.totalPeixes}
-                areaTanque={tanque.areaTanque}
-                volumeAgua={tanque.volumeAgua} 
-                />
-            )).reverse()}
-            <AddButton handleClick={handleAddClick}/>
             {showAddModal && addModal}
         </main>
     )

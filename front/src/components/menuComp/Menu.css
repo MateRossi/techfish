@@ -1,6 +1,6 @@
 .nav-bar>header {
     text-align: center;
-    height: 6rem;
+    height: 4rem;
     background-color: #ffffff;
     width: 299px;
     margin: 0;
@@ -23,10 +23,9 @@
     position: fixed;
     left: 0;
     background-color: #ffffff;
-    width: 300px;
+    width: 20%;
     display: block;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;

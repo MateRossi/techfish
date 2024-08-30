@@ -18,12 +18,12 @@
 }
 
 .menu-list-item-link:hover, .selected {
-    border-left: 0.8rem solid #3949AB;
+    border-left: 0.5rem solid #3949AB;
     color: #3949AB;
     background-color: #F3F4FC;
 }
 
 .menu-list-item .menu-list-item-icon {
     max-width: 1.5rem;
-    margin-right: 0.25rem;
+    margin-right: 1rem;
 }
