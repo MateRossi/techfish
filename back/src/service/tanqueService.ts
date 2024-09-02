@@ -48,14 +48,12 @@ export class TanqueService {
             nome,
             areaTanque,
             volumeAgua,
-            totalPeixes,
         } = dadosTanque;
 
         return Tanque.create({
             nome,
             areaTanque,
             volumeAgua,
-            totalPeixes,
             userId
         });
     };
@@ -94,14 +92,12 @@ export class TanqueService {
             nome,
             areaTanque,
             volumeAgua,
-            totalPeixes,
         } = dadosAtualizados;
 
         return tanque.update({
             nome,
             areaTanque,
             volumeAgua,
-            totalPeixes,
         });
     };
 
@@ -299,7 +295,6 @@ export class TanqueService {
                 nome: tanque.nome,
                 areaTanque: tanque.areaTanque,
                 volumeAgua: tanque.volumeAgua,
-                totalPeixes: tanque.totalPeixes,
                 userId: tanque.userId,
                 createdAt: tanque.createdAt,
                 updatedAt: tanque.updatedAt,

@@ -9,7 +9,7 @@ import TanqueHeader from "../components/TanqueHeader";
 import ListaAtributosTanque from "../components/ListaAtributosTanque";
 import InfoCounter from "../components/InfoCounter";
 import Grafico2 from "../components/Grafico2";
-import Modal from '../components/Modal';
+import Modal from '../components/modalComp/Modal';
 import useLocalStorage from '../hooks/use-local-storage';
 import './TanquePage.css';
 import SeletorAtributo from "../components/SeletorAtributo";

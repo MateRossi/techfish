@@ -20,6 +20,7 @@ function useRefreshToken() {
                 ...prev,
                 id: decodedToken.UserInfo.id,
                 role: decodedToken.UserInfo.role,
+                name: decodedToken.UserInfo.name,
                 accessToken: response.data.accessToken,
             }
         });

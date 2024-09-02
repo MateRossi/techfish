@@ -4,6 +4,7 @@
     width: 100%;
     align-items: center;
     padding-top: 2rem;
+    margin-bottom: 16px;
 }
 
 .page-title-container h1, .page-title-container p {
@@ -28,9 +29,6 @@
 }
 
 .page-title-icon {
-    width: 3rem;
-    height: 3rem;
-    color: #0A84FF;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 0.5rem;
+    width: 50px;
+    height: 50px;
 }

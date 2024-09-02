@@ -19,7 +19,7 @@ function Menu() {
                 <img src={logo} alt="logo tecfish" />
                 <h2>tec<span style={{ color: '#0A84FF' }}>fish</span></h2>
             </header>
-            <ul>
+            <div className='nav-content'>
                 <MenuListItem to='/' icon={CasaIcon}>
                     Home
                 </MenuListItem>
@@ -35,7 +35,7 @@ function Menu() {
                 <MenuListItem to={`/users/${auth.id}/faturamento`} icon={GanhosIcon}>
                     Faturamento
                 </MenuListItem>
-            </ul>
+            </div>
 
             <div className='user-profile-info'>
                 <div className='user-name-and-pic'><PerfilIcon className="perfil-icon" />
@@ -46,7 +46,6 @@ function Menu() {
                 </div>
                 <Link className='sair-link' to='/'><SairIcon className="sair-icon" />Sair</Link>
             </div>
-
         </nav>
     );
 }

@@ -3,7 +3,13 @@ import { GoChevronDown, GoChevronLeft } from 'react-icons/go';
 import ImagemIcon from "../../icons/ImagemIcon";
 import './Accordion.css';
 import PropertyValue from "../propertyValueComp/PropertyValue";
-import ganhosIcon from '../../img/ganhosIcon.svg';
+import o2Icon from '../../img/propriedades/o2Icon.png';
+import o2mgIcon from '../../img/propriedades/o2mgIcon.png';
+import orpIcon from '../../img/propriedades/orpIcon.png';
+import phIcon from '../../img/propriedades/phIcon.png';
+import tdsIcon from '../../img/propriedades/tdsIcon.png';
+import tempIcon from '../../img/propriedades/tempIcon.png';
+import turbidezIcon from '../../img/propriedades/turbidezIcon.png';
 
 function Accordion({ value }) {
     const [expandedIndex, setExpandedIndex] = useState(-1);
@@ -35,13 +41,13 @@ function Accordion({ value }) {
                         <p>Valores atualizados </p>
                     </div>
                     <div className="accordion-header-icons">
-                        <PropertyValue value={14.00} icon={ganhosIcon} description={"O pH da água é uma medida da sua acidez ou alcalinidade, variando de 0 a 14. Valores abaixo de 7 indicam uma solução ácida, 7 é neutro, e acima de 7 é alcalino. A maioria dos organismos aquáticos prospera em um pH entre 6,5 e 8,5, sendo esses os limites ideais para a qualidade da água em ambientes naturais."}/>
-                        <PropertyValue value={"-" || 32.00} icon={ganhosIcon} />
-                        <PropertyValue value={300.00} icon={ganhosIcon} />
-                        <PropertyValue value={-400.00} icon={ganhosIcon} />
-                        <PropertyValue value={200.00} icon={ganhosIcon} />
-                        <PropertyValue value={19.00} icon={ganhosIcon} />
-                        <PropertyValue value={300.00} icon={ganhosIcon} />
+                        <PropertyValue value={14.00} icon={o2Icon} description={"O pH da água é uma medida da sua acidez ou alcalinidade, variando de 0 a 14. Valores abaixo de 7 indicam uma solução ácida, 7 é neutro, e acima de 7 é alcalino. A maioria dos organismos aquáticos prospera em um pH entre 6,5 e 8,5, sendo esses os limites ideais para a qualidade da água em ambientes naturais."}/>
+                        <PropertyValue value={"-" || 32.00} icon={o2mgIcon} />
+                        <PropertyValue value={300.00} icon={orpIcon} />
+                        <PropertyValue value={-400.00} icon={phIcon} />
+                        <PropertyValue value={200.00} icon={tdsIcon} />
+                        <PropertyValue value={19.00} icon={tempIcon} />
+                        <PropertyValue value={300.00} icon={turbidezIcon} />
                     </div>
                     <div className="accordion-item-options">
                         <button>E</button>

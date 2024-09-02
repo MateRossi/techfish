@@ -8,7 +8,6 @@ class Tanque extends Model {
     public nome!: string;
     public areaTanque!: number;
     public volumeAgua!: number;
-    public totalPeixes!: number;
 
     public userId!: number;
     public Aparelhos!: Aparelho[];
@@ -35,9 +34,6 @@ Tanque.init(
         },
         volumeAgua: {
             type: DataTypes.DECIMAL,
-        },
-        totalPeixes: {
-            type: DataTypes.INTEGER,
         },
         userId: {
             type: DataTypes.INTEGER,
