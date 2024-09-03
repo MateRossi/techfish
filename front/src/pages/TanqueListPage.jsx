@@ -73,8 +73,8 @@ function TanqueListPage() {
                 {tanques?.length > 0 ? tanques.map((tanque) => (
                     <Tank tanque={tanque} key={tanque.id} />
                 )) : 'Sem tanques para mostrar'}
-                {showAddModal && addModal}
             </div>
+            {showAddModal && addModal}
         </main>
     )
 }

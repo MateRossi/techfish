@@ -1,4 +1,5 @@
 import './Tank.css';
+import { useState } from 'react';
 import PropertyValue from "../propertyValueComp/PropertyValue";
 import o2Icon from '../../img/propriedades/o2Icon.png';
 import o2mgIcon from '../../img/propriedades/o2mgIcon.png';
@@ -10,12 +11,37 @@ import turbidezIcon from '../../img/propriedades/turbidezIcon.png';
 import DeleteIcon from "../../icons/DeleteIcon";
 import EditIcon from "../../icons/EditIcon";
 import useDate from '../../hooks/use-date';
+import { IoCloseOutline } from 'react-icons/io5';
+import Modal from '../modalComp/Modal';
+import TankDetails from '../tankDetailsComp/TankDetails';
 
 function Tank({ tanque }) {
     const formattedDate = useDate(tanque?.updatedAt);
     
+    const [showModal, setShowModal] = useState(false);
+
+    const handleTankClick = () => {
+        setShowModal(true);
+    }
+
+    const handleTankClose = (e) => {
+        e.stopPropagation();
+        setShowModal(false);
+    }
+
+    const actionBar = <div>
+        <button onClick={handleTankClose} className='modal-close-button'>Confirmar</button>
+        <button onClick={handleTankClose} className='modal-X-close-button'><IoCloseOutline size={30}/></button>
+    </div>
+
+    const modal = (
+        <Modal onClose={handleTankClose} actionBar={actionBar} width='900px' height='600px'>
+            <TankDetails tanqueId={tanque.id} />
+        </Modal>
+    )
+
     return (
-        <div className="tank-item">
+        <div className="tank-item" onClick={handleTankClick}>
             <div className="tank-item-header">
                 <div className="tank-header-info">
                     <div className="tank-info-column">
@@ -42,6 +68,7 @@ function Tank({ tanque }) {
                     </div>
                 </div>
             </div>
+            {showModal && modal}
         </div>
     );
 }
