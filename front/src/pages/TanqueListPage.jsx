@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import useAxiosPrivate from "../hooks/use-axios-private";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/use-auth";
-import Tanque from "../components/Tanque";
 import Carregando from "../components/Carregando";
 import Modal from "../components/modalComp/Modal";
 import TanqueAdd from "../components/TanqueAdd";
 import PageTitle from "../components/pageTitleComp/PageTitle";
 import SearchBar from "../components/searchBarComp/SearchBar";
-import Accordion from "../components/accordionComp/Accordion";
 import { IoCloseOutline } from "react-icons/io5";
+import Tank from "../components/tankComp/Tank";
+import './TankListPage.css';
 
 function TanqueListPage() {
     const [tanques, setTanques] = useState([]);
@@ -67,10 +67,14 @@ function TanqueListPage() {
 
     return (
         <main className="page">
-            <PageTitle title="Meus Tanques" description="Adicione, edite, monitore ou exclua tanques."/>
-            <SearchBar elementToAdd={"Tanque"} handleAdd={handleAddClick}/>
-            <Accordion value={tanques} />
-            {showAddModal && addModal}
+            <PageTitle title="Meus Tanques" description="Adicione, edite, monitore ou exclua tanques." />
+            <SearchBar elementToAdd={"Tanque"} handleAdd={handleAddClick} />
+            <div className="tank-list-container">
+                {tanques?.length > 0 ? tanques.map((tanque) => (
+                    <Tank tanque={tanque} key={tanque.id} />
+                )) : 'Sem tanques para mostrar'}
+                {showAddModal && addModal}
+            </div>
         </main>
     )
 }
