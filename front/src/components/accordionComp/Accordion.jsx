@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { GoChevronDown, GoChevronLeft } from 'react-icons/go';
-import TanqueIcon from "../../icons/ImagemIcon";
 import './Accordion.css';
 import PropertyValue from "../propertyValueComp/PropertyValue";
 import o2Icon from '../../img/propriedades/o2Icon.png';
