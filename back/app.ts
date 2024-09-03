@@ -13,6 +13,7 @@ import logout from './src/routers/publicRoutes/LogoutRouter';
 import verifyJwt from './src/middleware/verifyJwt';
 import router from './src/routes';
 import addLeitura from './src/routers/publicRoutes/AddLeituraRouter';
+import { userRules } from './src/validation/userRules';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -25,8 +26,8 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use('/register', register);
-app.use('/auth', auth);
+app.use('/register', userRules.register, register);
+app.use('/auth', userRules.auth, auth);
 app.use('/refresh', refresh);
 app.use('/logout', logout);
 app.use('/leituras', addLeitura);

@@ -59,7 +59,7 @@ export class UserService {
         const user = await User.findOne({ where: { email } });
 
         if (!user) {
-            throw new NotFoundError('Usuario não encontrado');
+            throw new UnauthorizedError('Acesso não autorizado. Verifique seu login ou senha.');
         };
 
         const isPasswordValid = await bcrypt.compare(senha, user.senha);

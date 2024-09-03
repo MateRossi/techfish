@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { ErrorResponse } from "../error/ErrorResponse";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { validationResult } from "express-validator";
 
 export const userController = {
     async getAllUsers(req: Request, res: Response) {
@@ -58,11 +59,16 @@ export const userController = {
     },
 
     async register(req: Request, res: Response) {
-        const { nome, email, senha, confirmarSenha } = req.body;
+        const errors = validationResult(req);
 
-        if (!email || !nome || !senha || !confirmarSenha) return res
-        .status(400)
-        .json({ 'message': 'Nome, email e senhas são necessários' });
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                "error_code": "INVALID_DATA",
+                "error_description": errors.array()[0].msg
+            });
+        }
+        
+        const { nome, email, senha, confirmarSenha } = req.body;
     
         try {
             const user = await UserService.register(nome, email, senha, confirmarSenha);
@@ -100,12 +106,17 @@ export const userController = {
     },
 
     async login(req: Request, res: Response) {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                "error_code": "INVALID_DATA",
+                "error_description": errors.array()[0].msg
+            });
+        }
+
         const { email, senha } = req.body;
-        
-        if (!email || !senha) return res
-        .status(400)
-        .json({ 'message': 'Login e senha são necessários' });
-        
+
         try {
             const user = await UserService.login(email, senha);
 
