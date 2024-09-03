@@ -5,8 +5,8 @@ function PropertyValue({ value, icon, description }) {
         <div className="property-value-item">
             <div className="tooltip">
                 <img
-                    width="32px"
-                    height="32px"
+                    width="52px"
+                    height="52px"
                     src={icon}
                     alt={`ícone de ${icon}`}
                 />

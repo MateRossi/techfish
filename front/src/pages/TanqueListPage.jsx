@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/use-auth";
 import Tanque from "../components/Tanque";
 import Carregando from "../components/Carregando";
-import AddButton from "../components/AddButton";
 import Modal from "../components/modalComp/Modal";
 import TanqueAdd from "../components/TanqueAdd";
 import PageTitle from "../components/pageTitleComp/PageTitle";
