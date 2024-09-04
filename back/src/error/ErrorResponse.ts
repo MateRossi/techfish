@@ -18,10 +18,9 @@ export  class ErrorResponse {
                 "error_description": error.message
             });
         } else if (error instanceof UniqueConstraintError) {
-            const field = error.message.match(/(?:_)[A-Za-z]+(?:_)/);
             res.status(409).json({
                 "error_code": "DUPLICATE_ERROR",
-                "error_description": `${field?.toString().replace(/_/g, "")} já cadastrado(a)`
+                "error_description": `${error.message}`
             })
         } else if (error instanceof ValidationError) {
             console.log(error.message);

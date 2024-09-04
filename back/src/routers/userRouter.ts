@@ -4,11 +4,19 @@ import verifyRoles from '../middleware/verifyRoles';
 import { tanqueController } from '../controller/tanqueController';
 import { especieController } from '../controller/especieController';
 import { faseController } from '../controller/faseController';
+import { aparelhoController } from '../controller/aparelhoController';
+import { aparelhoRules } from '../validation/aparelhoRules';
 
 const userRouter = express.Router();
 
 userRouter.get('/', userController.getAllUsers);
 userRouter.get('/:id', userController.getUserById);
+
+//APARELHOS
+userRouter.get('/:userId/aparelhos', aparelhoRules.getAparelhosByUserId, aparelhoController.getAparelhosByUserId);
+userRouter.get('/:userId/aparelhos/:aparelhoId', aparelhoRules.getAparelhoByUserId, aparelhoController.getAparelhoByUserId);
+userRouter.post('/:userId/aparelhos', aparelhoRules.createAparelho, aparelhoController.createAparelho);
+userRouter.delete('/:userId/aparelhos/:aparelhoId', aparelhoRules.deleteAparelhoByUserId, aparelhoController.deleteAparelhoByUserId);
 
 //TANQUES
 userRouter.get('/:userId/tanques', tanqueController.getUserTanksWithLatestValues);
