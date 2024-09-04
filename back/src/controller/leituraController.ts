@@ -56,7 +56,8 @@ export const leituraController = {
 
         try {
             const dadosLeitura = req.body;
-            const novaLeitura = await LeituraService.createLeitura(dadosLeitura);
+            const { id_aparelho_es } = req.body;
+            const novaLeitura = await LeituraService.createLeitura(dadosLeitura, id_aparelho_es);
             res.status(201).json(novaLeitura);
         } catch (error: any) {
             ErrorResponse.handleErrorResponse(error, res);
@@ -67,7 +68,8 @@ export const leituraController = {
         try {
             const leituraId = Number(req.params.id);
             const dadosLeitura = req.body;
-            const leituraAtualizada = await LeituraService.updateLeitura(leituraId, dadosLeitura);
+            const { id_aparelho_es } = req.body;
+            const leituraAtualizada = await LeituraService.updateLeitura(leituraId, dadosLeitura, id_aparelho_es);
             res.json({ leituraAtualizada, msg: 'leitura atualizada' });
         } catch (error: any) {
             res.status(400).json({ erro: "Erro ao atualizar a leitura", datalhes: error.message })

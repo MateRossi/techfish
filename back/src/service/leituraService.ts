@@ -12,9 +12,8 @@ export class LeituraService {
         });
     };
 
-    static async createLeitura2(dadosLeitura: Leitura) {
+    static async createLeitura2(dadosLeitura: Leitura, aparelhoId: string) {
         const { 
-            id_aparelho_es,
             data_hora,
             ph,
             temperatura,
@@ -25,7 +24,7 @@ export class LeituraService {
             turbidez,
         } = dadosLeitura;
         
-        const aparelho = await Aparelho.findByPk(id_aparelho_es, {
+        const aparelho = await Aparelho.findByPk(aparelhoId, {
             include: Tanque,
         });
 
@@ -36,7 +35,7 @@ export class LeituraService {
         const tanque = (aparelho as any).getTanque();
 
         const leitura = await Leitura.create({
-            id_aparelho_es,
+            aparelhoId,
             tanqueId: tanque.id,
             data_hora,
             ph,
@@ -47,6 +46,8 @@ export class LeituraService {
             o2_mg,
             turbidez,
         });
+
+        return leitura;
     }
 
     static async getLeituraById(id: number) {
@@ -54,9 +55,8 @@ export class LeituraService {
         return leitura;
     };
 
-    static async createLeitura(dadosLeitura: Leitura) {
+    static async createLeitura(dadosLeitura: Leitura, aparelhoId: string) {
         const { 
-            id_aparelho_es,
             data_hora,
             ph,
             temperatura,
@@ -67,8 +67,8 @@ export class LeituraService {
             turbidez,
         } = dadosLeitura;
 
-        return Leitura.create({ 
-            id_aparelho_es,
+        return await Leitura.create({ 
+            aparelhoId,
             data_hora,
             ph,
             temperatura,
@@ -80,10 +80,9 @@ export class LeituraService {
         });
     };
 
-    static async updateLeitura(id: number, dadosAtualizados: Leitura) {
+    static async updateLeitura(id: number, dadosAtualizados: Leitura, aparelhoId: string) {
         const leitura = await this.jaExiste(id);
         const { 
-            id_aparelho_es,
             data_hora,
             ph,
             temperatura,
@@ -95,7 +94,7 @@ export class LeituraService {
         } = dadosAtualizados;
 
         return leitura.update({ 
-            id_aparelho_es,
+            aparelhoId,
             data_hora,
             ph,
             temperatura,
@@ -139,7 +138,7 @@ export class LeituraService {
         }
 
         const leituras = await Leitura.findAll({
-            where: { id_aparelho_es: aparelhoId },
+            where: { aparelhoId },
             order: [['data_hora', 'DESC']],
             limit: 96,
             attributes: {exclude: ['createdAt', 'updatedAt', 'id']}

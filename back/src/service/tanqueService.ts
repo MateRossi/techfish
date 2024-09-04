@@ -1,4 +1,5 @@
 import { NotFoundError } from "../error/NotFoundError";
+import { ServerError } from "../error/ServerError";
 import { Tanque, Especie, Aparelho, Leitura, AparelhosTanque, User } from '../model';
 
 export class TanqueService {
@@ -43,7 +44,7 @@ export class TanqueService {
         if (!user) {
             throw new NotFoundError('Usuário não encontrado');
         }
-        
+
         const {
             nome,
             areaTanque,
@@ -107,7 +108,7 @@ export class TanqueService {
         if (!user) {
             throw new NotFoundError('Usuário não encontrado');
         }
-        
+
         const tanque = await this.jaExiste(idTanque);
         return tanque.destroy();
     };
@@ -156,7 +157,6 @@ export class TanqueService {
     static async addAparelhoToTanque(aparelhoId: string, tanqueId: number) {
         try {
             const aparelho = await Aparelho.findByPk(aparelhoId);
-            console.log(aparelho);
             const tanque = await Tanque.findByPk(tanqueId);
 
             if (!aparelho) {
@@ -167,12 +167,21 @@ export class TanqueService {
                 throw new NotFoundError('Tanque não encontrado');
             }
 
-            await (tanque as any).addAparelho(aparelho);
+            const aparelhoSendoUsado = await AparelhosTanque.findOne({
+                where: { AparelhoId: aparelho.id },
+            });
 
-            return { message: `Aparelho ${aparelho.id_aparelho_es} adicionado ao tanque ${tanque.nome}` }
+            if (!aparelhoSendoUsado) {
+                return await AparelhosTanque.create({ 
+                    AparelhoId: aparelhoId,
+                    TanqueId: tanqueId 
+                });
+            } else {
+                return await aparelhoSendoUsado.update({ TanqueId: tanqueId });
+            }
         } catch (err: any) {
             console.error('Erro ao adicionar aparelho ao tanque ', err.message);
-            throw err;
+            throw new ServerError('Erro ao adicionar aparelho ao tanque');
         }
     };
 
@@ -236,11 +245,11 @@ export class TanqueService {
     //TRABALHANDO AQUI
     static async getUserTanksWithLatestValues(userId: number) {
         const user = await User.findByPk(userId);
-    
+
         if (!user) {
             throw new NotFoundError('Usuário não encontrado');
         }
-    
+
         const tanques = await Tanque.findAll({
             where: { userId },
             include: [
@@ -256,15 +265,15 @@ export class TanqueService {
                 },
             ],
         });
-    
+
         const result = tanques.map(tanque => {
             const aparelhos = tanque.Aparelhos;
             const aparelhosPresentes = aparelhos.length;
-            
+
             // Iniciando variáveis para somar os valores das leituras
             let phTotal = 0, temperaturaTotal = 0, orpTotal = 0, tdsTotal = 0, o2Total = 0, o2MgTotal = 0, turbidezTotal = 0;
             let leituraCount = 0;
-    
+
             aparelhos.forEach(aparelho => {
                 const leitura = aparelho.Leituras[0];
                 if (leitura) {
@@ -278,7 +287,7 @@ export class TanqueService {
                     leituraCount++;
                 }
             });
-    
+
             // Calculando médias
             const mediaDasLeituras = leituraCount > 0 ? {
                 ph: (phTotal / leituraCount).toFixed(2),
@@ -289,7 +298,7 @@ export class TanqueService {
                 o2_mg: (o2MgTotal / leituraCount).toFixed(2),
                 turbidez: (turbidezTotal / leituraCount).toFixed(2)
             } : null;
-    
+
             return {
                 id: tanque.id,
                 nome: tanque.nome,
@@ -302,8 +311,8 @@ export class TanqueService {
                 mediaDasLeituras
             };
         });
-    
+
         return result;
     }
-    
+
 };

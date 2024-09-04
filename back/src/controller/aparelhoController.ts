@@ -84,8 +84,8 @@ export const aparelhoController = {
     async updateAparelho(req: Request, res: Response) {
         try {
             const aparelhoId = req.params.id;
-            const dadosAparelho = req.body;
-            const aparelhoAtualizado = await AparelhoService.updateAparelho(aparelhoId, dadosAparelho);
+            const userId = Number(req.params.userId);
+            const aparelhoAtualizado = await AparelhoService.updateAparelho(aparelhoId, userId);
             return res.json(aparelhoAtualizado);
         } catch (error: any) {
             ErrorResponse.handleErrorResponse(error, res);

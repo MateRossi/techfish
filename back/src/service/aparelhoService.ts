@@ -36,7 +36,7 @@ export class AparelhoService {
         };
 
         const aparelho = await Aparelho.findOne({
-            where: { userId, id_aparelho_es: aparelhoId }
+            where: { userId, id: aparelhoId }
         });
 
         if (!aparelho) {
@@ -54,17 +54,13 @@ export class AparelhoService {
         }
 
         return await Aparelho.create({
-            id_aparelho_es: aparelhoId,
+            id: aparelhoId,
             userId
         });
     };
 
-    static async updateAparelho(id: string, dadosAtualizados: Aparelho) {
-        const aparelho = await this.jaExiste(id);
-        const {
-            id_aparelho_es,
-            userId
-        } = dadosAtualizados;
+    static async updateAparelho(aparelhoId: string, userId: number) {
+        const aparelho = await this.jaExiste(aparelhoId);
 
         const user = await User.findByPk(userId);
 
@@ -73,7 +69,7 @@ export class AparelhoService {
         }
 
         return await aparelho.update({
-            id_aparelho_es,
+            aparelhoId,
             userId   
         });
     };
@@ -86,7 +82,7 @@ export class AparelhoService {
         }
 
         const aparelho = await Aparelho.findOne({
-            where: { userId, id_aparelho_es: aparelhoId }
+            where: { userId, id: aparelhoId }
         });
 
         if (!aparelho) {

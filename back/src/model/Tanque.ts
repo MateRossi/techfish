@@ -20,7 +20,7 @@ class Tanque extends Model {
     static associate(models: any) {
         this.belongsTo(models.User, { foreignKey: 'userId' });
         this.hasMany(models.Producao, { foreignKey: 'producaoId' });
-        this.belongsToMany(models.Aparelho, { through: models.AparelhosTanque, foreignKey: 'aparelhoId' });
+        this.belongsToMany(models.Aparelho, { through: models.AparelhosTanque });
         this.hasMany(models.Leitura, { foreignKey: 'tanqueId' });
     };
 };

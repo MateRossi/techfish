@@ -4,24 +4,25 @@ import User from "./User";
 import Leitura from "./Leitura";
 
 class Aparelho extends Model {
-    public id_aparelho_es!: string;
+    public id!: string;
     public userId!: number;
 
     Leituras!: Leitura[];
 
     static associate(models: any) {
-        this.belongsTo(models.User, { foreignKey: 'userId' })
-        this.hasMany(models.Leitura, { foreignKey: 'id_aparelho_es' })
-        this.belongsToMany(models.Tanque, { through: models.AparelhosTanque, foreignKey: 'tanqueId'});
+        this.belongsTo(models.User, { foreignKey: 'userId' });
+        this.hasMany(models.Leitura, { foreignKey: 'aparelhoId' });
+        this.belongsToMany(models.Tanque, { through: models.AparelhosTanque });
     }
 }
 
 Aparelho.init(
     {
-        id_aparelho_es : {
+        id: {
             type: DataTypes.STRING,
             primaryKey: true,
             unique: true,
+            allowNull: false,
         },
         userId: {
             type: DataTypes.INTEGER,

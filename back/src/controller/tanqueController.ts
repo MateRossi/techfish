@@ -1,3 +1,4 @@
+import { ErrorResponse } from "../error/ErrorResponse";
 import { TanqueService } from "../service/tanqueService";
 import { Request, Response } from "express";
 
@@ -88,11 +89,12 @@ export const tanqueController = {
 
     async addAparelhoToTanque(req: Request, res: Response) {
         try {
-            const { tanqueId, aparelhoId } = req.body;
+            const tanqueId = Number(req.body.tanqueId);
+            const aparelhoId = req.body.aparelhoId;
             const response = await TanqueService.addAparelhoToTanque(aparelhoId, tanqueId);
             res.json({ response });
         } catch (error: any) {
-            res.status(400).json({ erro: 'Erro ao adicionar aparelho ao tanque', detalhes: error.message });
+            ErrorResponse.handleErrorResponse(error, res);
         }
     },
 

@@ -6,7 +6,7 @@ import Aparelho from "./Aparelho";
 class Leitura extends Model {
     public id!: number;
 
-    public id_aparelho_es!: string;
+    public aparelhoId!: string;
     public tanqueId!: number;
 
     public data_hora!: Date;
@@ -19,7 +19,7 @@ class Leitura extends Model {
     public turbidez!: number;
 
     static associate(models: any) {
-        this.belongsTo(models.Aparelho, { foreignKey: 'id_aparelho_es' })
+        this.belongsTo(models.Aparelho, { foreignKey: 'aparelhoId' })
         this.belongsTo(models.Tanque, { foreignKey: 'tanqueId' })
     }
 };
@@ -79,11 +79,11 @@ Leitura.init(
                 max: 1000,
             },
         },
-        id_aparelho_es: {
+        aparelhoId: {
             type: DataTypes.STRING,
             references: {
                 model: Aparelho,
-                key: 'id_aparelho_es',
+                key: 'id',
             },
             allowNull: false,
         },
