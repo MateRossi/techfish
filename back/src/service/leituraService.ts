@@ -1,13 +1,53 @@
 import { Op } from "sequelize";
 import Leitura from "../model/Leitura";
-import { sequelize } from "../db/sequelize";
-import { Aparelho } from "../model";
+import { Aparelho, AparelhosTanque, Tanque } from "../model";
 import { NotFoundError } from "../error/NotFoundError";
 
 export class LeituraService {
-    static async getAllLeituras() {
-        return Leitura.findAll();
+    static async getAllLeituras(page = 1, limit = 50) {
+        const offset = (page - 1) * limit;
+        return await Leitura.findAll({
+            limit: limit,
+            offset
+        });
     };
+
+    static async createLeitura2(dadosLeitura: Leitura) {
+        const { 
+            id_aparelho_es,
+            data_hora,
+            ph,
+            temperatura,
+            orp,
+            tds,
+            o2,
+            o2_mg,
+            turbidez,
+        } = dadosLeitura;
+        
+        const aparelho = await Aparelho.findByPk(id_aparelho_es, {
+            include: Tanque,
+        });
+
+        if (!aparelho) {
+            throw new NotFoundError('Aparelho não encontrado');
+        }
+
+        const tanque = (aparelho as any).getTanque();
+
+        const leitura = await Leitura.create({
+            id_aparelho_es,
+            tanqueId: tanque.id,
+            data_hora,
+            ph,
+            temperatura,
+            orp,
+            tds,
+            o2,
+            o2_mg,
+            turbidez,
+        });
+    }
 
     static async getLeituraById(id: number) {
         const leitura = await this.jaExiste(id);

@@ -1,10 +1,14 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db/sequelize";
+import Tanque from "./Tanque";
+import Aparelho from "./Aparelho";
 
 class Leitura extends Model {
     public id!: number;
+
     public id_aparelho_es!: string;
-    
+    public tanqueId!: number;
+
     public data_hora!: Date;
     public ph!: number;
     public temperatura!: number;
@@ -16,15 +20,12 @@ class Leitura extends Model {
 
     static associate(models: any) {
         this.belongsTo(models.Aparelho, { foreignKey: 'id_aparelho_es' })
+        this.belongsTo(models.Tanque, { foreignKey: 'tanqueId' })
     }
 };
 
 Leitura.init(
     {
-        id_aparelho_es: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
         data_hora: {
             type: DataTypes.DATE,
             allowNull: false,
@@ -77,6 +78,22 @@ Leitura.init(
                 min: 0,
                 max: 1000,
             },
+        },
+        id_aparelho_es: {
+            type: DataTypes.STRING,
+            references: {
+                model: Aparelho,
+                key: 'id_aparelho_es',
+            },
+            allowNull: false,
+        },
+        tanqueId: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: Tanque,
+                key: 'id',
+            },
+            allowNull: false,
         },
     },
     {
