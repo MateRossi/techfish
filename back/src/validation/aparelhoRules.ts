@@ -12,29 +12,29 @@ export const aparelhoRules = {
             .trim()
             .notEmpty().withMessage("'userId' não pode estar vazio")
             .isInt().withMessage("'userId' deve ser um integer"),
-        param('aparelhoId')
+        param('id')
             .trim()
-            .notEmpty().withMessage("'aparelhoId' não pode estar vazio")
-            .isString().withMessage("'aparelhoId' deve ser uma string"),
+            .notEmpty().withMessage("'id' não pode estar vazio")
+            .isString().withMessage("'id' deve ser uma string"),
     ],
     createAparelho: [
         body('userId')
             .trim()
             .notEmpty().withMessage("'userId' não pode estar vazio")
             .isInt().withMessage("'userId' deve ser um integer"),
-        body('aparelhoId')
+        body('id')
             .trim()
-            .notEmpty().withMessage("'aparelhoId' não pode estar vazio")
-            .isString().withMessage("'aparelhoId' deve ser uma string"),
+            .notEmpty().withMessage("'id' não pode estar vazio")
+            .isString().withMessage("'id' deve ser uma string"),
     ],
     deleteAparelhoByUserId: [
         param('userId')
             .trim()
             .notEmpty().withMessage("'userId' não pode estar vazio")
             .isInt().withMessage("'userId' deve ser um integer"),
-        param('aparelhoId')
+        param('id')
             .trim()
-            .notEmpty().withMessage("'aparelhoId' não pode estar vazio")
-            .isString().withMessage("'aparelhoId' deve ser uma string"),
+            .notEmpty().withMessage("'id' não pode estar vazio")
+            .isString().withMessage("'id' deve ser uma string"),
     ],
 }

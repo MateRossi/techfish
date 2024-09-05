@@ -19,8 +19,8 @@ class Leitura extends Model {
     public turbidez!: number;
 
     static associate(models: any) {
-        this.belongsTo(models.Aparelho, { foreignKey: 'aparelhoId' })
-        this.belongsTo(models.Tanque, { foreignKey: 'tanqueId' })
+        this.belongsTo(models.Aparelho, { foreignKey: 'aparelhoId', as: 'aparelho' })
+        this.belongsTo(models.Tanque, { foreignKey: 'tanqueId', as: 'tanque' })
     }
 };
 

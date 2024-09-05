@@ -13,8 +13,8 @@ class Fase extends Model {
     public userId!: number;
 
     static associate(models: any) {
-        this.hasMany(models.HistoricoFasesProducao, { foreignKey: 'faseId' })
-        this.belongsTo(models.User, { foreignKey: 'userId' })
+        this.hasMany(models.HistoricoFasesProducao, { foreignKey: 'faseId', as: 'historicoProducoes' })
+        this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' })
     }
 };
 

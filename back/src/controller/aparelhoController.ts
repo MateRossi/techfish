@@ -73,8 +73,8 @@ export const aparelhoController = {
         }
 
         try {
-            const { userId, aparelhoId } = req.body;
-            const novoAparelho = await AparelhoService.createAparelho(userId, aparelhoId);
+            const dadosAparelho = req.body;
+            const novoAparelho = await AparelhoService.createAparelho(dadosAparelho);
             return res.status(201).json(novoAparelho);
         } catch (error: any) {
             ErrorResponse.handleErrorResponse(error, res);

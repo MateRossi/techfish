@@ -1,6 +1,6 @@
 import { Op } from "sequelize";
 import Leitura from "../model/Leitura";
-import { Aparelho, AparelhosTanque, Tanque } from "../model";
+import { Aparelho, Tanque } from "../model";
 import { NotFoundError } from "../error/NotFoundError";
 
 export class LeituraService {

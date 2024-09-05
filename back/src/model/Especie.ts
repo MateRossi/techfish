@@ -17,8 +17,7 @@ class Especie extends Model {
     public userId!: number;
 
     static associate(models: any) {
-        this.belongsTo(models.User, { foreignKey: 'userId' })
-        this.belongsToMany(models.Tanque, { through: models.EspeciesTanque, foreignKey: 'tanqueId' })
+        this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' })
     };
 }
 

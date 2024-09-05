@@ -14,9 +14,9 @@ class Producao extends Model {
     //lincar com o ciclo atual atravéz da tabela de Histórico das Fases do Ciclo de Produção??
 
     static associate(models: any) {
-        this.belongsTo(models.Tanque, { foreignKey: 'tanqueId' })
-        this.belongsTo(models.Especie, { foreignKey: 'especieId' })
-        this.belongsTo(models.User, { foreignKey: 'userId' })
+        this.belongsTo(models.Tanque, { foreignKey: 'tanqueId', as: 'tanque' })
+        this.belongsTo(models.Especie, { foreignKey: 'especieId', as: 'especie' })
+        this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' })
     };
 };
 

@@ -2,7 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db/sequelize";
 import User from "./User";
 import Aparelho from "./Aparelho";
-import Leitura from "./Leitura";
+import Producao from "./Producao";
 
 class Tanque extends Model {
     public id!: number;
@@ -11,17 +11,16 @@ class Tanque extends Model {
     public volumeAgua!: number;
 
     public userId!: number;
-    public Aparelhos!: Aparelho[];
-    public leituras!: Leitura[];
+    public aparelhos!: Aparelho[];
+    public producoes!: Producao[];
 
     public createdAt!: Date;
     public updatedAt!: Date;
 
     static associate(models: any) {
-        this.belongsTo(models.User, { foreignKey: 'userId' });
-        this.hasMany(models.Producao, { foreignKey: 'producaoId' });
-        this.belongsToMany(models.Aparelho, { through: models.AparelhosTanque });
-        this.hasMany(models.Leitura, { foreignKey: 'tanqueId' });
+        this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+        this.hasMany(models.Producao, { foreignKey: 'producaoId', as: 'producoes' });
+        this.hasMany(models.Aparelho, { foreignKey: 'tanqueId', as: 'aparelhos' });
     };
 };
 

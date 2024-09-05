@@ -19,7 +19,7 @@ userRouter.post('/:userId/aparelhos', aparelhoRules.createAparelho, aparelhoCont
 userRouter.delete('/:userId/aparelhos/:aparelhoId', aparelhoRules.deleteAparelhoByUserId, aparelhoController.deleteAparelhoByUserId);
 
 //TANQUES
-userRouter.get('/:userId/tanques', tanqueController.getUserTanksWithLatestValues);
+//userRouter.get('/:userId/tanques', tanqueController.getUserTanksWithLatestValues);
 userRouter.get('/:userId/tanques/:tanqueId', tanqueController.getUserTanqueById);
 userRouter.post('/:userId/tanques', tanqueController.createTanqueByUserId);
 userRouter.put('/:userId/tanques/:tanqueId', tanqueController.updateTanqueByUserId);

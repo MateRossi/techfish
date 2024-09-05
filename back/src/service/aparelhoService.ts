@@ -1,5 +1,5 @@
 import { NotFoundError } from "../error/NotFoundError";
-import { Aparelho, Leitura, User } from '../model';
+import { Aparelho, Leitura, Tanque, User } from '../model';
 
 export class AparelhoService {
     static async getAllAparelhos() {
@@ -7,7 +7,7 @@ export class AparelhoService {
             include: {
                 model: User,
                 attributes: ['nome', 'email']
-            }
+            },
         });
     };
 
@@ -46,16 +46,31 @@ export class AparelhoService {
         return aparelho;
     };
 
-    static async createAparelho(userId: number, aparelhoId: string) {
+    static async createAparelho(dadosAparelho: Aparelho) {
+        const {
+            userId,
+            id,
+            tanqueId
+        } = dadosAparelho;
+        
         const user = await User.findByPk(userId);
 
         if (!user) {
             throw new NotFoundError('Usuário não encontrado');
         }
 
+        if (tanqueId) {
+            const tanque = await Tanque.findByPk(tanqueId);
+            
+            if (!tanque) {
+                throw new NotFoundError('Tanque não encontrado');
+            }
+        };
+
         return await Aparelho.create({
-            id: aparelhoId,
-            userId
+            id,
+            userId,
+            tanqueId
         });
     };
 
@@ -74,6 +89,7 @@ export class AparelhoService {
         });
     };
 
+    //verificar AQUI.
     static async deleteAparelhoByUserId(userId: number, aparelhoId: string) {
         const user = await User.findByPk(userId);
 

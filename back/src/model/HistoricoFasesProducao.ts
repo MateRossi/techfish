@@ -15,8 +15,8 @@ class HistoricoFasesProducao extends Model {
     public producaoId!: number;
 
     static associate(models: any) {
-        this.belongsTo(models.Fase, { foreignKey: 'faseId' })
-        this.belongsTo(models.Producao, { foreignKey: 'producaoId' })
+        this.belongsTo(models.Fase, { foreignKey: 'faseId', as: 'fase' })
+        this.belongsTo(models.Producao, { foreignKey: 'producaoId', as: 'producao' })
     };
 };
 
