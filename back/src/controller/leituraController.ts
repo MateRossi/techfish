@@ -44,6 +44,29 @@ export const leituraController = {
         };
     },
 
+    async getLeiturasByAparelhoIdTanqueId(req: Request, res: Response) {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                "error_code": "INVALID_DATA",
+                "error_description": errors.array()[0].msg
+            });
+        };
+
+        try {
+            const page = Number(req?.query?.page) || 1;
+            const limit = Number(req?.query?.limit) || 50;
+            const aparelhoId = req.params.aparelhoId;
+            const tanqueId = Number(req.params.tanqueId);
+
+            const leituras = await LeituraService.getLeiturasByAparelhoIdTanqueId(page, limit, aparelhoId, tanqueId);
+            return res.json(leituras);
+        } catch (error: any) {
+            ErrorResponse.handleErrorResponse(error, res);
+        }
+    },
+
     async createLeitura(req: Request, res: Response) {
         const errors = validationResult(req);
 
@@ -57,7 +80,7 @@ export const leituraController = {
         try {
             const dadosLeitura = req.body;
             const { id_aparelho_es } = req.body;
-            const novaLeitura = await LeituraService.createLeitura2(dadosLeitura, id_aparelho_es);
+            const novaLeitura = await LeituraService.createLeitura(dadosLeitura, id_aparelho_es);
             res.status(201).json(novaLeitura);
         } catch (error: any) {
             ErrorResponse.handleErrorResponse(error, res);

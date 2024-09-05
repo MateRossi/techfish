@@ -17,6 +17,23 @@ export const leituraRules = {
             .isInt().withMessage("'leituraId' deve ser um integer"),
     ],
 
+    getLeiturasByAparelhoIdTanqueId: [
+        param('tanqueId')
+            .trim()
+            .notEmpty().withMessage("'tanqueId' não pode estar vazio")
+            .isInt().withMessage("'tanqueId' deve ser um integer"),
+        param('aparelhoId')
+            .trim()
+            .notEmpty().withMessage("'aparelhoId' não pode estar vazio")
+            .isString().withMessage("'aparelhoId' deve ser um integer"),
+        query('page')
+            .optional()
+            .isInt().withMessage("'page' deve ser um int"),
+        query('limit')
+            .optional()
+            .isInt().withMessage("'limit' deve ser um int")
+    ],
+
     createLeitura: [
         body('id_aparelho_es')
             .trim()

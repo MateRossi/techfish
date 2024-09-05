@@ -13,8 +13,23 @@ export class LeituraService {
         });
     };
 
-    static async createLeitura2(dadosLeitura: Leitura, aparelhoId: string) {
-        const { 
+    static async getLeituraById(id: number) {
+        const leitura = await this.jaExiste(id);
+        return leitura;
+    };
+
+    static async getLeiturasByAparelhoIdTanqueId(page = 1, limit = 96, aparelhoId: string, tanqueId: number) {
+        const offset = (page - 1) * limit;
+        return await Leitura.findAll({
+            where: { aparelhoId, tanqueId },
+            limit: limit,
+            offset,
+            attributes: { exclude: ['createdAt', 'updatedAt'] },
+        });
+    };
+
+    static async createLeitura(dadosLeitura: Leitura, aparelhoId: string) {
+        const {
             data_hora,
             ph,
             temperatura,
@@ -24,7 +39,7 @@ export class LeituraService {
             o2_mg,
             turbidez,
         } = dadosLeitura;
-        
+
         const aparelho = await Aparelho.findByPk(aparelhoId);
 
         if (!aparelho) {
@@ -51,39 +66,9 @@ export class LeituraService {
         return leitura;
     }
 
-    static async getLeituraById(id: number) {
-        const leitura = await this.jaExiste(id);
-        return leitura;
-    };
-
-    static async createLeitura(dadosLeitura: Leitura, aparelhoId: string) {
-        const { 
-            data_hora,
-            ph,
-            temperatura,
-            orp,
-            tds,
-            o2,
-            o2_mg,
-            turbidez,
-        } = dadosLeitura;
-
-        return await Leitura.create({ 
-            aparelhoId,
-            data_hora,
-            ph,
-            temperatura,
-            orp,
-            tds,
-            o2,
-            o2_mg,
-            turbidez,    
-        });
-    };
-
     static async updateLeitura(id: number, dadosAtualizados: Leitura, aparelhoId: string) {
         const leitura = await this.jaExiste(id);
-        const { 
+        const {
             data_hora,
             ph,
             temperatura,
@@ -94,7 +79,7 @@ export class LeituraService {
             turbidez,
         } = dadosAtualizados;
 
-        return leitura.update({ 
+        return leitura.update({
             aparelhoId,
             data_hora,
             ph,
@@ -114,12 +99,12 @@ export class LeituraService {
 
     static async getLeiturasPorData(data: string) {
         if (!data) {
-            throw new Error ('Erro ao filtrar, data inválida');
+            throw new Error('Erro ao filtrar, data inválida');
         };
         const dataAlvo = new Date(data);
         const fimDia = new Date(dataAlvo);
         fimDia.setDate(dataAlvo.getDate() + 1);
-        const {count, rows} = await Leitura.findAndCountAll({
+        const { count, rows } = await Leitura.findAndCountAll({
             where: {
                 data_hora: {
                     [Op.between]: [dataAlvo, fimDia],
@@ -142,7 +127,7 @@ export class LeituraService {
             where: { aparelhoId },
             order: [['data_hora', 'DESC']],
             limit: 96,
-            attributes: {exclude: ['createdAt', 'updatedAt', 'id']}
+            attributes: { exclude: ['createdAt', 'updatedAt', 'id'] }
         });
 
         return leituras.reverse();
