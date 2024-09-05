@@ -10,7 +10,7 @@ class Aparelho extends Model {
     public userId!: number;
     public tanqueId!: number;
 
-    leituras!: Leitura[];
+    public leituras!: Leitura[];
 
     static associate(models: any) {
         this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });

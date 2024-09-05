@@ -57,7 +57,7 @@ export const leituraController = {
         try {
             const dadosLeitura = req.body;
             const { id_aparelho_es } = req.body;
-            const novaLeitura = await LeituraService.createLeitura(dadosLeitura, id_aparelho_es);
+            const novaLeitura = await LeituraService.createLeitura2(dadosLeitura, id_aparelho_es);
             res.status(201).json(novaLeitura);
         } catch (error: any) {
             ErrorResponse.handleErrorResponse(error, res);

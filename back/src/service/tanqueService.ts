@@ -16,7 +16,7 @@ export class TanqueService {
                     attributes: ['id', 'nome', 'email']
                 }
             ],
-            attributes: ['id', 'nome', 'areaTanque', 'volumeAgua'] 
+            attributes: ['id', 'nome', 'areaTanque', 'volumeAgua']
         });
     };
 

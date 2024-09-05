@@ -2,6 +2,7 @@ import { Op } from "sequelize";
 import Leitura from "../model/Leitura";
 import { Aparelho, Tanque } from "../model";
 import { NotFoundError } from "../error/NotFoundError";
+import { PreconditionError } from "../error/PreconditionError";
 
 export class LeituraService {
     static async getAllLeituras(page = 1, limit = 50) {
@@ -24,19 +25,17 @@ export class LeituraService {
             turbidez,
         } = dadosLeitura;
         
-        const aparelho = await Aparelho.findByPk(aparelhoId, {
-            include: Tanque,
-        });
+        const aparelho = await Aparelho.findByPk(aparelhoId);
 
         if (!aparelho) {
             throw new NotFoundError('Aparelho não encontrado');
         }
 
-        const tanque = (aparelho as any).getTanque();
+        if (!aparelho.tanqueId) {
+            throw new PreconditionError('O Aparelho não está associado a um Tanque. Não é possível salvar a leitura.');
+        }
 
         const leitura = await Leitura.create({
-            aparelhoId,
-            tanqueId: tanque.id,
             data_hora,
             ph,
             temperatura,
@@ -45,6 +44,8 @@ export class LeituraService {
             o2,
             o2_mg,
             turbidez,
+            aparelhoId,
+            tanqueId: aparelho.tanqueId
         });
 
         return leitura;
