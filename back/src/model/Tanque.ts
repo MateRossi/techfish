@@ -1,20 +1,26 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db/sequelize";
 import User from "./User";
+import Aparelho from "./Aparelho";
+import Producao from "./Producao";
 
 class Tanque extends Model {
     public id!: number;
     public nome!: string;
     public areaTanque!: number;
     public volumeAgua!: number;
-    public totalPeixes!: number;
 
     public userId!: number;
+    public aparelhos!: Aparelho[];
+    public producoes!: Producao[];
+
+    public createdAt!: Date;
+    public updatedAt!: Date;
 
     static associate(models: any) {
-        this.belongsTo(models.User, { foreignKey: 'userId' })
-        this.belongsToMany(models.Especie, { through: models.EspeciesTanque, foreignKey: 'especieId' });
-        this.belongsToMany(models.Aparelho, { through: models.AparelhosTanque, foreignKey: 'aparelhoId' });
+        this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+        this.hasMany(models.Producao, { foreignKey: 'producaoId', as: 'producoes' });
+        this.hasMany(models.Aparelho, { foreignKey: 'tanqueId', as: 'aparelhos' });
     };
 };
 
@@ -30,9 +36,6 @@ Tanque.init(
         },
         volumeAgua: {
             type: DataTypes.DECIMAL,
-        },
-        totalPeixes: {
-            type: DataTypes.INTEGER,
         },
         userId: {
             type: DataTypes.INTEGER,

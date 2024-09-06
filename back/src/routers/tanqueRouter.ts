@@ -3,9 +3,9 @@ import { tanqueController } from '../controller/tanqueController';
 
 const tanqueRouter = express.Router();
 
-tanqueRouter.post('/especies', tanqueController.addEspecieToTanque);
+//tanqueRouter.post('/especies', tanqueController.addEspecieToTanque);
 tanqueRouter.post('/aparelhos', tanqueController.addAparelhoToTanque);
-tanqueRouter.get('/:id/especies', tanqueController.getEspeciesFromTanque);
+//tanqueRouter.get('/:id/especies', tanqueController.getEspeciesFromTanque);
 tanqueRouter.get('/:id/aparelhos', tanqueController.getAparelhosFromTanque);
 
 tanqueRouter.get('/', tanqueController.getAllTanques);

@@ -1,10 +1,14 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db/sequelize";
+import Tanque from "./Tanque";
+import Aparelho from "./Aparelho";
 
 class Leitura extends Model {
     public id!: number;
-    public id_aparelho_es!: string;
-    
+
+    public aparelhoId!: string;
+    public tanqueId!: number;
+
     public data_hora!: Date;
     public ph!: number;
     public temperatura!: number;
@@ -15,68 +19,81 @@ class Leitura extends Model {
     public turbidez!: number;
 
     static associate(models: any) {
-        this.belongsTo(models.Aparelho, { foreignKey: 'id_aparelho_es' })
+        this.belongsTo(models.Aparelho, { foreignKey: 'aparelhoId', as: 'aparelho' })
+        this.belongsTo(models.Tanque, { foreignKey: 'tanqueId', as: 'tanque' })
     }
 };
 
 Leitura.init(
     {
-        id_aparelho_es: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
         data_hora: {
             type: DataTypes.DATE,
             allowNull: false,
         },
         ph: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: 0,
                 max: 14,
             },
         },
         temperatura: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: 5,
                 max: 40,
             },
         },
         orp: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: -400,
                 max: 400,
             },
         },
         tds: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: 0,
                 max: 1500,
             },
         },
         o2: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: 0,
                 max: 200,
             },
         },
         o2_mg: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: 0,
                 max: 20,
             },
         },
         turbidez: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DOUBLE,
             validate: {
                 min: 0,
                 max: 1000,
             },
+        },
+        aparelhoId: {
+            type: DataTypes.STRING,
+            references: {
+                model: Aparelho,
+                key: 'id',
+            },
+            allowNull: false,
+        },
+        tanqueId: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: Tanque,
+                key: 'id',
+            },
+            allowNull: false,
         },
     },
     {

@@ -1,12 +1,16 @@
 import { Op } from "sequelize";
 import Leitura from "../model/Leitura";
-import { sequelize } from "../db/sequelize";
-import { Aparelho } from "../model";
+import { Aparelho, Tanque } from "../model";
 import { NotFoundError } from "../error/NotFoundError";
+import { PreconditionError } from "../error/PreconditionError";
 
 export class LeituraService {
-    static async getAllLeituras() {
-        return Leitura.findAll();
+    static async getAllLeituras(page = 1, limit = 50) {
+        const offset = (page - 1) * limit;
+        return await Leitura.findAll({
+            limit: limit,
+            offset
+        });
     };
 
     static async getLeituraById(id: number) {
@@ -14,9 +18,18 @@ export class LeituraService {
         return leitura;
     };
 
-    static async createLeitura(dadosLeitura: Leitura) {
-        const { 
-            id_aparelho_es,
+    static async getLeiturasByAparelhoIdTanqueId(page = 1, limit = 96, aparelhoId: string, tanqueId: number) {
+        const offset = (page - 1) * limit;
+        return await Leitura.findAll({
+            where: { aparelhoId, tanqueId },
+            limit: limit,
+            offset,
+            attributes: { exclude: ['createdAt', 'updatedAt'] },
+        });
+    };
+
+    static async createLeitura(dadosLeitura: Leitura, aparelhoId: string) {
+        const {
             data_hora,
             ph,
             temperatura,
@@ -27,8 +40,17 @@ export class LeituraService {
             turbidez,
         } = dadosLeitura;
 
-        return Leitura.create({ 
-            id_aparelho_es,
+        const aparelho = await Aparelho.findByPk(aparelhoId);
+
+        if (!aparelho) {
+            throw new NotFoundError('Aparelho não encontrado');
+        }
+
+        if (!aparelho.tanqueId) {
+            throw new PreconditionError('O Aparelho não está associado a um Tanque. Não é possível salvar a leitura.');
+        }
+
+        const leitura = await Leitura.create({
             data_hora,
             ph,
             temperatura,
@@ -36,14 +58,17 @@ export class LeituraService {
             tds,
             o2,
             o2_mg,
-            turbidez,    
+            turbidez,
+            aparelhoId,
+            tanqueId: aparelho.tanqueId
         });
-    };
 
-    static async updateLeitura(id: number, dadosAtualizados: Leitura) {
+        return leitura;
+    }
+
+    static async updateLeitura(id: number, dadosAtualizados: Leitura, aparelhoId: string) {
         const leitura = await this.jaExiste(id);
-        const { 
-            id_aparelho_es,
+        const {
             data_hora,
             ph,
             temperatura,
@@ -54,8 +79,8 @@ export class LeituraService {
             turbidez,
         } = dadosAtualizados;
 
-        return leitura.update({ 
-            id_aparelho_es,
+        return leitura.update({
+            aparelhoId,
             data_hora,
             ph,
             temperatura,
@@ -74,12 +99,12 @@ export class LeituraService {
 
     static async getLeiturasPorData(data: string) {
         if (!data) {
-            throw new Error ('Erro ao filtrar, data inválida');
+            throw new Error('Erro ao filtrar, data inválida');
         };
         const dataAlvo = new Date(data);
         const fimDia = new Date(dataAlvo);
         fimDia.setDate(dataAlvo.getDate() + 1);
-        const {count, rows} = await Leitura.findAndCountAll({
+        const { count, rows } = await Leitura.findAndCountAll({
             where: {
                 data_hora: {
                     [Op.between]: [dataAlvo, fimDia],
@@ -99,10 +124,10 @@ export class LeituraService {
         }
 
         const leituras = await Leitura.findAll({
-            where: { id_aparelho_es: aparelhoId },
+            where: { aparelhoId },
             order: [['data_hora', 'DESC']],
             limit: 96,
-            attributes: {exclude: ['createdAt', 'updatedAt', 'id']}
+            attributes: { exclude: ['createdAt', 'updatedAt', 'id'] }
         });
 
         return leituras.reverse();

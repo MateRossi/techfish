@@ -19,10 +19,18 @@ function TanqueEdit({ tanqueData, setTanqueData, setShowEditModal }) {
             volumeAgua: volumeAgua,
             totalPeixes: totalPeixes,
         };
-        
+
         try {
             const response = await axiosPrivate.put(`/users/${auth?.id}/tanques/${tanqueData.id}`, dadosAtualizados);
-            setTanqueData(response.data);
+            const data = response.data;
+
+            data.Aparelhos.forEach(aparelho => {
+                if (aparelho.Leituras) {
+                    aparelho.Leituras.reverse();
+                }
+            });
+
+            setTanqueData(data);
             setShowEditModal(false);
         } catch (err) {
             console.error(err.message);
@@ -33,7 +41,7 @@ function TanqueEdit({ tanqueData, setTanqueData, setShowEditModal }) {
     return (
         <form onSubmit={handleSubmit}>
             {errMsg && <p>{errMsg}</p>}
-            <h2 style={{marginBottom: 5}}>Editar Informações</h2>
+            <h2 style={{ marginBottom: 5 }}>Editar Informações</h2>
             <div className="InputContainer">
                 <label htmlFor="nomeTanque">Identificador do tanque: </label>
                 <input

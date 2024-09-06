@@ -13,8 +13,11 @@ class User extends Model {
     public refreshToken!: string;
 
     static associate(models: any) {
-        this.hasMany(models.Aparelho, { foreignKey: 'userId' })
-        this.hasMany(models.Tanque, { foreignKey: 'userId' })
+        this.hasMany(models.Aparelho, { foreignKey: 'userId', as: 'aparelhos' })
+        this.hasMany(models.Tanque, { foreignKey: 'userId', as: 'tanques' })
+        this.hasMany(models.Especie, { foreignKey: 'userId', as: 'especies' })
+        this.hasMany(models.Producao, { foreignKey: 'userId', as: 'producoes' })
+        this.hasMany(models.Fase, { foreignKey: 'userId', as: 'fases' })
     }
 };
 

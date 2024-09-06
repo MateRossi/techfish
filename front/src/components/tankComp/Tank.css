@@ -1,0 +1,95 @@
+.tank-item {
+    border-radius: 10px;
+    box-shadow: 0px 4px 5px rgba(9, 18, 66, 0.4);
+    max-width: 600px;
+}
+
+.tank-item-header {
+    box-sizing: border-box;
+    padding: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tank-header-info {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.tank-info-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.tank-info-column>p {
+    margin: 0;
+}
+
+.tank-header-info .tank-info-column p:first-of-type {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.tank-header-info .tank-info-column p {
+    font-size: 12px;
+}
+
+.tank-header-info .tank-options {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.tank-current-values {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+}
+
+.tank-current-values>h4 {
+    font-size: 12px;
+    text-decoration: underline;
+    font-weight: 200;
+    text-align: center;
+}
+
+.tank-header-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+    justify-self: center;
+}
+
+.ac-delete-button {
+    height: 32px;
+    width: 32px;
+    padding: 4px;
+    background-color: red;
+}
+
+.ac-edit-button {
+    height: 32px;
+    width: 32px;
+    padding: 4px;
+    background-color: #E2E8F0;
+}
+
+.delete-icon {
+    width: 26px;
+    height: 26px;
+    color: #fff;
+}
+
+.edit-icon {
+    width: 26px;
+    height: 26px;
+    color: #0A84FF;
+}

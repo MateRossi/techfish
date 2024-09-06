@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { ErrorResponse } from "../error/ErrorResponse";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { validationResult } from "express-validator";
 
 export const userController = {
     async getAllUsers(req: Request, res: Response) {
@@ -25,13 +26,12 @@ export const userController = {
     },
 
     async createUser(req: Request, res: Response) {
-        console.log('cretae');
         try {
             const userData = req.body;
             const hashedPassword = await bcrypt.hash(userData.senha, 10);
             userData.senha = hashedPassword;
             const newUser = await UserService.createUser(userData);
-            res.status(201).json({ newUser, msg: 'Usuário criado.' });
+            res.status(201).json(newUser);
         } catch (error) {
             ErrorResponse.handleErrorResponse(error, res);
         };
@@ -58,13 +58,65 @@ export const userController = {
         };
     },
 
+    async register(req: Request, res: Response) {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                "error_code": "INVALID_DATA",
+                "error_description": errors.array()[0].msg
+            });
+        }
+        
+        const { nome, email, senha, confirmarSenha } = req.body;
+    
+        try {
+            const user = await UserService.register(nome, email, senha, confirmarSenha);
+
+            const accessToken = jwt.sign(
+                {
+                    "UserInfo": {
+                        "id": user.id,
+                        "name": user.nome,
+                        "role": user.role,
+                    },
+                },
+                process.env.JWT_SECRET || 'SEAG@2024TTCCMR',
+                { expiresIn: '1h' }
+            );
+            const refreshToken = jwt.sign(
+                { 
+                    "email": user.email,
+                    "id": user.id, 
+                },
+                process.env.JWT_SECRET || 'SEAG@2024TTCCMR',
+                { expiresIn: '1d' }
+            );
+
+            user.refreshToken = refreshToken;
+            await user.save({ fields: ['refreshToken'] });
+
+            user.senha = '';
+
+            res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'none', secure: true, maxAge: 24 * 60 * 60 * 1000 });
+            res.json({ accessToken, user: user });
+        } catch (error) {
+            ErrorResponse.handleErrorResponse(error, res);
+        };
+    },
+
     async login(req: Request, res: Response) {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                "error_code": "INVALID_DATA",
+                "error_description": errors.array()[0].msg
+            });
+        }
+
         const { email, senha } = req.body;
-        
-        if (!email || !senha) return res
-        .status(400)
-        .json({ 'message': 'Login e senha são necessários' });
-        
+
         try {
             const user = await UserService.login(email, senha);
 

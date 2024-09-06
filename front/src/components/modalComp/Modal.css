@@ -1,0 +1,119 @@
+.modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(130, 130, 130, 0.8);
+    opacity: 0.8;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 16px;
+}
+
+.modal-close-button {
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #000;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: absolute;
+    bottom: 20px;
+    font-size: 16px;
+    left: 20px;
+    width: calc(50% - 28px);
+}
+
+button[type="submit"].modal-confirm-button {
+    height: 2.5rem;
+    border-radius: 5px;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    background-color: #0A84FF;
+    color: #fff;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: none;
+    position: absolute;
+    font-size: 16px;
+    bottom: 20px;
+    right: 20px;
+    width: calc(50% - 28px);
+}
+
+.modal-delete-button {
+    background-color: #f77b7b;
+    width: 100%;
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 1.3rem;
+    justify-content: center;
+    color: floralwhite;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    border: none;
+    transition: background-color 0.5s;
+    margin-top: 1rem;
+}
+
+.modal-delete-button:hover {
+    background-color: #ff4f4f;
+}
+
+.modal-cancel-delete-button {
+    background-color: #4fc542;
+    width: 100%;
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 1.3rem;
+    justify-content: center;
+    color: floralwhite;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    border: none;
+    transition: background-color 0.5s;
+    margin-top: 1rem;
+}
+
+.modal-cancel-delete-button:hover {
+    background-color: #20de0a;
+}
+
+.modal-close-button:hover {
+    background-color: #ff4f4f;
+}
+
+.modal-icon {
+    height: 40px;
+    width: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 1px;
+}
+
+.modal-X-close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 1px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-title {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bolder;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

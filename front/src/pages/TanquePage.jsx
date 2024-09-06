@@ -9,7 +9,7 @@ import TanqueHeader from "../components/TanqueHeader";
 import ListaAtributosTanque from "../components/ListaAtributosTanque";
 import InfoCounter from "../components/InfoCounter";
 import Grafico2 from "../components/Grafico2";
-import Modal from '../components/Modal';
+import Modal from '../components/modalComp/Modal';
 import useLocalStorage from '../hooks/use-local-storage';
 import './TanquePage.css';
 import SeletorAtributo from "../components/SeletorAtributo";
@@ -31,8 +31,18 @@ function TanquePage() {
         const getTanqueData = async () => {
             try {
                 const response = await axiosPrivate.get(`/users/${auth?.id}/tanques/${tanqueId}`);
-                isMounted && setTanqueData(response.data);
-                setIsLoading(false);
+                if (isMounted) {
+                    const data = response.data;
+
+                    data.Aparelhos.forEach(aparelho => {
+                        if (aparelho.Leituras) {
+                            aparelho.Leituras.reverse();
+                        }
+                    });
+
+                    setTanqueData(data);
+                    setIsLoading(false);
+                }
             } catch (err) {
                 console.error(err);
                 navigate('/', { state: { from: location }, replace: true });

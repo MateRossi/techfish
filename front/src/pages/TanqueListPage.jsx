@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import useAxiosPrivate from "../hooks/use-axios-private";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/use-auth";
-import Tanque from "../components/Tanque";
 import Carregando from "../components/Carregando";
-import AddButton from "../components/AddButton";
-import Modal from "../components/Modal";
+import Modal from "../components/modalComp/Modal";
 import TanqueAdd from "../components/TanqueAdd";
+import PageTitle from "../components/pageTitleComp/PageTitle";
+import SearchBar from "../components/searchBarComp/SearchBar";
+import { IoCloseOutline } from "react-icons/io5";
+import Tank from "../components/tankComp/Tank";
+import './TankListPage.css';
 
 function TanqueListPage() {
     const [tanques, setTanques] = useState([]);
@@ -45,6 +48,7 @@ function TanqueListPage() {
 
     const addActionbar = <div>
         <button onClick={handleAddClose} className="modal-close-button">Cancelar</button>
+        <button onClick={handleAddClose} className="modal-X-close-button"><IoCloseOutline size={30} /></button>
     </div>
 
     const addModal = (
@@ -62,19 +66,14 @@ function TanqueListPage() {
     }
 
     return (
-        <main className="tank-list-page">
-            {tanques.map(tanque => (
-                <Tanque
-                key={tanque.id}
-                tanqueId={tanque.id} 
-                nomeTanque={tanque.nome}
-                aparelhos={tanque.Aparelhos}
-                totalPeixes={tanque.totalPeixes}
-                areaTanque={tanque.areaTanque}
-                volumeAgua={tanque.volumeAgua} 
-                />
-            )).reverse()}
-            <AddButton handleClick={handleAddClick}/>
+        <main className="page">
+            <PageTitle title="Meus Tanques" description="Adicione, edite, monitore ou exclua tanques." />
+            <SearchBar elementToAdd={"Tanque"} handleAdd={handleAddClick} />
+            <div className="tank-list-container">
+                {tanques?.length > 0 ? tanques.map((tanque) => (
+                    <Tank tanque={tanque} key={tanque.id} />
+                )) : 'Sem tanques para mostrar'}
+            </div>
             {showAddModal && addModal}
         </main>
     )

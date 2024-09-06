@@ -1,29 +1,43 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from '../db/sequelize';
 import User from "./User";
+import Leitura from "./Leitura";
+import Tanque from "./Tanque";
 
 class Aparelho extends Model {
-    public id_aparelho_es!: string;
+    public id!: string;
+    
     public userId!: number;
+    public tanqueId!: number;
+
+    public leituras!: Leitura[];
 
     static associate(models: any) {
-        this.belongsTo(models.User, { foreignKey: 'userId' })
-        this.hasMany(models.Leitura, { foreignKey: 'id_aparelho_es' })
-        this.belongsToMany(models.Tanque, { through: models.AparelhosTanque, foreignKey: 'tanqueId'});
-    }
-}
+        this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+        this.hasMany(models.Leitura, { foreignKey: 'aparelhoId', as: 'leituras' });
+        this.belongsTo(models.Tanque, { foreignKey: 'tanqueId', as: 'tanque' });
+    };
+};
 
 Aparelho.init(
     {
-        id_aparelho_es : {
+        id: {
             type: DataTypes.STRING,
             primaryKey: true,
             unique: true,
+            allowNull: false,
         },
         userId: {
             type: DataTypes.INTEGER,
             references: {
                 model: User,
+                key: 'id'
+            }
+        },
+        tanqueId: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: Tanque,
                 key: 'id'
             }
         }

@@ -1,3 +1,4 @@
+import { ErrorResponse } from "../error/ErrorResponse";
 import { TanqueService } from "../service/tanqueService";
 import { Request, Response } from "express";
 
@@ -56,26 +57,6 @@ export const tanqueController = {
         };
     },
 
-    async addEspecieToTanque(req: Request, res: Response) {
-        try {
-            const { tanqueId, especieId } = req.body;
-            const response = await TanqueService.addEspecieToTanque(especieId, tanqueId);
-            res.json(response);
-        } catch (error: any) {
-            res.status(400).json({ erro: 'Erro ao adicionar espécie ao tanque', detalhes: error.message });
-        }
-    },
-
-    async getEspeciesFromTanque(req: Request, res: Response) {
-        try {
-            const id = Number(req.params.id);
-            const response = await TanqueService.getEspeciesFromTanque(id);
-            res.json(response);
-        } catch (error: any) {
-            res.status(400).json({ erro: 'Erro ao obter especies do tanque', detalhes: error.message });
-        }
-    },
-
     async getAparelhosFromTanque(req: Request, res: Response) {
         try {
             const id = Number(req.params.id);
@@ -88,21 +69,24 @@ export const tanqueController = {
 
     async addAparelhoToTanque(req: Request, res: Response) {
         try {
-            const { tanqueId, aparelhoId } = req.body;
+            const tanqueId = Number(req.body.tanqueId);
+            const aparelhoId = req.body.aparelhoId;
             const response = await TanqueService.addAparelhoToTanque(aparelhoId, tanqueId);
-            res.json({ response });
+            res.json(response);
         } catch (error: any) {
-            res.status(400).json({ erro: 'Erro ao adicionar aparelho ao tanque', detalhes: error.message });
+            ErrorResponse.handleErrorResponse(error, res);
         }
     },
 
+    /*
     async getUserTanksWithLatestValues(req: Request, res: Response) {
         try {
-            const userId = Number(req.params.id);
+            const userId = Number(req.params.userId);
             const response = await TanqueService.getUserTanksWithLatestValues(userId);
             res.json(response);
         } catch (error: any) {
             res.status(400).json({ erro: 'Erro ao buscar tanques do usuário', detalhes: error.message });
         }
     },
+    */
 };

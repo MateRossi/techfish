@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 
 export class UserService {
     static async getAllUsers() {
-        return User.findAll({
+        return await User.findAll({
             attributes: { exclude: ['senha', 'role', 'refreshToken'] },
         });
     };
@@ -30,26 +30,36 @@ export class UserService {
     static async createUser(dadosUser: User) {
         const { nome, email, senha } = dadosUser;
 
-        return User.create({ nome, email, senha });
+        return await User.create({ nome, email, senha });
     };
 
     static async updateUser(id: number, dadosAtualizados: User) {
         const user = await this.jaExiste(id);
         const { nome, email } = dadosAtualizados;
 
-        return user.update({ nome, email });
+        return await user.update({ nome, email });
     };
 
     static async deleteUser(id: number) {
         const user = await this.jaExiste(id);
-        return user.destroy();
+        return await user.destroy();
     };
+
+    static async register(nome: string, email: string, senha: string, confirmarSenha: string) {
+        if (senha !== confirmarSenha) {
+            throw new UnauthorizedError('As senhas devem coincidir');
+        }
+        
+        const hashedSenha = await bcrypt.hash(senha, 10);
+
+        return await User.create({ nome, email, senha: hashedSenha });
+    }
 
     static async login(email: string, senha: string) {
         const user = await User.findOne({ where: { email } });
 
         if (!user) {
-            throw new NotFoundError('Usuario não encontrado');
+            throw new UnauthorizedError('Acesso não autorizado. Verifique seu login ou senha.');
         };
 
         const isPasswordValid = await bcrypt.compare(senha, user.senha);
@@ -84,7 +94,7 @@ export class UserService {
             throw new Error(`Erro ao encriptar senha ${err.message}`);
         }
         
-        return user.save({ fields: ['password'] });
+        return await user.save({ fields: ['password'] });
     };
 
     static async jaExiste(id: number) {

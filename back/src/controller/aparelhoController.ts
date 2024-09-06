@@ -1,3 +1,5 @@
+import { validationResult } from "express-validator";
+import { ErrorResponse } from "../error/ErrorResponse";
 import { AparelhoService } from "../service/aparelhoService";
 import { Request, Response } from "express";
 
@@ -5,9 +7,9 @@ export const aparelhoController = {
     async getAllAparelhos(req: Request, res: Response) {
         try {
             const aparelhos = await AparelhoService.getAllAparelhos();
-            res.json(aparelhos);
+            return res.json(aparelhos);
         } catch (error: any) {
-            res.status(400).json({ erro: "Erro ao obter aparelhos ", detalhes: error.message });
+            ErrorResponse.handleErrorResponse(error, res);
         };
     },
 
@@ -15,40 +17,98 @@ export const aparelhoController = {
         try {
             const aparelhoId = req.params.id;
             const aparelho = await AparelhoService.getAparelhoById(aparelhoId);
-            res.json(aparelho);
+            return res.json(aparelho);
         } catch (error: any) {
-            res.status(400).json({ erro: "Erro ao obter aparelho ", detalhes: error.message });
+            ErrorResponse.handleErrorResponse(error, res);
+        };
+    },
+
+    async getAparelhosByUserId(req: Request, res: Response) {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                "error_code": "INVALID_DATA",
+                "error_description": errors.array()[0].msg
+            });
+        }
+
+        try {
+            const userId = Number(req.params.userId);
+            const aparelhos = await AparelhoService.getAparelhosByUserId(userId);
+            return res.json(aparelhos);
+        } catch (error: any) {
+            ErrorResponse.handleErrorResponse(error, res);
+        };
+    },
+
+    async getAparelhoByUserId(req: Request, res: Response) {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                "error_code": "INVALID_DATA",
+                "error_description": errors.array()[0].msg
+            });
+        }
+
+        try {
+            const userId = Number(req.params.userId);
+            const aparelhoId = req.params.aparelhoId;
+            const aparelho = await AparelhoService.getAparelhoByUserId(userId, aparelhoId);
+            return res.json(aparelho);
+        } catch (error: any) {
+            ErrorResponse.handleErrorResponse(error, res);
         };
     },
 
     async createAparelho(req: Request, res: Response) {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                "error_code": "INVALID_DATA",
+                "error_description": errors.array()[0].msg
+            });
+        }
+
         try {
             const dadosAparelho = req.body;
-            const novaAparelho = await AparelhoService.createAparelho(dadosAparelho);
-            res.status(201).json({ novaAparelho, msg: 'Aparelho salvo' });
+            const novoAparelho = await AparelhoService.createAparelho(dadosAparelho);
+            return res.status(201).json(novoAparelho);
         } catch (error: any) {
-            res.status(400).json({ erro: "Erro ao salvar aparelho", detalhes: error.message });
+            ErrorResponse.handleErrorResponse(error, res);
         };
     },
 
     async updateAparelho(req: Request, res: Response) {
         try {
             const aparelhoId = req.params.id;
-            const dadosAparelho = req.body;
-            const aparelhoAtualizado = await AparelhoService.updateAparelho(aparelhoId, dadosAparelho); 
-            res.json({ aparelhoAtualizado, msg: 'Aparelho atualizado' });
+            const userId = Number(req.params.userId);
+            const aparelhoAtualizado = await AparelhoService.updateAparelho(aparelhoId, userId);
+            return res.json(aparelhoAtualizado);
         } catch (error: any) {
-            res.status(400).json({ erro: "Erro ao atualizar a aparelho", datalhes: error.message })
+            ErrorResponse.handleErrorResponse(error, res);
         };
     },
 
-    async deleteAparelho(req: Request, res: Response) {
+    async deleteAparelhoByUserId(req: Request, res: Response) {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                "error_code": "INVALID_DATA",
+                "error_description": errors.array()[0].msg
+            });
+        }
+        
         try {
-            const aparelhoId = req.params.id;
-            await AparelhoService.deleteAparelho(aparelhoId);
-            res.status(204).end();
+            const userId = Number(req.params.userId);
+            const aparelhoId = req.params.aparelhoId;
+            await AparelhoService.deleteAparelhoByUserId(userId, aparelhoId);
+            return res.status(204).end();
         } catch (error: any) {
-            res.status(400).json({ erro: "Erro ao deletar a aparelho", datalhes: error.message })
+            ErrorResponse.handleErrorResponse(error, res);
         };
     },
 };

@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import { useEffect } from 'react';
 import './Modal.css';
 
-function Modal({ onClose, children, actionBar }) {
+function Modal({ onClose, children, actionBar, width='640px', height='380px' }) {
     useEffect(() => {
         document.body.classList.add('overflow-hidden');
 
@@ -14,7 +14,7 @@ function Modal({ onClose, children, actionBar }) {
     return ReactDOM.createPortal(
         <div>
             <div onClick={onClose} className='modal-background'></div>
-            <div className='modal'>
+            <div className='modal' style={{ width, height }}>
                 <div className='modal-content'>
                     {children}
                     <div className='modal-options'>
