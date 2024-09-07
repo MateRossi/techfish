@@ -12,42 +12,44 @@
 .tooltip {
     position: relative;
     display: inline-block;
-    cursor: pointer;
 }
 
 .tooltip .tooltiptext {
-    display: none;
-    width: 400px;
-    background-color: rgba(0, 0, 0, 0.95);
-    color: #fff;
+    visibility: hidden;
+    width: 300px; /* Ajuste o tamanho conforme necessário */
+    height: 230px;
+    background-color: #fff;
+    color: #343434;
     text-align: center;
-    border-radius: 6px;
-    padding: 8px;
-    
+    border-radius: 5px;
+    padding: 10px;
     position: absolute;
     z-index: 1;
-    top: 125%;
-    left: 50%;
-    transform: translateX(-50%);
-    
+    top: -110%;
+    left: -310px; /* Ajuste para posicionar a tooltip corretamente */
     opacity: 0;
-    transition: opacity 0.3s;
-    
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    transition: opacity 0.1s;
+    pointer-events: none;
+    transform: (110%, 110%);
+    box-shadow: 0px 1px 10px 1px rgb(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
 }
 
-.tooltip .tooltiptext::after {
-    content: "";
+.tooltip .tooltiptext::before {
+    content: '';
     position: absolute;
-    top: -100%;
-    left: 50%;
-    transform: translateX(+50%);
-    border-width: 6px;
+    top: 50%;
+    left: 100%;
+    margin-top: -5px; /* Ajuste para centralizar verticalmente a seta */
+    border-width: 5px;
     border-style: solid;
-    border-color: rgba(0, 0, 0, 0.75) transparent transparent transparent;
+    border-color: transparent transparent transparent rgb(255, 255, 255);
 }
 
 .tooltip:hover .tooltiptext {
-    display: block;
+    visibility: visible;
     opacity: 1;
 }

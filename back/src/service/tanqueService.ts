@@ -1,3 +1,4 @@
+import { Sequelize } from "sequelize";
 import { NotFoundError } from "../error/NotFoundError";
 import { Tanque, Especie, Aparelho, Leitura, User } from '../model';
 
@@ -20,6 +21,39 @@ export class TanqueService {
         });
     };
 
+    static async getTanquesByUserId(userId: number) {
+        const user = await User.findByPk(userId);
+
+        if (!user) {
+            throw new NotFoundError('Usuário não encontrado');
+        }
+
+        const tanques = await Tanque.findAll({
+            where: { userId },
+            include: [
+                {
+                    model: Leitura,
+                    as: 'leituras',
+                    limit: 1,
+                    order: [['data_hora', 'DESC']]
+                },
+                {
+                    model: Aparelho,
+                    as: 'aparelhos',
+                    attributes: ['id'],
+                },
+            ],
+            attributes: {
+                include: [
+                    [Sequelize.fn('COUNT', Sequelize.col('aparelhos.id')), 'aparelhosNoTanque']
+                ]
+            },
+            group: ['Tanque.id', 'aparelhos.id']
+        });
+
+        return tanques;
+    };
+
     static async getUserTanqueById(userId: number, id: number) {
         const user = await User.findByPk(userId);
 
@@ -28,7 +62,7 @@ export class TanqueService {
         }
 
         const tanque = await Tanque.findOne({
-            where: { id, userId: userId },
+            where: { id, userId },
             include: [
                 {
                     model: Aparelho,
@@ -117,8 +151,13 @@ export class TanqueService {
             throw new NotFoundError('Usuário não encontrado');
         }
 
-        const tanque = await this.jaExiste(idTanque);
-        return tanque.destroy();
+        const tanque = await Tanque.findByPk(idTanque);
+
+        if (!tanque) {
+            throw new NotFoundError('Tanque não encontrado');
+        }
+        
+        return await tanque.destroy();
     };
 
     //métodos de relação entre aparelho e tanque

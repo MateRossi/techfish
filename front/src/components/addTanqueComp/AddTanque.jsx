@@ -1,10 +1,10 @@
 import { useState } from "react";
-import useAxiosPrivate from "../hooks/use-axios-private";
-import useAuth from "../hooks/use-auth";
-import './TanqueAdd.css';
-import tanque from '../img/tanque.png';
+import useAxiosPrivate from "../../hooks/use-axios-private";
+import useAuth from "../../hooks/use-auth";
+import './AddTanque.css';
+import tanque from '../../img/tanque.png';
 
-function TanqueAdd({ setTanques, setShowModal }) {
+function AddTanque({ setTanques, setShowModal }) {
     const [nomeTanque, setNomeTanque] = useState('');
     const [areaTanque, setAreaTanque] = useState('');
     const [volumeAgua, setVolumeAgua] = useState('');
@@ -72,4 +72,4 @@ function TanqueAdd({ setTanques, setShowModal }) {
     );
 }
 
-export default TanqueAdd;
+export default AddTanque;

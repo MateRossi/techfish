@@ -3,6 +3,7 @@ import { sequelize } from "../db/sequelize";
 import User from "./User";
 import Aparelho from "./Aparelho";
 import Producao from "./Producao";
+import Leitura from "./Leitura";
 
 class Tanque extends Model {
     public id!: number;
@@ -13,6 +14,7 @@ class Tanque extends Model {
     public userId!: number;
     public aparelhos!: Aparelho[];
     public producoes!: Producao[];
+    public leituras!: Leitura[];
 
     public createdAt!: Date;
     public updatedAt!: Date;
@@ -21,6 +23,7 @@ class Tanque extends Model {
         this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
         this.hasMany(models.Producao, { foreignKey: 'producaoId', as: 'producoes' });
         this.hasMany(models.Aparelho, { foreignKey: 'tanqueId', as: 'aparelhos' });
+        this.hasMany(models.Leitura, { foreignKey: 'tanqueId', as: 'leituras' })
     };
 };
 

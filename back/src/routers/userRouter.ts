@@ -6,6 +6,7 @@ import { especieController } from '../controller/especieController';
 import { faseController } from '../controller/faseController';
 import { aparelhoController } from '../controller/aparelhoController';
 import { aparelhoRules } from '../validation/aparelhoRules';
+import { tanqueRules } from '../validation/tanqueRules';
 
 const userRouter = express.Router();
 
@@ -19,7 +20,7 @@ userRouter.post('/:userId/aparelhos', aparelhoRules.createAparelho, aparelhoCont
 userRouter.delete('/:userId/aparelhos/:aparelhoId', aparelhoRules.deleteAparelhoByUserId, aparelhoController.deleteAparelhoByUserId);
 
 //TANQUES
-//userRouter.get('/:userId/tanques', tanqueController.getUserTanksWithLatestValues);
+userRouter.get('/:userId/tanques', tanqueRules.getTanquesByUserId, tanqueController.getTanquesByUserId);
 userRouter.get('/:userId/tanques/:tanqueId', tanqueController.getUserTanqueById);
 userRouter.post('/:userId/tanques', tanqueController.createTanqueByUserId);
 userRouter.put('/:userId/tanques/:tanqueId', tanqueController.updateTanqueByUserId);

@@ -51,6 +51,23 @@ body {
   transform: translate(-50%, -50%);
 }
 
+button[type="submit"].modal-confirm-button {
+  height: 2.5rem;
+  border-radius: 5px;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  background-color: #0A84FF;
+  color: #fff;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-shadow: none;
+  position: absolute;
+  font-size: 16px;
+  bottom: 20px;
+  right: 20px;
+  width: calc(50% - 28px);
+}
+
 .offscreen {
   position: absolute;
   left: -9999px;

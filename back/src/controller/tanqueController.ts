@@ -1,3 +1,4 @@
+import { validationResult } from "express-validator";
 import { ErrorResponse } from "../error/ErrorResponse";
 import { TanqueService } from "../service/tanqueService";
 import { Request, Response } from "express";
@@ -23,6 +24,25 @@ export const tanqueController = {
         };
     },
 
+    async getTanquesByUserId(req: Request, res: Response) {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                "error_code": "INVALID_DATA",
+                "error_description": errors.array()[0].msg
+            });
+        }
+
+        try {
+            const userId = Number(req.params.userId);
+            const tanques = await TanqueService.getTanquesByUserId(userId);
+            return res.json(tanques);
+        } catch (error: any) {
+            ErrorResponse.handleErrorResponse(error, res);
+        }
+    },
+
     async createTanqueByUserId(req: Request, res: Response) {
         try {
             const dadosTanque = req.body;
@@ -39,7 +59,7 @@ export const tanqueController = {
             const tanqueId = Number(req.params.tanqueId);
             const userId = Number(req.params.userId);
             const dadosTanque = req.body;
-            const tanqueAtualizado = await TanqueService.updateTanqueByUserId(tanqueId, userId, dadosTanque); 
+            const tanqueAtualizado = await TanqueService.updateTanqueByUserId(tanqueId, userId, dadosTanque);
             res.json(tanqueAtualizado);
         } catch (error: any) {
             res.status(400).json({ erro: "Erro ao atualizar o Tanque", datalhes: error.message })
