@@ -22,8 +22,8 @@ userRouter.delete('/:userId/aparelhos/:aparelhoId', aparelhoRules.deleteAparelho
 //TANQUES
 userRouter.get('/:userId/tanques', tanqueRules.getTanquesByUserId, tanqueController.getTanquesByUserId);
 userRouter.get('/:userId/tanques/:tanqueId', tanqueController.getUserTanqueById);
-userRouter.post('/:userId/tanques', tanqueController.createTanqueByUserId);
-userRouter.put('/:userId/tanques/:tanqueId', tanqueController.updateTanqueByUserId);
+userRouter.post('/:userId/tanques', tanqueRules.createTanqueByUserId, tanqueController.createTanqueByUserId);
+userRouter.put('/:userId/tanques/:tanqueId', tanqueRules.updateTanqueByUserId, tanqueController.updateTanqueByUserId);
 userRouter.delete('/:userId/tanques/:tanqueId', tanqueController.deleteTanqueByUserId);
 //comentar essa linha
 //userRouter.post('/', userController.createUser);

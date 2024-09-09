@@ -1,6 +1,8 @@
 import { Sequelize } from "sequelize";
 import { NotFoundError } from "../error/NotFoundError";
 import { Tanque, Especie, Aparelho, Leitura, User } from '../model';
+import { sequelize } from "../db/sequelize";
+import { ServerError } from "../error/ServerError";
 
 export class TanqueService {
     static async getAllTanques() {
@@ -43,15 +45,20 @@ export class TanqueService {
                     attributes: ['id'],
                 },
             ],
-            attributes: {
-                include: [
-                    [Sequelize.fn('COUNT', Sequelize.col('aparelhos.id')), 'aparelhosNoTanque']
-                ]
-            },
-            group: ['Tanque.id', 'aparelhos.id']
         });
 
-        return tanques;
+        if (tanques && tanques.length > 0) {
+            const tanquesContados = tanques.map(tanque => {
+                return {
+                    aparelhosNoTanque: tanque?.aparelhos.length || 0,
+                    ...tanque.toJSON(),
+                }
+            })
+
+            return tanquesContados;
+        }
+
+        return [];
     };
 
     static async getUserTanqueById(userId: number, id: number) {
@@ -101,47 +108,67 @@ export class TanqueService {
         });
     };
 
-    static async updateTanqueByUserId(id: number, userId: number, dadosAtualizados: Tanque) {
-        const user = await User.findByPk(userId);
+    static async updateTanqueByUserId(tanqueId: number, userId: number, dadosAtualizados: Tanque, aparelhosParaAdicionar: string[], aparelhosParaRemover: string[]) {
+        const transaction = await sequelize.transaction();
 
-        if (!user) {
-            throw new NotFoundError('Usuário não encontrado');
+        try {
+            const user = await User.findByPk(userId, { transaction });
+
+            if (!user) {
+                throw new NotFoundError('User não encontrado');
+            }
+
+            const tanque = await Tanque.findByPk(tanqueId, { transaction });
+
+            if (!tanque) {
+                throw new NotFoundError('Tanque não encontrado');
+            }
+
+            await tanque.update(dadosAtualizados, { transaction });
+
+            if (aparelhosParaAdicionar && aparelhosParaAdicionar.length > 0) {
+                const aparelhos = await Aparelho.findAll({
+                    where: { id: aparelhosParaAdicionar },
+                    transaction
+                });
+                await (tanque as any).addAparelhos(aparelhos, { transaction });
+            }
+
+            if (aparelhosParaRemover && aparelhosParaRemover.length > 0) {
+                const aparelhos = await Aparelho.findAll({
+                    where: { id: aparelhosParaRemover },
+                    transaction
+                });
+                await (tanque as any).removeAparelhos(aparelhos, { transaction });
+            }
+
+            await transaction.commit();
+
+            const tanqueAtualizado = await Tanque.findByPk(tanqueId, {
+                include: [
+                    {
+                        model: Leitura,
+                        as: 'leituras',
+                        separate: true,
+                        limit: 1,
+                        order: [['data_hora', 'DESC']]
+                    },
+                    {
+                        model: Aparelho,
+                        as: 'aparelhos',
+                        attributes: ['id'],
+                    },
+                ],
+            });
+
+            return {
+                aparelhosNoTanque: tanqueAtualizado?.aparelhos.length || 0,
+                ...tanqueAtualizado?.toJSON()
+            }
+        } catch (error: any) {
+            await transaction.rollback();
+            throw new ServerError('Erro ao atualizar tanque');
         }
-
-        const tanque = await Tanque.findOne({
-            where: { id, userId: userId },
-            include: [
-                {
-                    model: Aparelho,
-                    include: [
-                        {
-                            model: Leitura,
-                            limit: 96,
-                            order: [['data_hora', 'DESC']]
-                        }
-                    ],
-                },
-                {
-                    model: Especie
-                },
-            ],
-        });
-
-        if (!tanque) {
-            throw new NotFoundError('Tanque não encontrado');
-        }
-
-        const {
-            nome,
-            areaTanque,
-            volumeAgua,
-        } = dadosAtualizados;
-
-        return tanque.update({
-            nome,
-            areaTanque,
-            volumeAgua,
-        });
     };
 
     static async deleteTanqueByUserId(userId: number, idTanque: number) {
@@ -156,7 +183,7 @@ export class TanqueService {
         if (!tanque) {
             throw new NotFoundError('Tanque não encontrado');
         }
-        
+
         return await tanque.destroy();
     };
 

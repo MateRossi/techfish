@@ -9,7 +9,7 @@ export const tanqueController = {
             const tanques = await TanqueService.getAllTanques();
             res.json(tanques);
         } catch (error: any) {
-            res.status(400).json({ erro: "Erro ao obter tanques ", detalhes: error.message });
+            ErrorResponse.handleErrorResponse(error, res);
         };
     },
 
@@ -20,7 +20,7 @@ export const tanqueController = {
             const tanque = await TanqueService.getUserTanqueById(userId, tanqueId);
             res.json(tanque);
         } catch (error: any) {
-            res.status(400).json({ erro: "Erro ao obter tanque ", detalhes: error.message });
+            ErrorResponse.handleErrorResponse(error, res);
         };
     },
 
@@ -44,13 +44,22 @@ export const tanqueController = {
     },
 
     async createTanqueByUserId(req: Request, res: Response) {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                "error_code": "INVALID_DATA",
+                "error_description": errors.array()[0].msg
+            });
+        }
+
         try {
             const dadosTanque = req.body;
             const userId = Number(req.params.userId);
             const novoTanque = await TanqueService.createTanqueByUserId(userId, dadosTanque);
             res.status(201).json(novoTanque);
         } catch (error: any) {
-            res.status(400).json({ erro: "Erro ao salvar tanque", detalhes: error.message });
+            ErrorResponse.handleErrorResponse(error, res);
         };
     },
 
@@ -58,11 +67,11 @@ export const tanqueController = {
         try {
             const tanqueId = Number(req.params.tanqueId);
             const userId = Number(req.params.userId);
-            const dadosTanque = req.body;
-            const tanqueAtualizado = await TanqueService.updateTanqueByUserId(tanqueId, userId, dadosTanque);
+            const { dadosTanque, aparelhosParaAdicionar, aparelhosParaRemover } = req.body;
+            const tanqueAtualizado = await TanqueService.updateTanqueByUserId(tanqueId, userId, dadosTanque, aparelhosParaAdicionar, aparelhosParaRemover);
             res.json(tanqueAtualizado);
         } catch (error: any) {
-            res.status(400).json({ erro: "Erro ao atualizar o Tanque", datalhes: error.message })
+            ErrorResponse.handleErrorResponse(error, res);
         };
     },
 
@@ -73,7 +82,7 @@ export const tanqueController = {
             await TanqueService.deleteTanqueByUserId(userId, tanqueId);
             res.status(204).end();
         } catch (error: any) {
-            res.status(400).json({ erro: "Erro ao deletar o tanque", datalhes: error.message })
+            ErrorResponse.handleErrorResponse(error, res);
         };
     },
 
@@ -83,7 +92,7 @@ export const tanqueController = {
             const response = await TanqueService.getAparelhosFromTanque(id);
             res.json(response);
         } catch (error: any) {
-            res.status(400).json({ erro: 'Erro ao obter aparelhos do tanque', detalhes: error.message });
+            ErrorResponse.handleErrorResponse(error, res);
         }
     },
 
