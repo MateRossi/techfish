@@ -4,7 +4,7 @@ import useAuth from "../../hooks/use-auth";
 import './AddTanque.css';
 import tanque from '../../img/tanque.png';
 
-function AddTanque({ setTanques, setShowModal }) {
+function AddTanque({ setTanques, setShowModal, setDestaque }) {
     const [nomeTanque, setNomeTanque] = useState('');
     const [areaTanque, setAreaTanque] = useState('');
     const [volumeAgua, setVolumeAgua] = useState('');
@@ -24,6 +24,7 @@ function AddTanque({ setTanques, setShowModal }) {
             const response = await axiosPrivate.post(`/users/${auth?.id}/tanques`, novoTanque);
             const tanqueComId = { ...novoTanque, id: response.data.id };
             setTanques(prevTanques => [...prevTanques, tanqueComId]);
+            setDestaque(tanqueComId);
             setShowModal(false);
         } catch (err) {
             console.error(err.message);

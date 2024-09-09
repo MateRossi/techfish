@@ -15,11 +15,30 @@ function TanqueListPage() {
     const [tanques, setTanques] = useState([]);
     const [loading, setLoading] = useState(true);
     const [errMsg, setErrMsg] = useState('');
+    const [destaque, setDestaque] = useState(null);
+
     const [showAddModal, setShowAddModal] = useState(false);
+
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
     const { auth } = useAuth();
+
+    const handleEdit = async (e, tanque) => {
+        e.stopPropagation();
+
+        console.log("tanque recebido: ", tanque);
+
+        try {
+            const response = await axiosPrivate.put(`/users/${auth.id}/tanques/${tanque.id}`, tanque);
+            const tanqueAtualizado = response.data;
+            console.log(response);
+            setTanques(prevTanques => prevTanques.map(t => t.id === tanqueAtualizado.id ? tanqueAtualizado : t));
+        } catch (error) {
+            console.error('Erro ao atualizar tanque', error);
+            setErrMsg('Erro ao atualizar o tanque');
+        }
+    }
 
     const handleDelete = async (e, id) => {
         e.stopPropagation();
@@ -56,22 +75,34 @@ function TanqueListPage() {
         return () => isMounted = false;
     }, [auth?.id, axiosPrivate, location, navigate]);
 
+    useEffect(() => {
+        let timeoutId;
+        if (destaque) {
+            timeoutId = setTimeout(() => {
+                setDestaque(null);
+            }, 1000);
+        }
+
+        // Limpa o timeout se o componente for desmontado ou se o destaque mudar
+        return () => clearTimeout(timeoutId);
+    }, [destaque, tanques]);
+
     const handleAddClick = () => {
         setShowAddModal(true);
     }
 
-    const handleAddClose = () => {
+    const handleModalClose = () => {
         setShowAddModal(false);
     }
 
-    const addActionbar = <div>
-        <button onClick={handleAddClose} className="modal-close-button">Cancelar</button>
-        <button onClick={handleAddClose} className="modal-X-close-button"><IoCloseOutline size={30} /></button>
+    const actionbar = <div>
+        <button onClick={handleModalClose} className="modal-close-button">Cancelar</button>
+        <button onClick={handleModalClose} className="modal-X-close-button"><IoCloseOutline size={30} /></button>
     </div>
 
     const addModal = (
-        <Modal onClose={handleAddClose} actionBar={addActionbar}>
-            <TanqueAdd setTanques={setTanques} setShowModal={setShowAddModal} />
+        <Modal onClose={handleModalClose} actionBar={actionbar}>
+            <TanqueAdd setTanques={setTanques} setShowModal={setShowAddModal} setDestaque={setDestaque} />
         </Modal>
     )
 
@@ -90,7 +121,14 @@ function TanqueListPage() {
             <SearchBar elementToAdd={"Tanque"} handleAdd={handleAddClick} />
             <div className="tank-list-container">
                 {tanques?.length > 0 ? tanques.map((tanque) => (
-                    <Tank tanque={tanque} key={tanque.id} handleDelete={handleDelete} />
+                    <Tank
+                        tanque={tanque}
+                        key={tanque.id}
+                        handleDelete={handleDelete}
+                        handleEdit={handleEdit}
+                        destaque={destaque}
+                        setDestaque={setDestaque}
+                    />
                 )) : 'Sem tanques para mostrar'}
             </div>
             {showAddModal && addModal}

@@ -12,7 +12,7 @@ function Modal({ onClose, children, actionBar, width='640px', height='380px' }) 
     }, []);
 
     return ReactDOM.createPortal(
-        <div>
+        <div onClick={(e) => e.stopPropagation()}>
             <div onClick={onClose} className='modal-background'></div>
             <div className='modal' style={{ width, height }}>
                 <div className='modal-content'>

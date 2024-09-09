@@ -108,7 +108,7 @@ export class TanqueService {
         });
     };
 
-    static async updateTanqueByUserId(tanqueId: number, userId: number, dadosAtualizados: Tanque, aparelhosParaAdicionar: string[], aparelhosParaRemover: string[]) {
+    static async updateTanqueByUserId(tanqueId: number, userId: number, dadosAtualizados: Partial<Tanque>, aparelhosParaAdicionar: string[], aparelhosParaRemover: string[]) {
         const transaction = await sequelize.transaction();
 
         try {
@@ -124,7 +124,13 @@ export class TanqueService {
                 throw new NotFoundError('Tanque não encontrado');
             }
 
-            await tanque.update(dadosAtualizados, { transaction });
+            const {
+                nome,
+                areaTanque,
+                volumeAgua,
+            } = dadosAtualizados;
+
+            await tanque.update({ nome, areaTanque, volumeAgua }, { transaction });
 
             if (aparelhosParaAdicionar && aparelhosParaAdicionar.length > 0) {
                 const aparelhos = await Aparelho.findAll({
@@ -167,7 +173,7 @@ export class TanqueService {
             }
         } catch (error: any) {
             await transaction.rollback();
-            throw new ServerError('Erro ao atualizar tanque');
+            throw new ServerError(`Erro ao atualizar tanque: ${error.message}`);
         }
     };
 

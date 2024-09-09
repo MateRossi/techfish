@@ -67,8 +67,9 @@ export const tanqueController = {
         try {
             const tanqueId = Number(req.params.tanqueId);
             const userId = Number(req.params.userId);
-            const { dadosTanque, aparelhosParaAdicionar, aparelhosParaRemover } = req.body;
-            const tanqueAtualizado = await TanqueService.updateTanqueByUserId(tanqueId, userId, dadosTanque, aparelhosParaAdicionar, aparelhosParaRemover);
+            const { nome, areaTanque, volumeAgua, aparelhosParaAdicionar, aparelhosParaRemover } = req.body;
+            const dadosAtualizados = { nome, areaTanque, volumeAgua };
+            const tanqueAtualizado = await TanqueService.updateTanqueByUserId(tanqueId, userId, dadosAtualizados, aparelhosParaAdicionar, aparelhosParaRemover);
             res.json(tanqueAtualizado);
         } catch (error: any) {
             ErrorResponse.handleErrorResponse(error, res);

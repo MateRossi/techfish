@@ -15,11 +15,10 @@ import { IoCloseOutline } from 'react-icons/io5';
 import Modal from '../modalComp/Modal';
 import TankDetails from '../tankDetailsComp/TankDetails';
 import Confirm from '../confirmDeleteComp/Confirm';
-import tanqueIcon from '../../img/tanque.png';
 import { BsExclamationCircle } from "react-icons/bs";
 import TankEdit from '../tankEditComp/TankEdit';
 
-function Tank({ tanque, handleDelete }) {
+function Tank({ tanque, handleDelete, handleEdit, destaque, setDestaque }) {
     const formattedDate = useDate(tanque?.leituras?.[0]?.data_hora);
     const ultimaLeitura = tanque?.leituras?.[0] || {};
 
@@ -68,13 +67,13 @@ function Tank({ tanque, handleDelete }) {
     );
 
     const editModal = (
-        <Modal onClose={handleTankClose} actionBar={actionBar}>
-            <TankEdit />
+        <Modal onClose={handleTankClose} actionBar={actionBar} height='600px'>
+            <TankEdit tanque={tanque} handleEdit={handleEdit} setShowEditModal={setShowEditModal} setDestaque={setDestaque} />
         </Modal>
     );
 
     return (
-        <div className="tank-item" onClick={handleTankClick}>
+        <div className={destaque?.id === tanque.id ? "tank-item-highlight": "tank-item" } onClick={handleTankClick} >
             <div className="tank-item-header">
                 <div className="tank-header-info">
                     <div className="tank-info-column">
