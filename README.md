@@ -1,2 +1,2 @@
 # techfish
-Repositório para o projeto de inciação científica - TechFish
+Repositório para o projeto de iniciação científica - TechFish
