@@ -36,8 +36,8 @@ function TankEdit({ tanque, handleEdit, setShowEditModal, setDestaque }) {
             nome: nomeTanque,
             areaTanque: areaTanque,
             volumeAgua: volumeAgua,
-            aparelhosParaRemover: aparelhosParaRemover.map(aparelho => aparelho.id),
-            aparelhosParaAdicionar: aparelhosParaAdicionar.map(aparelho => aparelho.id),
+            aparelhosParaRemover: aparelhosParaRemover?.map(aparelho => aparelho.id),
+            aparelhosParaAdicionar: aparelhosParaAdicionar?.map(aparelho => aparelho.id),
         }
 
         handleEdit(e, dadosAtualizados);

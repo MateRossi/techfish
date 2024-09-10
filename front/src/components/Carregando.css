@@ -3,6 +3,9 @@
     border-top: 5px solid rgb(43, 151, 240);
     border-radius: 100%;
     animation: spin 1s linear infinite;
+    position: absolute;
+    left: 50%;
+    transform: (-50%, -50%);
 }
 
 @keyframes spin {
