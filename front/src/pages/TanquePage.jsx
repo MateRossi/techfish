@@ -12,7 +12,7 @@ import Grafico2 from "../components/Grafico2";
 import Modal from '../components/modalComp/Modal';
 import useLocalStorage from '../hooks/use-local-storage';
 import './TanquePage.css';
-import SeletorAtributo from "../components/SeletorAtributo";
+import SeletorAtributo from "../components/seletorAtributoComp/SeletorAtributo";
 import TanqueEdit from "../components/TanqueEdit";
 
 function TanquePage() {

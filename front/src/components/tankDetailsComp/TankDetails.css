@@ -1,0 +1,49 @@
+.select-aparelhos-container {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    overflow-x: auto;
+    pointer-events: all;
+    overscroll-behavior-block: contain;
+}
+
+.select-aparelhos-container>button {
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0s;
+    border: 0;
+    padding: 16px 16px;
+    outline: none;
+}
+
+.select-aparelhos-container>button:hover {
+    background-color: #ECECEC;
+    color: #0A84FF;
+}
+
+.selected-aparelho-button,
+.selected-aparelho-button:focus {
+    background-color: #ECECEC;
+    color: #0A84FF;
+}
+
+.aparelho-button {
+    background-color: #0050A1;
+    color: #F5F5F5;
+}
+
+.aparelho-selecionado-container {
+    background-color: #ECECEC;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: calc(100% - 45px);
+}
+
+.grafico-container {
+    height: 100%;
+    width: 100%;
+    pointer-events: all;
+}
