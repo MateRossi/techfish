@@ -23,6 +23,9 @@
     top: 100%;
     z-index: 4;
     background-color: #fff;
+    overflow-y: scroll;
+    pointer-events: all;
+    max-height: 200px;
 }
 
 .dropdown-option {
