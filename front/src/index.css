@@ -8,6 +8,13 @@
   overflow: hidden;
 }
 
+.table-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+}
+
 #root {
   width: 100%;
 }

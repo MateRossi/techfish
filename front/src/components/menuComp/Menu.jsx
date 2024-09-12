@@ -26,6 +26,9 @@ function Menu() {
                 <MenuListItem to={`/users/${auth.id}/tanques`} icon={TanqueIcon}>
                     Meus Tanques
                 </MenuListItem>
+                <MenuListItem to={`/users/${auth.id}/aparelhos`} icon={TanqueIcon}>
+                    Meus Aparelhos
+                </MenuListItem>
                 <MenuListItem to={`/users/${auth.id}/especies`} icon={EspeciesIcon}>
                     Espécies
                 </MenuListItem>

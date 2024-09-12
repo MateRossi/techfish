@@ -9,6 +9,7 @@ import TanquePage from './pages/TanquePage'
 import FasesPage from './pages/FasesPage'
 import EspeciesPage from './pages/EspeciesPage'
 import Faturamento from './pages/FaturamentoPage'
+import AparelhosPage from './pages/AparelhosPage'
 
 function App() {  
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route element={<PersistLogin />}>
         <Route path='/users' element={<Layout />}>
           <Route path='/users/:userId/tanques' element={<TanqueListPage />} />
+          <Route path='/users/:userId/aparelhos' element={<AparelhosPage />} />
           {/*<Route path='/user/:userId/tanque/:tanqueId' element={<ReadingsProvider><TankPage /></ReadingsProvider>} />*/}
           <Route path='/users/:userId/tanques/:tanqueId' element={<TanquePage />} />
           <Route path='/users/:userId/fases' element={<FasesPage />} />
