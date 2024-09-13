@@ -1,0 +1,33 @@
+.table-actions button {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+}
+
+.table-actions button .edit-icon {
+    color: #828282;
+}
+
+.table-actions button .delete-icon {
+    color: #EB0000;
+}
+
+table td {
+    padding: 16px 0;
+    text-align: center;
+}
+
+.em-uso, .disponivel {
+    width: fit-content;
+    padding: 10px;
+    border-radius: 22px;
+    color: #091242;
+}
+
+.em-uso {
+    background-color: #14FB36;
+}
+
+.disponivel {
+    background-color: #0a84ffa1;
+}

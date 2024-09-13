@@ -24,7 +24,14 @@ export class AparelhoService {
         };
 
         return await Aparelho.findAll({
-            where: { userId }
+            where: { userId },
+            include: [
+                {
+                    model: Tanque,
+                    as: 'tanque',
+                    attributes: ['nome'],
+                }
+            ]
         });
     };
 
