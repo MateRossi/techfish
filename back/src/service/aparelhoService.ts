@@ -59,7 +59,7 @@ export class AparelhoService {
             id,
             tanqueId
         } = dadosAparelho;
-        
+
         const user = await User.findByPk(userId);
 
         if (!user) {
@@ -68,17 +68,28 @@ export class AparelhoService {
 
         if (tanqueId) {
             const tanque = await Tanque.findByPk(tanqueId);
-            
+
             if (!tanque) {
                 throw new NotFoundError('Tanque não encontrado');
             }
         };
 
-        return await Aparelho.create({
+        const aparelho = await Aparelho.create({
             id,
             userId,
             tanqueId
         });
+
+        return await Aparelho.findOne({
+            where: { id: aparelho.id },
+            include: [
+                {
+                    model: Tanque,
+                    as: 'tanque',
+                    attributes: ['nome']
+                }
+            ]
+        })
     };
 
     static async updateAparelho(aparelhoId: string, userId: number) {
@@ -92,9 +103,36 @@ export class AparelhoService {
 
         return await aparelho.update({
             aparelhoId,
-            userId   
+            userId
         });
     };
+
+    static async updateTanqueForAparelho(aparelhoId: string, tanqueId: number) {
+        const [aparelho, tanque] = await Promise.all([
+            Aparelho.findByPk(aparelhoId),
+            Tanque.findByPk(tanqueId),
+        ]);
+
+        if (!aparelho) {
+            throw new NotFoundError('aparelho não encontrado');
+        }
+
+        if (!tanque) {
+            throw new NotFoundError('tanque não encontrado');
+        }
+
+        await aparelho.update({ tanqueId });
+
+        return await Aparelho.findByPk(aparelhoId, {
+            include: [
+                {
+                    model: Tanque,
+                    as: 'tanque',
+                    attributes: ['nome'],
+                }
+            ]
+        });
+    }
 
     //verificar AQUI.
     static async deleteAparelhoByUserId(userId: number, aparelhoId: string) {

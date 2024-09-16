@@ -92,6 +92,17 @@ export const aparelhoController = {
         };
     },
 
+    async updateTanqueForAparelho(req: Request, res: Response) {
+        try {
+            const aparelhoId = req.params.aparelhoId;
+            const tanqueId = Number(req.body.tanqueId);
+            const aparelhoAtualizado = await AparelhoService.updateTanqueForAparelho(aparelhoId, tanqueId);
+            return res.json(aparelhoAtualizado);
+        } catch (error: any) {
+            ErrorResponse.handleErrorResponse(error, res);
+        }
+    },
+
     async deleteAparelhoByUserId(req: Request, res: Response) {
         const errors = validationResult(req);
 
