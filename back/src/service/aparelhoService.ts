@@ -107,21 +107,17 @@ export class AparelhoService {
         });
     };
 
-    static async updateTanqueForAparelho(aparelhoId: string, tanqueId: number) {
+    static async updateTanqueForAparelho(aparelhoId: string, tanqueId: number|null) {
         const [aparelho, tanque] = await Promise.all([
             Aparelho.findByPk(aparelhoId),
-            Tanque.findByPk(tanqueId),
+            tanqueId ? Tanque.findByPk(tanqueId) : null,
         ]);
 
         if (!aparelho) {
             throw new NotFoundError('aparelho não encontrado');
         }
-
-        if (!tanque) {
-            throw new NotFoundError('tanque não encontrado');
-        }
-
-        await aparelho.update({ tanqueId });
+        
+        await (aparelho as any).setTanque(tanque);
 
         return await Aparelho.findByPk(aparelhoId, {
             include: [
