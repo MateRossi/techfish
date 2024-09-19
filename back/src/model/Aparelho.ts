@@ -14,7 +14,7 @@ class Aparelho extends Model {
 
     static associate(models: any) {
         this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
-        this.hasMany(models.Leitura, { foreignKey: 'aparelhoId', as: 'leituras' });
+        this.hasMany(models.Leitura, { foreignKey: 'aparelhoId', as: 'leituras', onDelete: 'CASCADE' });
         this.belongsTo(models.Tanque, { foreignKey: 'tanqueId', as: 'tanque' });
     };
 };

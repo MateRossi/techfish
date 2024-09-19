@@ -32,7 +32,7 @@ export const aparelhoRules = {
             .trim()
             .notEmpty().withMessage("'userId' não pode estar vazio")
             .isInt().withMessage("'userId' deve ser um integer"),
-        param('id')
+        param('aparelhoId')
             .trim()
             .notEmpty().withMessage("'id' não pode estar vazio")
             .isString().withMessage("'id' deve ser uma string"),

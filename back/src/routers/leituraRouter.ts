@@ -6,7 +6,10 @@ const leituraRouter = express.Router();
 
 //querys opcionais: page e limit
 leituraRouter.get('/', leituraRules.getAllLeituras, leituraController.getAllLeituras);
+
 leituraRouter.get('/tanques/:tanqueId/aparelhos/:aparelhoId', leituraRules.getLeiturasByAparelhoIdTanqueId, leituraController.getLeiturasByAparelhoIdTanqueId);
+leituraRouter.get('/tanques/:tanqueId', leituraRules.getLeiturasByTanqueId, leituraController.getLeiturasByTanqueId);
+
 
 leituraRouter.get('/:leituraId', leituraRules.getLeituraById, leituraController.getLeituraById);
 leituraRouter.put('/:leituraId', leituraController.updateLeitura);

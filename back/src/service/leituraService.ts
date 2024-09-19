@@ -25,6 +25,18 @@ export class LeituraService {
             limit: limit,
             offset,
             attributes: { exclude: ['createdAt', 'updatedAt'] },
+            order: [['data_hora', 'DESC']],
+        });
+    };
+
+    static async getLeiturasByTanqueId(page = 1, limit = 96, tanqueId: number) {
+        const offset = (page - 1) * limit;
+        return await Leitura.findAll({
+            where: { tanqueId },
+            limit: limit,
+            offset,
+            attributes: { exclude: ['createdAt', 'updatedAt'] },
+            order: [['data_hora', 'DESC']],
         });
     };
 
