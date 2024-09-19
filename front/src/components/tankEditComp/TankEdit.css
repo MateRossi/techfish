@@ -17,7 +17,8 @@
     color: rgb(18, 158, 10);
 }
 
-.add-aparelho-container>button:hover, .add-aparelho-container>button:focus {
+.add-aparelho-container>button:hover,
+.add-aparelho-container>button:focus {
     color: rgb(16, 105, 12);
 
 }

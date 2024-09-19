@@ -1,0 +1,51 @@
+.InputContainer>label {
+    color: rgba(52, 64, 84, 0.5);
+}
+
+.InputContainer>input[type="text"] {
+    color: #667085;
+    font-size: 16px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.subtitulo-aparelho-edit {
+    margin-bottom: 10px;
+}
+
+.tanques-select-label {
+    margin: 0;
+    color: rgba(52, 64, 84, 0.5);
+    font-weight: 600;
+}
+
+.add-aparelho-container .dropdown-current,
+.add-aparelho-container .dropdown-options {
+    color: #667085;
+    font-size: 16px;
+}
+
+.radio-input-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 5px;
+    color: #828282;
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    pointer-events: all;
+}
+
+.radio-input-container>input[type="checkbox"] {
+    width: 16px;
+    border-color: red;
+}
+
+.radio-input-container>input[type="checkbox"]:hover {
+    cursor: pointer;
+}
+
+.radio-input-container>label:hover {
+    cursor: pointer;
+}

@@ -7,6 +7,7 @@ import useAxiosPrivate from "../../hooks/use-axios-private";
 import useAuth from "../../hooks/use-auth";
 import { CgRemoveR } from "react-icons/cg";
 import { CgAddR } from "react-icons/cg";
+import Carregando from "../Carregando";
 
 function TankEdit({ tanque, handleEdit, setShowEditModal, setDestaque }) {
     const axiosPrivate = useAxiosPrivate();
@@ -98,9 +99,12 @@ function TankEdit({ tanque, handleEdit, setShowEditModal, setDestaque }) {
         return () => isMounted = false;
     }, [auth.id, axiosPrivate, tanque.aparelhos]);
 
+    if (loading) return <Carregando />
+
     return (
         <div>
             <img src={tanqueIcon} className='modal-icon' alt="ícone de um tanque de peixes" />
+            {errMsg && <p className="errMsg">{errMsg}</p>}
             <form onSubmit={handleSubmit}>
                 <h2 className="modal-title">Editar Informações</h2>
                 <p>Edite as informações que compõe o tanque.</p>

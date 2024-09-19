@@ -13,21 +13,22 @@
 }
 
 table td {
-    padding: 16px 0;
+    padding: 10px 0;
     text-align: center;
 }
 
 .em-uso, .disponivel {
     width: fit-content;
-    padding: 10px;
+    padding: 6px;
     border-radius: 22px;
     color: #091242;
+    font-size: 12px;
 }
 
 .em-uso {
-    background-color: #14FB36;
+    background-color: rgba(20, 251, 55, 0.69);
 }
 
 .disponivel {
-    background-color: #0a84ffa1;
+    background-color: rgba(10, 132, 255, 0.69);
 }

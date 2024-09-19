@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/use-auth";
 import Carregando from "../components/Carregando";
 import Modal from "../components/modalComp/Modal";
-import TanqueAdd from "../components/addTanqueComp/AddTanque";
+import AddTanque from "../components/addTanqueComp/AddTanque";
 import PageTitle from "../components/pageTitleComp/PageTitle";
 import SearchBar from "../components/searchBarComp/SearchBar";
 import { IoCloseOutline } from "react-icons/io5";
@@ -16,6 +16,7 @@ function TanqueListPage() {
     const [loading, setLoading] = useState(true);
     const [errMsg, setErrMsg] = useState('');
     const [destaque, setDestaque] = useState(null);
+    const [changed, setChanged] = useState(false);
 
     const [showAddModal, setShowAddModal] = useState(false);
 
@@ -27,13 +28,11 @@ function TanqueListPage() {
     const handleEdit = async (e, tanque) => {
         e.stopPropagation();
 
-        console.log("tanque recebido: ", tanque);
-
         try {
             const response = await axiosPrivate.put(`/users/${auth.id}/tanques/${tanque.id}`, tanque);
             const tanqueAtualizado = response.data;
-            console.log(response);
             setTanques(prevTanques => prevTanques.map(t => t.id === tanqueAtualizado.id ? tanqueAtualizado : t));
+            setChanged(prev => !prev);
         } catch (error) {
             console.error('Erro ao atualizar tanque', error);
             setErrMsg('Erro ao atualizar o tanque');
@@ -73,7 +72,7 @@ function TanqueListPage() {
         getTanques();
 
         return () => isMounted = false;
-    }, [auth?.id, axiosPrivate, location, navigate]);
+    }, [auth?.id, axiosPrivate, location, navigate, changed]);
 
     useEffect(() => {
         let timeoutId;
@@ -102,7 +101,7 @@ function TanqueListPage() {
 
     const addModal = (
         <Modal onClose={handleModalClose} actionBar={actionbar}>
-            <TanqueAdd setTanques={setTanques} setShowModal={setShowAddModal} setDestaque={setDestaque} />
+            <AddTanque setTanques={setTanques} setShowModal={setShowAddModal} setDestaque={setDestaque} />
         </Modal>
     )
 

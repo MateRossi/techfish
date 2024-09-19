@@ -1,0 +1,25 @@
+.active-item-container {
+    background-color: #0050A1;
+    padding: 5px;
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: 6px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.active-item-container>p {
+    color: #fff;
+}
+
+.active-item-container>button {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    color: #fff;
+}
+
+.active-item-container>p {
+    margin: 0;
+}

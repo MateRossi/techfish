@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { GoChevronDown } from 'react-icons/go';
 import './Dropdown.css'
 
-function Dropdown({ options, value, onChange }) {
+function Dropdown({ options, value, onChange, label }) {
     const [isOpen, setIsOpen] = useState(false);
     const divEl = useRef();
 
@@ -37,7 +37,7 @@ function Dropdown({ options, value, onChange }) {
     const renderedOptions = options.map((option) => {
         return (
             <div className='dropdown-option' onClick={() => handleOptionClick(option)} key={option.id}>
-                {option.id}
+                {option[label] || option.id}
             </div>
         );
     });
@@ -48,7 +48,7 @@ function Dropdown({ options, value, onChange }) {
                 className="dropdown-current" 
                 onClick={handleClick}
             >
-                {value?.id || 'Selecione...'}
+                {value?.[label] || value?.id || 'Selecione...'}
                 <GoChevronDown />
             </div>
             {isOpen && (

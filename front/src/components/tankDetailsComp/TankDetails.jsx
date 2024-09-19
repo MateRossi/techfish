@@ -1,5 +1,5 @@
 import './TankDetails.css';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import useAxiosPrivate from '../../hooks/use-axios-private';
 import useLocalStorage from '../../hooks/use-local-storage';
 import SeletorAtributo from '../seletorAtributoComp/SeletorAtributo';
@@ -36,7 +36,7 @@ function TankDetails({ tanque }) {
         getLeiturasAparelhoETanque();
 
         return () => isMounted = false;
-    }, [selected]);
+    }, [axiosPrivate, limit, selected, tanque.id]);
     
     const handleAparelhoClick = (aparelho) => {
         setSelected(aparelho);

@@ -5,6 +5,7 @@
     overflow-x: auto;
     pointer-events: all;
     overscroll-behavior-block: contain;
+    height: 50px;
 }
 
 .select-aparelhos-container>button {
