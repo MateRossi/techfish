@@ -77,13 +77,13 @@ function AparelhosPage() {
 
     const handleSearchChange = (value) => {
         setSerchTerm(value);
-        
-        const filteredItems = aparelhos.filter(item => 
-            Object.values(item).some(val => 
+
+        const filteredItems = aparelhos.filter(item =>
+            Object.values(item).some(val =>
                 String(val).toLowerCase().includes(value)
             )
         );
-        
+
         setFiltered(filteredItems);
     }
 
@@ -121,10 +121,10 @@ function AparelhosPage() {
 
     const deleteModal = (
         <Modal onClose={handleModalClose} actionBar={actionBar} height="200px">
-            <Confirm 
-            onConfirm={(e) => handleDelete(e, selectedAparelho?.id)} 
-            icon={delIcon} 
-            title={`Confirmar exlusão do aparelho ${selectedAparelho?.id}`}
+            <Confirm
+                onConfirm={(e) => handleDelete(e, selectedAparelho?.id)}
+                icon={delIcon}
+                title={`Confirmar exlusão do aparelho ${selectedAparelho?.id}`}
             />
         </Modal>
     )
@@ -201,7 +201,12 @@ function AparelhosPage() {
                 searchTerm={searchTerm}
                 onChange={handleSearchChange}
             />
-            <SortableTable data={searchTerm ? filtered : aparelhos} config={config} keyFn={keyFn} />
+            {aparelhos.length !== 0 ?
+                <SortableTable data={searchTerm ? filtered : aparelhos} config={config} keyFn={keyFn} />
+                : <p>Você ainda não possui aparelhos aparelhos para monitorar a qualidade da água.
+                    Adicione um novo clicando em <b>Adicionar Aparelho</b>.
+                </p>
+            }
             {showAddModal && addModal}
             {showEditModal && editModal}
             {showDeleteModal && deleteModal}

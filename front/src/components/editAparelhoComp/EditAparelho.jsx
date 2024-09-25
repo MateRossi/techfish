@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/use-auth";
 import useAxiosPrivate from "../../hooks/use-axios-private";
-import aparelhoIcon from '../../img/tanque.png';
+import deviceIcon from '../../img/deviceIcon.svg';
 import Carregando from "../Carregando";
 import Dropdown from '../../components/dropdownComp/Dropdown';
 import './EditAparelho.css';
@@ -66,7 +66,7 @@ function EditAparelho({ aparelho, handleEdit, setShowModal }) {
 
     return (
         <div>
-            <img src={aparelhoIcon} className="modal-icon" alt="ícone de um aparelho de medição" />
+            <img src={deviceIcon} className="modal-icon" alt="ícone de um aparelho de medição" style={{ border: 'none' }}/>
             {errMsg && <p className="errMsg">{errMsg}</p>}
             <form onSubmit={handleSubmit} id="aparelho-edit">
                 <h2 className="modal-title">Editar Aparelho</h2>
@@ -88,6 +88,7 @@ function EditAparelho({ aparelho, handleEdit, setShowModal }) {
                         id="aparelho"
                         type="text"
                         value={aparelho.id}
+                        readOnly
                     />
                 </div>
 

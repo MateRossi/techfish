@@ -7,11 +7,20 @@ import useAuth from '../../hooks/use-auth';
 import MenuListItem from '../menuListItemComp/MenuListItem';
 import GanhosIcon from '../../icons/GanhosIcon';
 import SairIcon from '../../icons/SairIcon';
-import { Link } from 'react-router-dom';
+import DeviceIcon from '../../icons/DeviceIcon';
+import { useNavigate } from 'react-router-dom';
+import useLogout from '../../hooks/use-logout';
 import PerfilIcon from '../../icons/PerfilIcon';
 
 function Menu() {
     const { auth } = useAuth();
+    const logout = useLogout();
+    const navigate = useNavigate();
+
+    const signOut = async () => {
+        await logout();
+        navigate('/auth');
+    }
 
     return (
         <nav className="nav-bar">
@@ -26,7 +35,7 @@ function Menu() {
                 <MenuListItem to={`/users/${auth.id}/tanques`} icon={TanqueIcon}>
                     Meus Tanques
                 </MenuListItem>
-                <MenuListItem to={`/users/${auth.id}/aparelhos`} icon={TanqueIcon}>
+                <MenuListItem to={`/users/${auth.id}/aparelhos`} icon={DeviceIcon}>
                     Meus Aparelhos
                 </MenuListItem>
                 <MenuListItem to={`/users/${auth.id}/especies`} icon={EspeciesIcon}>
@@ -47,7 +56,7 @@ function Menu() {
                         <span className='papel-user'>{auth.role}</span>
                     </span>
                 </div>
-                <Link className='sair-link' to='/'><SairIcon className="sair-icon" />Sair</Link>
+                <button className='sair-button' onClick={signOut}><SairIcon className="sair-icon" />Sair</button>
             </div>
         </nav>
     );

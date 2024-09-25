@@ -59,19 +59,20 @@
     justify-content: flex-start;
 }
 
-.sair-link {
-    margin-top: 20px;
-    height: 2rem;
+.sair-button {
     display: block;
     color: #828282;
     display: flex;
     align-items: center;
     width: auto;
+    border-color: transparent;
+    width: fit-content;
+    padding: 5px;
+    padding-left: 10px;
 }
 
-.sair-link .sair-icon {
-    margin-left: 13px;
-    margin-right: 24px;
+.sair-button .sair-icon {
+    margin-right: 10px;
     width: 1.5rem;
     height: 2rem;
     color: #828282;

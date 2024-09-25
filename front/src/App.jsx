@@ -10,16 +10,18 @@ import FasesPage from './pages/FasesPage'
 import EspeciesPage from './pages/EspeciesPage'
 import Faturamento from './pages/FaturamentoPage'
 import AparelhosPage from './pages/AparelhosPage'
+import HomePage from './pages/HomePage'
 
-function App() {  
+function App() {
   return (
     <Routes>
-      <Route path='/' element={<LoginPage />} />
+      <Route path='/auth' element={<LoginPage />} />
       <Route path='/register' element={<LogonPage />} />
-      
+
       {/*rotas particulares ao usuário*/}
       <Route element={<PersistLogin />}>
-        <Route path='/users' element={<Layout />}>
+        <Route path='/' element={<Layout />}>
+          <Route path='/' element={<HomePage />} />
           <Route path='/users/:userId/tanques' element={<TanqueListPage />} />
           <Route path='/users/:userId/aparelhos' element={<AparelhosPage />} />
           {/*<Route path='/user/:userId/tanque/:tanqueId' element={<ReadingsProvider><TankPage /></ReadingsProvider>} />*/}

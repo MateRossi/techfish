@@ -32,7 +32,6 @@ Tanque.init(
         nome: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
         areaTanque: {
             type: DataTypes.DECIMAL,

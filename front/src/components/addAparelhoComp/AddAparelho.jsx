@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useAxiosPrivate from "../../hooks/use-axios-private";
 import useAuth from "../../hooks/use-auth";
-import ganhos from '../../img/ganhosIcon.svg';
+import deviceIcon from '../../img/deviceIcon.svg';
 
 function AddAparelho({ setAparelhos, setShowModal }) {
     const [aparelhoId, setAparelhoId] = useState('');
@@ -21,15 +21,23 @@ function AddAparelho({ setAparelhos, setShowModal }) {
             setAparelhos(prevAparelhos => [...prevAparelhos, response.data]);
             setShowModal(false);
         } catch (error) {
-            console.error(error.message);
-            setShowModal(false);
-            setErrMsg('Erro ao adicionar aparelho')
+            if (!error?.response) {
+                setErrMsg('Sem resposta.');
+            } else if (error.response?.status === 400) {
+                setErrMsg('Dados faltantes');
+            } else if (error.response?.status === 401) {
+                setErrMsg('Não autorizado');
+            } else if (error.response?.status === 409) {
+                setErrMsg('Conflito. Aparelho já está cadastrado.')
+            } else {
+                setErrMsg('Falha ao adicionar aparelho');
+            }
         }
     }
 
     return (
         <form onSubmit={handleSubmit}>
-            <img src={ganhos} className='modal-icon' alt="ícone de um tanque de peixes" />
+            <img src={deviceIcon} className='modal-icon' alt="ícone de um tanque de peixes" style={{ border: 'none' }}/>
             {errMsg && <p className="errMsg">{errMsg}</p>}
 
             <h2 className="modal-title">Adicionar Aparelho</h2>
