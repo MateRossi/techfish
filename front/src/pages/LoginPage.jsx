@@ -5,10 +5,11 @@ import useAuth from '../hooks/use-auth';
 import useInput from '../hooks/use-input';
 import useToggle from '../hooks/use-toggle';
 import { Link } from "react-router-dom";
-import { RiAccountCircleFill, RiGoogleFill, RiFacebookCircleFill } from "react-icons/ri";
+import { RiAccountCircleFill } from "react-icons/ri";
 import { useState, useEffect, useRef } from "react";
 import * as jose from 'jose';
 import axios from '../api/axios';
+import Checkbox from "../components/checkboxComp/Checkbox";
 
 const LOGIN_URL = '/auth';
 
@@ -88,10 +89,8 @@ function LoginPage() {
                 </header>
                 <h1>Acesse sua conta</h1>
                 <p className="Subtitle">Sua conta é o portal de acesso ao recursos de monitoramento de piscicultura e muito mais!</p>
-                <button className=""><RiFacebookCircleFill className="Icon" />Entrar com Facebook</button>
-                <button><RiGoogleFill className="Icon" />Entrar com Google</button>
-                <div className="Separator"><hr /><span className="HrText">ou</span><hr /></div>
-                <form onSubmit={handleSubmit}>
+                <div className="Separator"><hr /><span className="HrText">Olá novamente!</span><hr /></div>
+                <form onSubmit={handleSubmit} style={{ marginBottom: '16px' }}>
                     <p ref={errRef} className={errMsg ? 'errMsg' : 'offscreen'} aria-live="assertive">
                         {errMsg}
                     </p>
@@ -122,15 +121,14 @@ function LoginPage() {
 
                     <button type="submit">Entrar</button>
                 </form>
-                <div className="persistCheck">
-                    <input
-                        type="checkbox"
-                        id="persist"
-                        onChange={toggleCheck}
-                        checked={check}
-                    />
-                    <label htmlFor="persist">Manter login</label>
-                </div>
+                <Checkbox
+                    onChange={toggleCheck}
+                    label="Manter autenticado"
+                    checked={check}
+                />
+                <footer className="footer">
+                    <p>Tecfish, 2024</p>
+                </footer>
             </section>
             <section className="Graphics"></section>
         </main>

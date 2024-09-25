@@ -142,7 +142,7 @@ function AparelhosPage() {
                 console.error(err);
                 setErrMsg('Erro ao buscar aparelhos')
                 if (isMounted) {
-                    navigate('/', { state: { from: location }, replace: true });
+                    navigate('/auth', { state: { from: location }, replace: true });
                 }
             }
         }
@@ -188,7 +188,11 @@ function AparelhosPage() {
     }
 
     if (loading) {
-        return <Carregando />
+        return (
+            <main className="Page">
+                <Carregando width='50px' height='50px' />
+            </main>
+        )
     }
 
     return (

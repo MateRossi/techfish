@@ -64,7 +64,7 @@ function TanqueListPage() {
             } catch (err) {
                 console.error(err);
                 if (isMounted) {
-                    navigate('/', { state: { from: location }, replace: true });
+                    navigate('/auth', { state: { from: location }, replace: true });
                 }
             }
         }

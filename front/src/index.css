@@ -8,6 +8,10 @@
   overflow: hidden;
 }
 
+.footer {
+  margin-top: auto;
+}
+
 .table-actions {
   display: flex;
   flex-direction: row;
@@ -178,7 +182,7 @@ button {
 }
 
 .InputContainer input {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 button:hover,
@@ -256,6 +260,10 @@ input {
 .HrText::before {
   content: '';
   margin-left: 10px;
+}
+
+.HrText {
+  text-wrap: nowrap;
 }
 
 .HrText::after {
