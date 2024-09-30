@@ -1,10 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import './Page.css';
 import './LoginPage.css';
 import useAuth from '../hooks/use-auth';
 import useInput from '../hooks/use-input';
 import useToggle from '../hooks/use-toggle';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { useState, useEffect, useRef } from "react";
 import * as jose from 'jose';
@@ -63,7 +62,7 @@ function LoginPage() {
             } else if (err.response?.status === 400) {
                 setErrMsg('Missing username or password');
             } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
+                setErrMsg('Acesso não autorizado. Verifique seu e-mail ou senha.');
             } else if (err.response?.status === 404) {
                 setErrMsg('Usuário não encontrado');
             } else {
@@ -78,7 +77,7 @@ function LoginPage() {
             <section className="LoginContainer">
                 <header className="LoginHeader">
                     <h2>tecfish</h2>
-                    <Link to={'/logon'}>
+                    <Link to={'/register'}>
                         <button>
                             <RiAccountCircleFill className="Icon" /> Sou novo aqui.
                             <span style={{ color: 'rgba(20, 20, 243, 0.6)', textDecoration: 'underline', marginLeft: '4px' }}>
