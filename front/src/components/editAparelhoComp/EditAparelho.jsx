@@ -60,21 +60,38 @@ function EditAparelho({ aparelho, handleEdit, setShowModal }) {
     }
 
     const handleChange = () => {
-        setRemoveAparelho(prev => !prev)
-        !removeAparelho ? setIsModified(true) : setIsModified(false);  
+        setRemoveAparelho(prev => {
+            const newRemoveAparelho = !prev;
+
+            if (newRemoveAparelho) {
+                setTanqueSelecionado(null);
+                setIsModified(true);
+            }
+
+            if (!newRemoveAparelho) {
+                setTanqueSelecionado(aparelho?.tanque);
+                setIsModified(true);
+            }
+
+            if (!newRemoveAparelho && !tanqueSelecionado) {
+                setIsModified(false);
+            }
+
+            return newRemoveAparelho;
+        })
     }
 
     return (
         <div>
-            <img src={deviceIcon} className="modal-icon" alt="ícone de um aparelho de medição" style={{ border: 'none' }}/>
+            <img src={deviceIcon} className="modal-icon" alt="ícone de um aparelho de medição" style={{ border: 'none' }} />
             {errMsg && <p className="errMsg">{errMsg}</p>}
             <form onSubmit={handleSubmit} id="aparelho-edit">
                 <h2 className="modal-title">Editar Aparelho</h2>
                 <p className="subtitulo-aparelho-edit">Mova este aparelho para um novo tanque ou o desabilite.</p>
 
                 <div className="radio-input-container">
-                    <input 
-                        type="checkbox" 
+                    <input
+                        type="checkbox"
                         checked={removeAparelho}
                         id="radio-button"
                         onChange={handleChange}

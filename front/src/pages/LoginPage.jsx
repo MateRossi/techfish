@@ -58,7 +58,7 @@ function LoginPage() {
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('Sem resposta do servidor.');
-                console.error(err.message);
+                console.error(err);
             } else if (err.response?.status === 400) {
                 setErrMsg('Missing username or password');
             } else if (err.response?.status === 401) {
