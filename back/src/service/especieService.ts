@@ -48,6 +48,7 @@ export class EspecieService {
             o2Ideal,
             o2_mgIdeal,
             turbidezIdeal,
+            imgUrl,
             userId,
         } = dadosEspecie;
 
@@ -60,6 +61,7 @@ export class EspecieService {
             o2Ideal,
             o2_mgIdeal,
             turbidezIdeal,
+            imgUrl,
             userId
         });
     };
@@ -80,6 +82,7 @@ export class EspecieService {
             o2Ideal,
             o2_mgIdeal,
             turbidezIdeal,
+            imgUrl,
         } = dadosEspecie;
 
         return Especie.create({ 
@@ -91,6 +94,7 @@ export class EspecieService {
             o2Ideal,
             o2_mgIdeal,
             turbidezIdeal,
+            imgUrl,
             userId 
         });
     };
@@ -106,6 +110,7 @@ export class EspecieService {
             o2Ideal,
             o2_mgIdeal,
             turbidezIdeal,
+            imgUrl,
         } = dadosAtualizados;
 
         return especie.update({ 
@@ -117,6 +122,7 @@ export class EspecieService {
             o2Ideal,
             o2_mgIdeal,
             turbidezIdeal,
+            imgUrl,
         });
     };
 
@@ -137,6 +143,7 @@ export class EspecieService {
             o2Ideal,
             o2_mgIdeal,
             turbidezIdeal,
+            imgUrl,
         } = dadosAtualizados;
 
         return especie.update({ 
@@ -148,6 +155,7 @@ export class EspecieService {
             o2Ideal,
             o2_mgIdeal,
             turbidezIdeal,
+            imgUrl,
         });
     };
 

@@ -7,6 +7,7 @@ import { faseController } from '../controller/faseController';
 import { aparelhoController } from '../controller/aparelhoController';
 import { aparelhoRules } from '../validation/aparelhoRules';
 import { tanqueRules } from '../validation/tanqueRules';
+import upload from '../middleware/multer';
 
 const userRouter = express.Router();
 
@@ -31,7 +32,7 @@ userRouter.delete('/:userId/tanques/:tanqueId', tanqueController.deleteTanqueByU
 //ESPECIES
 userRouter.get('/:userId/especies', especieController.getEspeciesByUserId);
 userRouter.get('/:userId/especies/:especieId', especieController.getEspecieByUserId);
-userRouter.post('/:userId/especies', especieController.createEspecieByUserId);
+userRouter.post('/:userId/especies', upload.single('image'), especieController.createEspecieByUserId);
 userRouter.put('/:userId/especies/:especieId', especieController.updateEspecieByUserId);
 userRouter.delete('/:userId/especies/:especieId', especieController.deleteEspecieByUserId);
 

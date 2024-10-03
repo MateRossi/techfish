@@ -13,6 +13,7 @@ class Especie extends Model {
     public o2Ideal!: number;
     public o2_mgIdeal!: number;
     public turbidezIdeal!: number;
+    public imgUrl!: string;
 
     public userId!: number;
 
@@ -76,6 +77,10 @@ Especie.init(
                 min: 1,
                 max: 150,
             },
+        },
+        imgUrl: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         userId: {
             type: DataTypes.INTEGER,
