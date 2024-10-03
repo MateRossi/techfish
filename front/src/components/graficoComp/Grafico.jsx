@@ -17,9 +17,13 @@ function Grafico({ lista, camposParaMostrar }) {
         return moment(dateString).format('DD/MM/YYYY HH:mm');
     };
 
+    const formatLabel = (label) => {
+        return formatDate(label);
+    }
+
     return (
-        <ResponsiveContainer height="100%" width={'100%'}>
-            <LineChart data={lista} margin={{ top: 5, right: 55, left: 0, bottom: 5 }} height={'100%'} width={'100%'}>
+        <ResponsiveContainer width='100%' height='100%'>
+            <LineChart data={lista} margin={{ top: 5, right: 55, left: 0, bottom: 5 }} width={'100%'}>
                 {camposParaMostrar.map(campo => (
                     <Line
                         key={campo}
@@ -36,7 +40,7 @@ function Grafico({ lista, camposParaMostrar }) {
                     tickFormatter={formatDate}
                 />
                 <YAxis padding={{ top: 5, bottom: 5 }} />
-                <Tooltip />
+                <Tooltip labelFormatter={formatLabel} />
             </LineChart>
         </ResponsiveContainer>
     )

@@ -59,7 +59,7 @@ function Tank({ tanque, handleDelete, handleEdit, destaque, setDestaque }) {
     </div>
 
     const detailsModal = (
-        <Modal onClose={handleTankClose} actionBar={detailsBar} width='95%' height='95%'>
+        <Modal onClose={handleTankClose} actionBar={detailsBar} width='70%' height='75%'>
             <TankDetails tanque={tanque} />
         </Modal>
     );

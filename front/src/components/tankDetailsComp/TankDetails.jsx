@@ -19,12 +19,12 @@ function TankDetails({ tanque }) {
         let isMounted = true;
         const getLeiturasAparelhoETanque = async () => {
             try {
-                const response = await axiosPrivate.get(`/leituras/tanques/${tanque.id}/aparelhos/${selected?.id}?page=1&limit=${limit}`);
+                const response = await axiosPrivate.get(`/leituras/tanques/${tanque.id}`);
                 if (isMounted) {
 
                     const leiturasObtidas = response.data;
 
-                    setLeituras(leiturasObtidas);
+                    setLeituras(leiturasObtidas?.reverse());
                     setLoading(false);
                 }
             } catch (err) {
@@ -37,37 +37,24 @@ function TankDetails({ tanque }) {
 
         return () => isMounted = false;
     }, [axiosPrivate, limit, selected, tanque.id]);
-    
-    const handleAparelhoClick = (aparelho) => {
-        setSelected(aparelho);
-    }
 
     if (loading) {
         return <Carregando />
     }
 
-    if (!selected) {
-        return <p>Este tanque não está sendo monitorado.</p>
-    }
-
     return (
-        <>
-            <div className='select-aparelhos-container'>
-                {tanque.aparelhos.length > 0 ? tanque.aparelhos.map((aparelho) => (
-                    <button onClick={() => handleAparelhoClick(aparelho)} key={aparelho.id} className={selected.id === aparelho.id ? 'selected-aparelho-button' : 'aparelho-button'}>
-                        {aparelho.id}
-                    </button>
-                )) : <p>Este tanque não está sendo monitorado</p>}
+        <div className='tank-details-modal'>
+            <div className='grafico-modal-header'>
+                <h3>Gráfico de medidas ao longo do tempo do tanque <span>{tanque.nome}</span></h3>
+                <p>Selecione um ou mais atributos abaixo para detalhar.</p>
             </div>
-            <div className='aparelho-selecionado-container'>
-                <div>
-                    <SeletorAtributo setAtributosLeitura={setAtributosLeitura} atributosLeitura={atributosLeitura} />
-                </div>
-                <div className='grafico-container' >
-                    <Grafico lista={leituras} camposParaMostrar={atributosLeitura}/>
-                </div>
+            <div>
+                <SeletorAtributo setAtributosLeitura={setAtributosLeitura} atributosLeitura={atributosLeitura} />
             </div>
-        </>
+            <div className='grafico-container'>
+                <Grafico lista={leituras} camposParaMostrar={atributosLeitura} />
+            </div>
+        </div>
     )
 }
 

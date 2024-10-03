@@ -8,6 +8,10 @@
     padding: 0;
 }
 
+.seletores-atributo button {
+    padding: 10px;
+}
+
 .seletores-atributo > .atributo-selected {
     background-color: #BFCCFF;
 }
