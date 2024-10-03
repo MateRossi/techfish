@@ -18,6 +18,9 @@ function TanqueListPage() {
     const [destaque, setDestaque] = useState(null);
     const [changed, setChanged] = useState(false);
 
+    const [searchTerm, setSerchTerm] = useState('');
+    const [filtered, setFiltered] = useState([]);
+
     const [showAddModal, setShowAddModal] = useState(false);
 
     const axiosPrivate = useAxiosPrivate();
@@ -113,22 +116,62 @@ function TanqueListPage() {
         )
     }
 
+    const handleSearchChange = (value) => {
+        setSerchTerm(value);
+
+        const filteredItems = tanques.filter(item =>
+            Object.values(item).some(val =>
+                String(val).toLowerCase().includes(value)
+            )
+        );
+
+        setFiltered(filteredItems);
+    }
+
+    const renderedTanks = () => {
+        if (searchTerm) {
+            return filtered.map((tanque) =>
+                <Tank
+                    tanque={tanque}
+                    key={tanque.id}
+                    handleDelete={handleDelete}
+                    handleEdit={handleEdit}
+                    destaque={destaque}
+                    setDestaque={setDestaque}
+                />
+            )
+        }
+
+        if (tanques.length > 0) {
+            return tanques.map((tanque) =>
+                <Tank
+                    tanque={tanque}
+                    key={tanque.id}
+                    handleDelete={handleDelete}
+                    handleEdit={handleEdit}
+                    destaque={destaque}
+                    setDestaque={setDestaque}
+                />
+            );
+        }
+
+        return <p>Você ainda não cadastrou nenhum tanque.
+            Adicione um novo clicando em <b>Adicionar Aparelho</b>.
+        </p>
+    }
+
     return (
         <main className="page">
             {errMsg && <p className="errMsg">{errMsg}</p>}
             <PageTitle title="Meus Tanques" description="Adicione, edite, monitore ou exclua tanques." />
-            <SearchBar elementToAdd={"Tanque"} handleAdd={handleAddClick} />
+            <SearchBar
+                elementToAdd={"Tanque"}
+                handleAdd={handleAddClick}
+                searchTerm={searchTerm}
+                onChange={handleSearchChange}
+            />
             <div className="tank-list-container">
-                {tanques?.length > 0 ? tanques.map((tanque) => (
-                    <Tank
-                        tanque={tanque}
-                        key={tanque.id}
-                        handleDelete={handleDelete}
-                        handleEdit={handleEdit}
-                        destaque={destaque}
-                        setDestaque={setDestaque}
-                    />
-                )) : 'Sem tanques para mostrar'}
+                {renderedTanks()}
             </div>
             {showAddModal && addModal}
         </main>
