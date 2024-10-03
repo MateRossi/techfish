@@ -1,6 +1,6 @@
 import './PropertyValue.css';
 
-function PropertyValue({ value, icon, description }) {
+function PropertyValue({ value, type, icon, description }) {
     return (
         <div className="property-value-item">
             <div className="tooltip">
@@ -10,7 +10,11 @@ function PropertyValue({ value, icon, description }) {
                     src={icon}
                     alt={`ícone de ${icon}`}
                 />
-                <p>{value}</p>
+                <p>
+                    {
+                        !value ? '-' : <>{value}{type}</> 
+                    }
+                </p>
                 <span className="tooltiptext">{description}</span>
             </div>
         </div>
