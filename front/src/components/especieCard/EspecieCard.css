@@ -1,0 +1,9 @@
+.especie-details {
+    width: 300px;
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.especie-details li:nth-of-type(odd) {
+    background-color: #DFE5FF;
+}
