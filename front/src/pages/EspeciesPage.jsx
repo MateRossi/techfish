@@ -59,8 +59,8 @@ function EspeciesPage() {
     </div>
 
     const addModal = (
-        <Modal onClose={handleModalClose} actionBar={actionBar}>
-            <AddEspecie />
+        <Modal onClose={handleModalClose} actionBar={actionBar} height="610px">
+            <AddEspecie setEspecies={setEspecies} setShowModal={setShowAddModal} />
         </Modal>
     )
 

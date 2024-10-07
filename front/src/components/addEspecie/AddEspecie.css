@@ -1,0 +1,9 @@
+.line-container {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.InputContainer label {
+    font-size: 14px;
+}

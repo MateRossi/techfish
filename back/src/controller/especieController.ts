@@ -50,7 +50,7 @@ export const especieController = {
             const novaEspecie = await EspecieService.createEspecieByUserId(userId, dadosEspecie);
             res.status(201).json(novaEspecie);
         } catch (error: any) {
-            res.status(400).json({ erro: 'Erro ao adicionar especie', detalhes: error.message });
+            ErrorResponse.handleErrorResponse(error, res);
         };
     },
 

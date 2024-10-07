@@ -8,3 +8,10 @@
 .especie-details li:nth-of-type(odd) {
     background-color: #DFE5FF;
 }
+
+.especie-details li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 5px;
+}
