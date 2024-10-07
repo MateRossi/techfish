@@ -9,7 +9,6 @@ import { IoCloseOutline } from "react-icons/io5";
 import Modal from "../components/modalComp/Modal";
 import AddEspecie from "../components/addEspecie/AddEspecie";
 import EspeciesAccordion from "../components/especiesAccordion/EspeciesAccordion";
-import ImageUpload from "../components/imageUploadComp/ImageUpload";
 
 function EspeciesPage() {
     const [errMsg, setErrMsg] = useState('');
@@ -83,10 +82,8 @@ function EspeciesPage() {
                 elementToAdd={"Espécie"}
                 handleAdd={handleAddClick}
             />
-            <EspeciesAccordion value={especies} />
+            <EspeciesAccordion value={especies} setValue={setEspecies} />
             {showAddModal && addModal}
-
-            <ImageUpload id={2}/>
         </main>
     )
 }

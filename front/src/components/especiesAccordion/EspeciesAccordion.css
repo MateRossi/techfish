@@ -5,6 +5,7 @@
     padding-bottom: 10px;
     cursor: pointer;
     height: fit-content;
+    position: relative;
 }
 
 .especies-accordion {
@@ -41,4 +42,39 @@
     max-height: 180px;
     height: 100%;
     object-fit: cover;
+}
+
+.especie-card-icons {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    right: 10px;
+    top: 10px;
+    gap: 5px;
+    justify-content: flex-end;
+}
+
+.especie-card-icons button {
+    padding: 6px;
+    height: 32px;
+    width: 32px;
+    background-color: #f3f5f6;
+}
+
+.especie-card-icons .delete-icon {
+    width: 26px;
+    height: 26px;
+    color: rgb(235, 0, 0);
+}
+
+.especie-card-icons .edit-icon {
+    width: 26px;
+    height: 26px;
+    color: #0A84FF;
+}
+
+.especie-card-icons .picture-icon {
+    width: 26px;
+    height: 26px;
+    color: #0A84FF;
 }

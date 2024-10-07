@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import './ImageUpload.css';
 import useAxiosPrivate from '../../hooks/use-axios-private';
+import defautFish from '../../img/defaultFish.png';
 
-export default function ImageUpload({ id }) {
+export default function ImageUpload({ item, setShowModal }) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
-    const [uploadStatus, setUploadStatus] = useState('');
+    const [errMsg, setErrMsg] = useState('');
 
     const axiosPrivate = useAxiosPrivate();
 
@@ -33,30 +34,31 @@ export default function ImageUpload({ id }) {
         formData.append('image', selectedFile);
 
         try {
-            const response = await axiosPrivate.post(`/especies/${id}/upload`, formData, {
+            const response = await axiosPrivate.post(`/especies/${item?.id}/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
 
-            setUploadStatus('Upload realizado com sucesso!');
+            setShowModal(false);
             console.log('Resposta do servidor:', response.data);
         } catch (err) {
-            setUploadStatus('Erro no upload da imagem.');
+            setErrMsg('Erro ao fazer upload de imagem');
             console.error('Erro ao enviar a imagem', err);
         }
     };
 
     return (
         <div>
-            <h2>Upload de imagem</h2>
+            <img src={defautFish} className='modal-icon' alt="ícone de peixes" />
+            {errMsg && <p className="errMsg">{errMsg}</p>}
+            <h2 className="modal-title">Alterar imagem</h2>
+            <p>Adicione ou altere a imagem da espécie selecionada!</p>
             <form onSubmit={handleSubmit}>
                 <input type="file" onChange={handleFileChange} accept='image/*' />
-                <button type='submit'>Enviar Imagem</button>
+                <button type='submit' className='modal-confirm-button'>Enviar Imagem</button>
             </form>
-
-            {previewUrl && <img src={previewUrl} alt='pré-visualização' style={{ width: '200px', height: 'auto' }} />}
-            {uploadStatus && <p>{uploadStatus}</p>}
+            {previewUrl && <img src={previewUrl} alt='pré-visualização' className='preview-image' />}
         </div>
     );
 }
