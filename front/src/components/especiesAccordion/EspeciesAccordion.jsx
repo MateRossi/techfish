@@ -2,6 +2,9 @@ import { useState } from 'react';
 import './EspeciesAccordion.css';
 import { GoChevronDown, GoChevronLeft } from 'react-icons/go';
 import EspecieCard from '../especieCard/EspecieCard';
+import defaultFish from '../../img/defaultFish.png';
+
+const BASE_URL = 'http://localhost:3500/';
 
 export default function EspeciesAccordion({ value }) {
     const [expandedIndex, setExpandedIndex] = useState(-1);
@@ -24,11 +27,20 @@ export default function EspeciesAccordion({ value }) {
         </span>
 
         return (
-            <div key={item.id}>
+            <div key={item.id} className='especie-accordion-container'>
                 <div onClick={() => handleClick(index)}>
-                    <img src="" alt="" />
-                    {item.nome}
-                    {icon}
+                    <img
+                        src={`${BASE_URL}${item.imgUrl}`}
+                        alt={`imagem de um peixe da espécie ${item.nome}`}
+                        onError={(e) => {
+                            e.target.src = defaultFish
+                        }}
+                    />
+                    <div className='especie-accordion-header-texts'>
+                        <h3>{item.nome}</h3>
+                        <span className='text-icon'>Condições ideais para criação:
+                            {icon}</span>
+                    </div>
                 </div>
                 {isExpanded && <EspecieCard especie={item} />}
             </div>
@@ -36,6 +48,6 @@ export default function EspeciesAccordion({ value }) {
     });
 
     return (
-        <div className=''>{renderedItems}</div>
+        <div className='especies-accordion'>{renderedItems}</div>
     );
 }

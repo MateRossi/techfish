@@ -15,7 +15,7 @@ function useRefreshToken() {
 
         console.log("decoded token in refresh hook", decodedToken);
         console.log(`Id: ${decodedToken.UserInfo.id}\nRole: ${decodedToken.UserInfo.role}\nToken: ${response.data.accessToken} `)
-        setAuth(prev => {
+        setAuth(prev => {            
             return {
                 ...prev,
                 id: decodedToken.UserInfo.id,
@@ -24,7 +24,8 @@ function useRefreshToken() {
                 accessToken: response.data.accessToken,
             }
         });
-        return response.data.accessToken;
+
+        return accessToken;
     }
     return refresh;
 }

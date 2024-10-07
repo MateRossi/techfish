@@ -175,6 +175,18 @@ export class EspecieService {
         return especie.destroy();
     };
 
+    static async uploadEspecieImage(especieId: number, imgUrl: string) {
+        const especie = await Especie.findByPk(especieId);
+
+        if (!especie) {
+            throw new NotFoundError('Especie não encontrada.');
+        }
+
+        especie.imgUrl = imgUrl;
+
+        return await especie.save({ fields: ['imgUrl'] });
+    }
+
     static async jaExiste(id: number) {
         const especie = await Especie.findByPk(id);
         if (!especie) {

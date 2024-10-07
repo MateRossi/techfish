@@ -1,7 +1,8 @@
 .especie-details {
-    width: 300px;
+    width: 100%;
     list-style: none;
     margin-bottom: 0;
+    padding: 10px;
 }
 
 .especie-details li:nth-of-type(odd) {

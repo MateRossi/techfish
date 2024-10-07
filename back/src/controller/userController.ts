@@ -184,7 +184,6 @@ export const userController = {
             process.env.JWT_SECRET || "SEAG@2024TTCCMR",
             (err: any, decoded: any) => {
                 if (err || foundUser.email != decoded.email) return res.sendStatus(403);
-                const role = foundUser.role;
                 const accessToken = jwt.sign(
                     {
                         "UserInfo": {

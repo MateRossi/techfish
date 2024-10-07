@@ -1,3 +1,4 @@
+import { ErrorResponse } from "../error/ErrorResponse";
 import { EspecieService } from "../service/especieService";
 import { Request, Response } from "express";
 
@@ -106,4 +107,15 @@ export const especieController = {
             res.status(400).json({ erro: "Erro ao deletar a especie", datalhes: error.message })
         };
     },
+
+    async uploadEspecieImage(req: Request, res: Response) {
+        try {
+            const especieId = Number(req.params.especieId);
+            const imgUrl = String(req.file?.path);
+            const especie = await EspecieService.uploadEspecieImage(especieId, imgUrl);
+            return res.json(especie);
+        } catch (error: any) {
+            ErrorResponse.handleErrorResponse(error, res);
+        }
+    }
 };

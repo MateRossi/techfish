@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
@@ -15,6 +17,12 @@ import router from './src/routes';
 import addLeitura from './src/routers/publicRoutes/AddLeituraRouter';
 import { userRules } from './src/validation/userRules';
 
+const uploadDir = path.join(__dirname, 'uploads');
+
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -26,6 +34,7 @@ app.use(express.json());
 
 app.use(cookieParser());
 
+app.use('/uploads', express.static('uploads'));
 app.use('/register', userRules.register, register);
 app.use('/auth', userRules.auth, auth);
 app.use('/refresh', refresh);
