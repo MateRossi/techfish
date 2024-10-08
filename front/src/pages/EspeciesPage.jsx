@@ -45,7 +45,7 @@ function EspeciesPage() {
         getEspecies();
 
         return () => isMounted = false;
-    }, [auth?.id, axiosPrivate, location, navigate, showImageModal]);
+    }, [auth?.id, axiosPrivate, location, navigate, selected]);
 
     const handleAddClick = () => {
         setShowAddModal(true);
@@ -90,7 +90,7 @@ function EspeciesPage() {
 
     const imageModal = (
         <Modal onClose={handleModalClose} actionBar={actionBar} height='410px'>
-            <ImageUpload item={selected} setShowModal={setShowImageModal} setErrMsg={setErrMsg} />
+            <ImageUpload item={selected} setSelected={setSelected} setShowModal={setShowImageModal} setErrMsg={setErrMsg} />
         </Modal>
     );
 

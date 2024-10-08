@@ -22,6 +22,10 @@ export default function EspeciesAccordion({ value, handleImageClick, handleEditC
         });
     };
 
+    const getUpdatedImageUrl = (imgUrl) => {
+        return `${imgUrl}?t=${new Date().getTime()}`;
+    }
+
     const renderedItems = value.map((item, index) => {
         const isExpanded = index === expandedIndex;
 
@@ -38,7 +42,7 @@ export default function EspeciesAccordion({ value, handleImageClick, handleEditC
                 </div>
                 <div onClick={() => handleClick(index)}>
                     <img
-                        src={`${BASE_URL}${item.imgUrl}`}
+                        src={getUpdatedImageUrl(BASE_URL + item.imgUrl)}
                         alt={`imagem de um peixe da espécie ${item.nome}`}
                         onError={(e) => {
                             e.target.src = defaultFish

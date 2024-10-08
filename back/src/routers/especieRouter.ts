@@ -13,7 +13,6 @@ especieRouter.put('/:id', especieController.updateEspecie);
 especieRouter.delete('/:id', especieController.deleteEspecie);
 
 //UPLOAD DE IMAGEM DA ESPÉCIE
-especieRouter.post('/:especieId/upload', upload.single('image'), especieController.uploadEspecieImage);
 
 
 export default especieRouter;

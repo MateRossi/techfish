@@ -2,10 +2,12 @@ import { useState } from 'react';
 import './ImageUpload.css';
 import useAxiosPrivate from '../../hooks/use-axios-private';
 import defautFish from '../../img/defaultFish.png';
+import useAuth from '../../hooks/use-auth';
 
-export default function ImageUpload({ item, setShowModal, setErrMsg }) {
+export default function ImageUpload({ item, setShowModal, setErrMsg, setSelected }) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const { auth } = useAuth();
 
     const axiosPrivate = useAxiosPrivate();
 
@@ -33,12 +35,13 @@ export default function ImageUpload({ item, setShowModal, setErrMsg }) {
         formData.append('image', selectedFile);
 
         try {
-            const response = await axiosPrivate.post(`/especies/${item?.id}/upload`, formData, {
+            const response = await axiosPrivate.post(`/users/${auth.id}/especies/${item?.id}/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
 
+            setSelected(null);
             setShowModal(false);
             console.log('Resposta do servidor:', response.data);
         } catch (err) {

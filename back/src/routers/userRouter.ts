@@ -7,6 +7,7 @@ import { faseController } from '../controller/faseController';
 import { aparelhoController } from '../controller/aparelhoController';
 import { aparelhoRules } from '../validation/aparelhoRules';
 import { tanqueRules } from '../validation/tanqueRules';
+import upload from '../middleware/multer';
 
 const userRouter = express.Router();
 
@@ -34,6 +35,8 @@ userRouter.get('/:userId/especies/:especieId', especieController.getEspecieByUse
 userRouter.post('/:userId/especies', especieController.createEspecieByUserId);
 userRouter.put('/:userId/especies/:especieId', especieController.updateEspecieByUserId);
 userRouter.delete('/:userId/especies/:especieId', especieController.deleteEspecieByUserId);
+//upload de imagem de especie
+userRouter.post('/:userId/especies/:especieId/upload', upload.single('image'), especieController.uploadEspecieImage);
 
 //FASES DO CICLO DE PRODUCAO
 userRouter.get('/:userId/fases', faseController.getFasesByUserId);
