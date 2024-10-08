@@ -3,10 +3,9 @@ import './ImageUpload.css';
 import useAxiosPrivate from '../../hooks/use-axios-private';
 import defautFish from '../../img/defaultFish.png';
 
-export default function ImageUpload({ item, setShowModal }) {
+export default function ImageUpload({ item, setShowModal, setErrMsg }) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
-    const [errMsg, setErrMsg] = useState('');
 
     const axiosPrivate = useAxiosPrivate();
 
@@ -44,6 +43,7 @@ export default function ImageUpload({ item, setShowModal }) {
             console.log('Resposta do servidor:', response.data);
         } catch (err) {
             setErrMsg('Erro ao fazer upload de imagem');
+            setShowModal(false);
             console.error('Erro ao enviar a imagem', err);
         }
     };
@@ -51,9 +51,8 @@ export default function ImageUpload({ item, setShowModal }) {
     return (
         <div>
             <img src={defautFish} className='modal-icon' alt="ícone de peixes" />
-            {errMsg && <p className="errMsg">{errMsg}</p>}
             <h2 className="modal-title">Alterar imagem</h2>
-            <p>Adicione ou altere a imagem da espécie selecionada!</p>
+            <p>Adicione ou altere a imagem da espécie {item.nome}</p>
             <form onSubmit={handleSubmit}>
                 <input type="file" onChange={handleFileChange} accept='image/*' />
                 <button type='submit' className='modal-confirm-button'>Enviar Imagem</button>

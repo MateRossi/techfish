@@ -9,11 +9,14 @@ import { IoCloseOutline } from "react-icons/io5";
 import Modal from "../components/modalComp/Modal";
 import AddEspecie from "../components/addEspecie/AddEspecie";
 import EspeciesAccordion from "../components/especiesAccordion/EspeciesAccordion";
+import ImageUpload from "../components/imageUploadComp/ImageUpload";
 
 function EspeciesPage() {
     const [errMsg, setErrMsg] = useState('');
     const [loading, setLoading] = useState(true);
     const [especies, setEspecies] = useState([]);
+    const [selected, setSelected] = useState(null);
+    const [showImageModal, setShowImageModal] = useState(false);
 
     const [showAddModal, setShowAddModal] = useState(false);
 
@@ -42,14 +45,36 @@ function EspeciesPage() {
         getEspecies();
 
         return () => isMounted = false;
-    }, [auth?.id, axiosPrivate, location, navigate]);
+    }, [auth?.id, axiosPrivate, location, navigate, showImageModal]);
 
     const handleAddClick = () => {
         setShowAddModal(true);
-    }
+    };
 
     const handleModalClose = () => {
         setShowAddModal(false);
+        setShowImageModal(false);
+    };
+
+    if (loading) {
+        return (
+            <main className="Page">
+                <Carregando width='50px' height='50px' />
+            </main>
+        )
+    }
+
+    const handleDeleteClick = () => {
+        console.log('delete clicked');
+    }
+
+    const handleEditClick = () => {
+        console.log('edit clicked');
+    }
+
+    const handleImageClick = (item) => {
+        setSelected(item);
+        setShowImageModal(true);
     }
 
     const actionBar = <div>
@@ -61,29 +86,35 @@ function EspeciesPage() {
         <Modal onClose={handleModalClose} actionBar={actionBar} height="610px">
             <AddEspecie setEspecies={setEspecies} setShowModal={setShowAddModal} />
         </Modal>
-    )
+    );
 
-    if (loading) {
-        return (
-            <main className="Page">
-                <Carregando width='50px' height='50px' />
-            </main>
-        )
-    }
+    const imageModal = (
+        <Modal onClose={handleModalClose} actionBar={actionBar} height='410px'>
+            <ImageUpload item={selected} setShowModal={setShowImageModal} setErrMsg={setErrMsg} />
+        </Modal>
+    );
 
     return (
         <main className="page">
             {errMsg && <p className="errMsg">{errMsg}</p>}
             <PageTitle
                 title='Espécies Cadastradas'
-                description='Adicione, edite, consulte ou exclua espécies de peixes que serão criadas.'
+                description='Adicione, edite, consulte ou exclua espécies de peixes.'
             />
             <SearchBar
                 elementToAdd={"Espécie"}
                 handleAdd={handleAddClick}
             />
-            <EspeciesAccordion value={especies} setValue={setEspecies} />
+            <EspeciesAccordion
+                value={especies}
+                setValue={setEspecies}
+                setSelected={setSelected}
+                handleImageClick={handleImageClick}
+                handleEditClick={handleEditClick}
+                handleDeleteClick={handleDeleteClick}
+            />
             {showAddModal && addModal}
+            {showImageModal && imageModal}
         </main>
     )
 }
