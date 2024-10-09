@@ -179,6 +179,8 @@ export const userController = {
         const foundUser = await UserService.getUserByRefreshToken(refreshToken);
         if (!foundUser) return res.sendStatus(403);
 
+        foundUser.senha = '';
+
         jwt.verify(
             refreshToken,
             process.env.JWT_SECRET || "SEAG@2024TTCCMR",
@@ -195,7 +197,7 @@ export const userController = {
                     process.env.JWT_SECRET || 'SEAG@2024TTCCMR',
                     { expiresIn: '1h' }
                 );
-                res.json({ accessToken });
+                res.json({accessToken, id: foundUser.id, role: foundUser.role, name: foundUser.nome});
             }
         );
     },

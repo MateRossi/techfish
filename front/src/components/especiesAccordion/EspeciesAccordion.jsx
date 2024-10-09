@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import './EspeciesAccordion.css';
 import { GoChevronDown, GoChevronLeft } from 'react-icons/go';
 import EspecieCard from '../especieCard/EspecieCard';
@@ -22,10 +22,6 @@ export default function EspeciesAccordion({ value, handleImageClick, handleEditC
         });
     };
 
-    const getUpdatedImageUrl = (imgUrl) => {
-        return `${imgUrl}?t=${new Date().getTime()}`;
-    }
-
     const renderedItems = value.map((item, index) => {
         const isExpanded = index === expandedIndex;
 
@@ -42,7 +38,7 @@ export default function EspeciesAccordion({ value, handleImageClick, handleEditC
                 </div>
                 <div onClick={() => handleClick(index)}>
                     <img
-                        src={getUpdatedImageUrl(BASE_URL + item.imgUrl)}
+                        src={BASE_URL + item.imgUrl}
                         alt={`imagem de um peixe da espécie ${item.nome}`}
                         onError={(e) => {
                             e.target.src = defaultFish

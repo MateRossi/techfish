@@ -59,22 +59,29 @@ function TanqueListPage() {
         let isMounted = true;
         const getTanques = async () => {
             try {
-                const response = await axiosPrivate.get(`/users/${auth?.id}/tanques`);
+                const response = await axiosPrivate.get(`/users/${auth.id}/tanques`);
+                console.log('rodou'); 
                 if (isMounted) {
                     setTanques(response.data);
                     setLoading(false);
                 }
             } catch (err) {
-                console.error(err);
                 if (isMounted) {
                     navigate('/auth', { state: { from: location }, replace: true });
                 }
             }
-        }
+        }  
 
-        getTanques();
+        getTanques(); // Faz a primeira chamada imediatamente
 
-        return () => isMounted = false;
+        const intervalId = setInterval(() => {
+            getTanques(); // Faz a chamada a cada 15 segundos
+        }, 15000);
+
+        return () => {
+            isMounted = false;
+            clearInterval(intervalId); // Limpa o intervalo ao desmontar
+        };
     }, [auth?.id, axiosPrivate, location, navigate, changed]);
 
     useEffect(() => {

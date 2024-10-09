@@ -40,15 +40,15 @@ Leitura.init(
         temperatura: {
             type: DataTypes.DOUBLE,
             validate: {
-                min: 5,
+                min: 0,
                 max: 40,
             },
         },
         orp: {
             type: DataTypes.DOUBLE,
             validate: {
-                min: -400,
-                max: 400,
+                min: -2000,
+                max: 2000,
             },
         },
         tds: {

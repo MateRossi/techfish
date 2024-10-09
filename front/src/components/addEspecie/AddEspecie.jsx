@@ -23,13 +23,13 @@ export default function AddEspecie({ setEspecies, setShowModal }) {
         e.preventDefault();
         const novaEspecie = {
             nome: nomeEspecie,
-            phIdeal,
-            temperaturaIdeal,
-            orpIdeal,
-            tdsIdeal,
-            o2Ideal,
-            o2_mgIdeal: o2MgIdeal,
-            turbidezIdeal,
+            phIdeal: parseFloat(phIdeal),
+            temperaturaIdeal: parseFloat(temperaturaIdeal),
+            orpIdeal: parseFloat(orpIdeal),
+            tdsIdeal: parseFloat(tdsIdeal),
+            o2Ideal: parseFloat(o2Ideal),
+            o2_mgIdeal: parseFloat(o2MgIdeal),
+            turbidezIdeal: parseFloat(turbidezIdeal),
         }
 
         try {
@@ -55,6 +55,7 @@ export default function AddEspecie({ setEspecies, setShowModal }) {
                     type="text"
                     value={nomeEspecie}
                     onChange={(e) => setNomeEspecie(e.target.value)}
+                    required
                 />
             </div>
             <div className='line-container'>
@@ -67,6 +68,7 @@ export default function AddEspecie({ setEspecies, setShowModal }) {
                         onChange={(e) => setPhIdeal(e.target.value)}
                         min={0}
                         max={14}
+                        step={.01}
                     />
                 </div>
                 <div className='InputContainer'>
@@ -78,6 +80,7 @@ export default function AddEspecie({ setEspecies, setShowModal }) {
                         onChange={(e) => setTemperaturaIdeal(e.target.value)}
                         min={5}
                         max={40}
+                        step={.01}
                     />
                 </div>
             </div>
@@ -91,6 +94,7 @@ export default function AddEspecie({ setEspecies, setShowModal }) {
                         onChange={(e) => setOrpIdeal(e.target.value)}
                         min={-400}
                         max={400}
+                        step={.01}
                     />
                 </div>
                 <div className='InputContainer'>
@@ -102,6 +106,7 @@ export default function AddEspecie({ setEspecies, setShowModal }) {
                         onChange={(e) => setTdsIdeal(e.target.value)}
                         min={0}
                         max={300}
+                        step={.01}
                     />
                 </div>
             </div>
@@ -115,6 +120,7 @@ export default function AddEspecie({ setEspecies, setShowModal }) {
                         onChange={(e) => setO2Ideal(e.target.value)}
                         min={0}
                         max={100}
+                        step={.01}
                     />
                 </div>
                 <div className='InputContainer'>
@@ -126,6 +132,7 @@ export default function AddEspecie({ setEspecies, setShowModal }) {
                         onChange={(e) => setO2MgIdeal(e.target.value)}
                         min={0}
                         max={20}
+                        step={.01}
                     />
                 </div>
             </div>
@@ -139,6 +146,7 @@ export default function AddEspecie({ setEspecies, setShowModal }) {
                         onChange={(e) => setTurbidezIdeal(e.target.value)}
                         min={1}
                         max={150}
+                        step={.01}
                     />
                 </div>
             </div>

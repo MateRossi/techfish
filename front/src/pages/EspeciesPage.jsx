@@ -35,7 +35,6 @@ function EspeciesPage() {
                     setLoading(false);
                 }
             } catch (err) {
-                console.error(err);
                 if (isMounted) {
                     navigate('/auth', { state: { from: location }, replace: true });
                 }

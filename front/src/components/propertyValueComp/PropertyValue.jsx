@@ -12,7 +12,7 @@ function PropertyValue({ value, type, icon, description }) {
                 />
                 <p>
                     {
-                        !value ? '-' : <>{value}{type}</> 
+                        value === null || value === undefined ? '-' : <>{value}{type}</> 
                     }
                 </p>
                 <span className="tooltiptext">{description}</span>

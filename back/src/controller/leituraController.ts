@@ -93,6 +93,7 @@ export const leituraController = {
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
+            console.log(errors);
             return res.status(400).json({
                 "error_code": "INVALID_DATA",
                 "error_description": errors.array()[0].msg

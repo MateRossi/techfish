@@ -13,6 +13,7 @@ function useAxiosPrivate() {
                 if (!config.headers['Authorization']) {
                     config.headers['Authorization'] = `Bearer ${auth?.accessToken}`;
                 }
+                config.url = config.url.replace('undefined', auth.id);
                 return config;
             }, (error) => Promise.reject(error)
         );
@@ -23,8 +24,11 @@ function useAxiosPrivate() {
                 const prevRequest = error?.config;
                 if (error?.response?.status === 403 && !prevRequest?.sent) {
                     prevRequest.sent = true;
-                    const newAccessToken = await refresh();
-                    prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+                    const { accessToken, id } = await refresh();
+                    console.log(accessToken, id);
+                    prevRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+                    prevRequest.url = prevRequest.url.replace('undefined', id);
+                    console.log(prevRequest);
                     return axiosPrivate(prevRequest);
                 }
                 return Promise.reject(error);

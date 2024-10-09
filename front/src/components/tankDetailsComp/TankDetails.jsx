@@ -35,7 +35,15 @@ function TankDetails({ tanque }) {
 
         getLeiturasAparelhoETanque();
 
-        return () => isMounted = false;
+        const intervalId = setInterval(() => {
+            getLeiturasAparelhoETanque(); // Faz a chamada a cada 15 segundos
+        }, 15000);
+
+        return () => {
+            isMounted = false;
+            clearInterval(intervalId); // Limpa o intervalo ao desmontar
+        };
+
     }, [axiosPrivate, limit, selected, tanque.id]);
 
     if (loading) {

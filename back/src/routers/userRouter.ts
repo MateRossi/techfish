@@ -15,13 +15,13 @@ userRouter.get('/', userController.getAllUsers);
 userRouter.get('/:id', userController.getUserById);
 
 //APARELHOS
-userRouter.get('/:userId/aparelhos', aparelhoRules.getAparelhosByUserId, aparelhoController.getAparelhosByUserId);
+userRouter.get('/:userId/aparelhos', aparelhoController.getAparelhosByUserId);
 userRouter.get('/:userId/aparelhos/:aparelhoId', aparelhoRules.getAparelhoByUserId, aparelhoController.getAparelhoByUserId);
 userRouter.post('/:userId/aparelhos', aparelhoRules.createAparelho, aparelhoController.createAparelho);
 userRouter.delete('/:userId/aparelhos/:aparelhoId', aparelhoRules.deleteAparelhoByUserId, aparelhoController.deleteAparelhoByUserId);
 
 //TANQUES
-userRouter.get('/:userId/tanques', tanqueRules.getTanquesByUserId, tanqueController.getTanquesByUserId);
+userRouter.get('/:userId/tanques', tanqueController.getTanquesByUserId);
 userRouter.get('/:userId/tanques/:tanqueId', tanqueController.getUserTanqueById);
 userRouter.post('/:userId/tanques', tanqueRules.createTanqueByUserId, tanqueController.createTanqueByUserId);
 userRouter.put('/:userId/tanques/:tanqueId', tanqueRules.updateTanqueByUserId, tanqueController.updateTanqueByUserId);

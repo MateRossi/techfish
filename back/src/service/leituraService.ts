@@ -42,7 +42,6 @@ export class LeituraService {
 
     static async createLeitura(dadosLeitura: Leitura, aparelhoId: string) {
         const {
-            data_hora,
             ph,
             temperatura,
             orp,
@@ -61,6 +60,10 @@ export class LeituraService {
         if (!aparelho.tanqueId) {
             throw new PreconditionError('O Aparelho não está associado a um Tanque. Não é possível salvar a leitura.');
         }
+
+        const now = new Date();
+        const data_hora = now.toISOString();
+        console.log("data e hora", data_hora);
 
         const leitura = await Leitura.create({
             data_hora,

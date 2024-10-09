@@ -71,7 +71,7 @@ function Tank({ tanque, handleDelete, handleEdit, destaque, setDestaque }) {
     );
 
     const editModal = (
-        <Modal onClose={handleTankClose} actionBar={actionBar} height='600px'>
+        <Modal onClose={handleTankClose} actionBar={actionBar} height='680px'>
             <TankEdit tanque={tanque} handleEdit={handleEdit} setShowEditModal={setShowEditModal} setDestaque={setDestaque} />
         </Modal>
     );

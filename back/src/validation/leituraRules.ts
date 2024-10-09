@@ -53,22 +53,23 @@ export const leituraRules = {
             .notEmpty().withMessage("'id_aparelho_es' não pode estar vazio")
             .isString().withMessage("'id_aparelho_es' deve ser uma string"),
 
-        body('data_hora')
+        /*
+            body('data_hora')
             .notEmpty().withMessage("'data_hora' não pode estar vazio")
             .isISO8601().withMessage("'data_hora' deve ser uma data válida")
             .toDate(),
-
+        */
         body('ph')
             .optional()
             .isFloat({ min: 0, max: 14 }).withMessage("'ph' deve ser um valor entre 0 e 14"),
 
         body('temperatura')
             .optional()
-            .isFloat({ min: 5, max: 40 }).withMessage("'temperatura' deve ser um valor entre 5 e 40"),
+            .isFloat({ max: 40 }).withMessage("'temperatura' deve ser um valor maior que 0"),
 
         body('orp')
             .optional()
-            .isFloat({ min: -400, max: 400 }).withMessage("'orp' deve ser um valor entre -400 e 400"),
+            .isFloat({ min: -2000, max: 2000 }).withMessage("'orp' deve ser um valor entre -400 e 400"),
 
         body('tds')
             .optional()
