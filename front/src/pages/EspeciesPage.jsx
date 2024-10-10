@@ -10,15 +10,17 @@ import Modal from "../components/modalComp/Modal";
 import AddEspecie from "../components/addEspecie/AddEspecie";
 import EspeciesAccordion from "../components/especiesAccordion/EspeciesAccordion";
 import ImageUpload from "../components/imageUploadComp/ImageUpload";
+import EditEspecie from "../components/editEspecieComp/EditEspecie";
 
 function EspeciesPage() {
     const [errMsg, setErrMsg] = useState('');
     const [loading, setLoading] = useState(true);
     const [especies, setEspecies] = useState([]);
     const [selected, setSelected] = useState(null);
-    const [showImageModal, setShowImageModal] = useState(false);
 
+    const [showImageModal, setShowImageModal] = useState(false);
     const [showAddModal, setShowAddModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
 
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
@@ -46,6 +48,10 @@ function EspeciesPage() {
         return () => isMounted = false;
     }, [auth?.id, axiosPrivate, location, navigate, selected]);
 
+    useEffect(() => {
+        console.log(especies);
+    }, [especies]);
+
     const handleAddClick = () => {
         setShowAddModal(true);
     };
@@ -53,6 +59,7 @@ function EspeciesPage() {
     const handleModalClose = () => {
         setShowAddModal(false);
         setShowImageModal(false);
+        setShowEditModal(false);
     };
 
     if (loading) {
@@ -67,8 +74,9 @@ function EspeciesPage() {
         console.log('delete clicked');
     }
 
-    const handleEditClick = () => {
-        console.log('edit clicked');
+    const handleEditClick = (item) => {
+        setSelected(item);
+        setShowEditModal(true);
     }
 
     const handleImageClick = (item) => {
@@ -93,6 +101,12 @@ function EspeciesPage() {
         </Modal>
     );
 
+    const editModal = (
+        <Modal onClose={handleModalClose} actionBar={actionBar} height="610px">
+            <EditEspecie especie={selected} setEspecies={setEspecies} setShowModal={setShowEditModal} />
+        </Modal>
+    );
+
     return (
         <main className="page">
             {errMsg && <p className="errMsg">{errMsg}</p>}
@@ -114,6 +128,7 @@ function EspeciesPage() {
             />
             {showAddModal && addModal}
             {showImageModal && imageModal}
+            {showEditModal && editModal}
         </main>
     )
 }

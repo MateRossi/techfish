@@ -81,9 +81,9 @@ export const especieController = {
             const especieId = Number(req.params.especieId);
             const dadosEspecie = req.body;
             const especieAtualizada = await EspecieService.updateEspecieByUserId(userId, especieId, dadosEspecie); 
-            res.json({ especieAtualizada, msg: 'especie atualizada' });
+            res.json(especieAtualizada);
         } catch (error: any) {
-            res.status(400).json({ erro: "Erro ao atualizar a especie", datalhes: error.message })
+            ErrorResponse.handleErrorResponse(error, res);
         };
     },
 

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import './EspeciesAccordion.css';
 import { GoChevronDown, GoChevronLeft } from 'react-icons/go';
 import EspecieCard from '../especieCard/EspecieCard';
