@@ -11,6 +11,8 @@ import AddEspecie from "../components/addEspecie/AddEspecie";
 import EspeciesAccordion from "../components/especiesAccordion/EspeciesAccordion";
 import ImageUpload from "../components/imageUploadComp/ImageUpload";
 import EditEspecie from "../components/editEspecieComp/EditEspecie";
+import Confirm from "../components/confirmDeleteComp/Confirm";
+import { BsExclamationCircle } from "react-icons/bs";
 
 function EspeciesPage() {
     const [errMsg, setErrMsg] = useState('');
@@ -21,11 +23,14 @@ function EspeciesPage() {
     const [showImageModal, setShowImageModal] = useState(false);
     const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
     const { auth } = useAuth();
+
+    const icon = <BsExclamationCircle className='modal-icon' color='orange' style={{ border: 0 }} />
 
     useEffect(() => {
         let isMounted = true;
@@ -48,9 +53,17 @@ function EspeciesPage() {
         return () => isMounted = false;
     }, [auth?.id, axiosPrivate, location, navigate, selected]);
 
-    useEffect(() => {
-        console.log(especies);
-    }, [especies]);
+    const handleDelete = async (id) => {
+        try {
+            await axiosPrivate.delete(`/users/${auth?.id}/especies/${id}`);
+            const especiesList = especies.filter(especie => especie.id !== id);
+            setEspecies(especiesList);
+            setShowDeleteModal(false);
+        } catch (err) {
+            console.error(err.message);
+            setErrMsg('Erro ao excluir especie');
+        }
+    }
 
     const handleAddClick = () => {
         setShowAddModal(true);
@@ -60,6 +73,7 @@ function EspeciesPage() {
         setShowAddModal(false);
         setShowImageModal(false);
         setShowEditModal(false);
+        setShowDeleteModal(false);
     };
 
     if (loading) {
@@ -70,8 +84,9 @@ function EspeciesPage() {
         )
     }
 
-    const handleDeleteClick = () => {
-        console.log('delete clicked');
+    const handleDeleteClick = (item) => {
+        setSelected(item);
+        setShowDeleteModal(true);
     }
 
     const handleEditClick = (item) => {
@@ -107,6 +122,12 @@ function EspeciesPage() {
         </Modal>
     );
 
+    const deleteModal = (
+        <Modal onClose={handleModalClose} actionBar={actionBar} height="200px">
+            <Confirm onConfirm={() => handleDelete(selected.id)} icon={icon} title={`Confirmar exclusão da espécie ${selected?.nome}`} />
+        </Modal>
+    )
+
     return (
         <main className="page">
             {errMsg && <p className="errMsg">{errMsg}</p>}
@@ -129,6 +150,7 @@ function EspeciesPage() {
             {showAddModal && addModal}
             {showImageModal && imageModal}
             {showEditModal && editModal}
+            {showDeleteModal && deleteModal}
         </main>
     )
 }
