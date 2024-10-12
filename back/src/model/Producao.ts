@@ -3,7 +3,6 @@ import { sequelize } from '../db/sequelize';
 import Tanque from './Tanque';
 import Especie from './Especie';
 import User from './User';
-import Fase from './Fase';
 
 class Producao extends Model {
     public id!: number;
@@ -11,8 +10,9 @@ class Producao extends Model {
     public tanqueId!: number;
     public especieId!: number;
     public userId!: number;
+    public status!: string;
 
-    //lincar com o ciclo atual atravéz da tabela de Histórico das Fases do Ciclo de Produção??
+    //Buscar a fase de produção atual através do último elemento na tabela de FasesProdução.
 
     static associate(models: any) {
         this.belongsTo(models.Tanque, { foreignKey: 'tanqueId', as: 'tanque' })
@@ -48,6 +48,11 @@ Producao.init(
             },
             allowNull: false,
         },
+        status: {
+            type: DataTypes.ENUM('em andamento', 'finalizada'),
+            defaultValue: 'em andamento',
+            allowNull: false,
+        }
     },
     {
         sequelize,

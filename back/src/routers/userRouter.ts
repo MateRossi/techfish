@@ -38,13 +38,6 @@ userRouter.delete('/:userId/especies/:especieId', especieController.deleteEspeci
 //upload de imagem de especie
 userRouter.post('/:userId/especies/:especieId/upload', upload.single('image'), especieController.uploadEspecieImage);
 
-//FASES DO CICLO DE PRODUCAO
-userRouter.get('/:userId/fases', faseController.getFasesByUserId);
-userRouter.get('/:userId/fases/:faseId', faseController.getFaseByUserId);
-userRouter.post('/:userId/fases', faseController.createFaseByUserId);
-userRouter.put('/:userId/fases/:faseId', faseController.updateFaseByUserId);
-userRouter.delete('/:userId/fases/:faseId', faseController.deletefaseByUserId);
-
 userRouter.put('/:id', verifyRoles('cliente'), userController.updateUser);
 userRouter.delete('/:id', verifyRoles('cliente'), userController.deleteUser);
 
