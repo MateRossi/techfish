@@ -1,6 +1,5 @@
 import express from 'express';
 import { especieController } from '../controller/especieController';
-import upload from '../middleware/multer';
 
 const especieRouter = express.Router();
 

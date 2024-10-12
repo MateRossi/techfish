@@ -16,7 +16,6 @@ import verifyJwt from './src/middleware/verifyJwt';
 import router from './src/routes';
 import addLeitura from './src/routers/publicRoutes/AddLeituraRouter';
 import { userRules } from './src/validation/userRules';
-import { leituraController } from './src/controller/leituraController';
 
 const uploadDir = path.join(__dirname, 'uploads');
 
@@ -36,7 +35,6 @@ app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
 app.use(cookieParser());
-
 
 app.use('/register', userRules.register, register);
 app.use('/auth', userRules.auth, auth);

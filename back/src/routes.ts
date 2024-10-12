@@ -7,6 +7,7 @@ import userRouter from './routers/userRouter';
 import especieRouter from './routers/especieRouter';
 import tanqueRouter from './routers/tanqueRouter';
 import aparelhoRouter from './routers/aparelhoRouter';
+import faseRouter from './routers/faseRouter';
 
 router.use('/', homeRouter);
 router.use('/leituras', leituraRouter);
@@ -14,5 +15,6 @@ router.use('/users', userRouter);
 router.use('/especies', especieRouter);
 router.use('/tanques', tanqueRouter);
 router.use('/aparelhos', aparelhoRouter);
+router.use('/fases', faseRouter);
 
 export default router;

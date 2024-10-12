@@ -3,6 +3,7 @@ import { sequelize } from '../db/sequelize';
 import Tanque from './Tanque';
 import Especie from './Especie';
 import User from './User';
+import Fase from './Fase';
 
 class Producao extends Model {
     public id!: number;
@@ -10,13 +11,14 @@ class Producao extends Model {
     public tanqueId!: number;
     public especieId!: number;
     public userId!: number;
-    
+
     //lincar com o ciclo atual atravéz da tabela de Histórico das Fases do Ciclo de Produção??
 
     static associate(models: any) {
         this.belongsTo(models.Tanque, { foreignKey: 'tanqueId', as: 'tanque' })
         this.belongsTo(models.Especie, { foreignKey: 'especieId', as: 'especie' })
         this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' })
+        this.hasMany(models.FasesProducao, { foreignKey: 'producaoId' })
     };
 };
 
