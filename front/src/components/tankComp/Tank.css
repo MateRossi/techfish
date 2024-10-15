@@ -4,6 +4,7 @@
     border: 2px solid transparent;
     transition: border-color 0.5s ease;
     width: 480px;
+    padding: 0 10px;
 }
 
 .tank-item-highlight {

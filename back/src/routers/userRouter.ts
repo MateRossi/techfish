@@ -8,11 +8,19 @@ import { aparelhoController } from '../controller/aparelhoController';
 import { aparelhoRules } from '../validation/aparelhoRules';
 import { tanqueRules } from '../validation/tanqueRules';
 import upload from '../middleware/multer';
+import { transacaoController } from '../controller/transacaoController';
 
 const userRouter = express.Router();
 
 userRouter.get('/', userController.getAllUsers);
 userRouter.get('/:id', userController.getUserById);
+
+//TRANSAÇÕES
+userRouter.get('/:userId/transacoes', transacaoController.getTransacoesByUserId);
+userRouter.get('/:userId/transacoes/:transacaoId', transacaoController.getTransacaoByUserId);
+userRouter.post('/:userId/transacoes', transacaoController.createTransacaoByUserId);
+userRouter.put('/:userId/transacoes/:transacaoId', transacaoController.updateTransacaoByUserId);
+userRouter.delete('/:userId/transacoes/:transacaoId', transacaoController.deleteTransacaoByUserId);
 
 //APARELHOS
 userRouter.get('/:userId/aparelhos', aparelhoController.getAparelhosByUserId);
