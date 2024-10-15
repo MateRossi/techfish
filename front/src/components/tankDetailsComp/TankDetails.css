@@ -62,3 +62,8 @@
     height: 100%;
     gap: 10px;
 }
+
+.sem-dados-grafico {
+    text-align: center;
+    text-transform: none;
+}

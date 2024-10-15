@@ -2,7 +2,7 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContai
 import moment from 'moment';
 import './Grafico.css';
 
-function Grafico({ lista, camposParaMostrar }) {
+function Grafico({ lista, camposParaMostrar }) {        
     const values = {
         ph: 'black',
         temperatura: 'orange',
@@ -23,7 +23,7 @@ function Grafico({ lista, camposParaMostrar }) {
 
     return (
         <ResponsiveContainer width='100%' height='100%'>
-            <LineChart data={lista} margin={{ top: 5, right: 55, left: 0, bottom: 5 }} width={'100%'}>
+            <LineChart data={lista} margin={{ right: 55, left: 0, bottom: 5 }} >
                 {camposParaMostrar.map(campo => (
                     <Line
                         key={campo}

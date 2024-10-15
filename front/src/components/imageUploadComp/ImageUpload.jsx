@@ -26,7 +26,7 @@ export default function ImageUpload({ item, setShowModal, setErrMsg, setSelected
         e.preventDefault();
 
         if (!selectedFile) {
-            alert('Por favior, selecione uma imagem para enviar.');
+            alert('Por favor, selecione uma imagem para enviar.');
             return;
         }
 

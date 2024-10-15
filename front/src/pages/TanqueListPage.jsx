@@ -110,7 +110,7 @@ function TanqueListPage() {
     </div>
 
     const addModal = (
-        <Modal onClose={handleModalClose} actionBar={actionbar}>
+        <Modal onClose={handleModalClose} actionBar={actionbar} height="450px">
             <AddTanque setTanques={setTanques} setShowModal={setShowAddModal} setDestaque={setDestaque} />
         </Modal>
     )

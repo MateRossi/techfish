@@ -56,12 +56,18 @@ function TankDetails({ tanque }) {
                 <h3>Gráfico de medidas ao longo do tempo do tanque <span>{tanque.nome}</span></h3>
                 <p>Selecione um ou mais atributos abaixo para detalhar.</p>
             </div>
-            <div>
-                <SeletorAtributo setAtributosLeitura={setAtributosLeitura} atributosLeitura={atributosLeitura} />
-            </div>
-            <div className='grafico-container'>
-                <Grafico lista={leituras} camposParaMostrar={atributosLeitura} />
-            </div>
+            {leituras?.length === 0 ? <h1 className='sem-dados-grafico'>Não há dados para mostrar.</h1>
+                : (
+                    <>
+                        <div>
+                            <SeletorAtributo setAtributosLeitura={setAtributosLeitura} atributosLeitura={atributosLeitura} />
+                        </div>
+                        <div className='grafico-container'>
+                            <Grafico lista={leituras} camposParaMostrar={atributosLeitura} />
+                        </div>
+                    </>
+                )
+            }
         </div>
     )
 }

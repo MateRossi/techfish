@@ -36,6 +36,7 @@ userRouter.post('/:userId/especies', especieController.createEspecieByUserId);
 userRouter.put('/:userId/especies/:especieId', especieController.updateEspecieByUserId);
 userRouter.delete('/:userId/especies/:especieId', especieController.deleteEspecieByUserId);
 //upload de imagem de especie
+
 userRouter.post('/:userId/especies/:especieId/upload', upload.single('image'), especieController.uploadEspecieImage);
 
 userRouter.put('/:id', verifyRoles('cliente'), userController.updateUser);
