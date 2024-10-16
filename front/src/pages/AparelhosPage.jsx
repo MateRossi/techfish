@@ -15,6 +15,7 @@ import AddAparelho from "../components/addAparelhoComp/AddAparelho";
 import EditAparelho from "../components/editAparelhoComp/EditAparelho";
 import Confirm from "../components/confirmDeleteComp/Confirm";
 import { BsExclamationCircle } from "react-icons/bs";
+import aparelhoIcon from '../img/device.png';
 
 function AparelhosPage() {
     const { auth } = useAuth()
@@ -198,7 +199,7 @@ function AparelhosPage() {
     return (
         <main className="page">
             {errMsg && <p className="errMsg">{errMsg}</p>}
-            <PageTitle title="Meus Aparelhos" description={"Cadastre, exclua ou consulte aparelhos."} />
+            <PageTitle title="Meus Aparelhos" description={"Cadastre, exclua ou consulte aparelhos."} img={aparelhoIcon}/>
             <SearchBar
                 elementToAdd="Aparelho"
                 handleAdd={handleAddClick}
@@ -207,7 +208,7 @@ function AparelhosPage() {
             />
             {aparelhos.length !== 0 ?
                 <SortableTable data={searchTerm ? filtered : aparelhos} config={config} keyFn={keyFn} />
-                : <p>Você ainda não possui aparelhos aparelhos para monitorar a qualidade da água.
+                : <p>Você ainda não possui aparelhos para monitorar a qualidade da água.
                     Adicione um novo clicando em <b>Adicionar Aparelho</b>.
                 </p>
             }

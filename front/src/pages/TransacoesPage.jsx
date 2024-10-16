@@ -8,6 +8,9 @@ import Carregando from '../components/Carregando';
 import Modal from '../components/modalComp/Modal';
 import { IoCloseOutline } from 'react-icons/io5';
 import AddTransacao from '../components/addTransacaoComp/AddTransacao';
+import ganhoIcon from '../img/ganhoIcone.png';
+import SortableTable from '../components/SortableTable';
+import GraficoPizza from '../components/pieChartComp/GraficoPizza';
 
 export default function TransacoesPage() {
     const [errMsg, setErrMsg] = useState('');
@@ -101,10 +104,18 @@ export default function TransacoesPage() {
         )
     }
 
+    if (transacoes?.length === 0) {
+        return (
+            <p>Você ainda não possui transações para cadastradas.
+            Adicione novas clicando em <b>Adicionar Transação</b>.
+        </p>  
+        );
+    }
+
     return (
         <main className='page'>
             {errMsg && <p className="errMsg">{errMsg}</p>}
-            <PageTitle title="Finanças" description="Faça o controle dos gastos e receitas da suas fazenda." />
+            <PageTitle title="Finanças" description="Faça o controle dos gastos e receitas da suas fazenda." img={ganhoIcon} />
             <SearchBar
                 elementToAdd={"Transação"}
                 handleAdd={handleAddClick}
@@ -112,7 +123,9 @@ export default function TransacoesPage() {
                 onChange={handleSearchChange}
             />
             <div className='transaction-list-container'>
+                <GraficoPizza data={transacoes} />
                 {renderedTransactions()}
+                {/*<SortableTable data={transacoes} config={config} keyFn={keyFn} />*/}
             </div>
             {showAddModal && addModal}
         </main>

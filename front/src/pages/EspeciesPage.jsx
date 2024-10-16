@@ -13,6 +13,7 @@ import ImageUpload from "../components/imageUploadComp/ImageUpload";
 import EditEspecie from "../components/editEspecieComp/EditEspecie";
 import Confirm from "../components/confirmDeleteComp/Confirm";
 import { BsExclamationCircle } from "react-icons/bs";
+import peixeIcon from '../img/peixeIcone.png';
 
 function EspeciesPage() {
     const [errMsg, setErrMsg] = useState('');
@@ -134,6 +135,7 @@ function EspeciesPage() {
             <PageTitle
                 title='Espécies Cadastradas'
                 description='Adicione, edite, consulte ou exclua espécies de peixes.'
+                img={peixeIcon}
             />
             <SearchBar
                 elementToAdd={"Espécie"}

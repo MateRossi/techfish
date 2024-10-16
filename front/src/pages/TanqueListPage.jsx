@@ -10,6 +10,7 @@ import SearchBar from "../components/searchBarComp/SearchBar";
 import { IoCloseOutline } from "react-icons/io5";
 import Tank from "../components/tankComp/Tank";
 import './TankListPage.css';
+import tanqueIcon from '../img/tanque.png';
 
 function TanqueListPage() {
     const [tanques, setTanques] = useState([]);
@@ -170,7 +171,7 @@ function TanqueListPage() {
     return (
         <main className="page">
             {errMsg && <p className="errMsg">{errMsg}</p>}
-            <PageTitle title="Meus Tanques" description="Adicione, edite, monitore ou exclua tanques." />
+            <PageTitle title="Meus Tanques" description="Adicione, edite, monitore ou exclua tanques." img={tanqueIcon}/>
             <SearchBar
                 elementToAdd={"Tanque"}
                 handleAdd={handleAddClick}
