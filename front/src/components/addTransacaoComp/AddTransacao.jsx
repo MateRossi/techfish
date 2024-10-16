@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './AddTransacao.css';
 import useAxiosPrivate from '../../hooks/use-axios-private';
 import useAuth from '../../hooks/use-auth';
@@ -9,9 +9,12 @@ export default function AddTransacao({ setTransacoes, setShowModal }) {
     const [tipo, setTipo] = useState(null);
     const [valor, setValor] = useState('');
     const [descricao, setDescricao] = useState('');
+    const [min, setMin] = useState(null);
+    const [max, setMax] = useState(null);
     const [errMsg, setErrMsg] = useState('');
     const axiosPrivate = useAxiosPrivate();
     const { auth } = useAuth();
+    const valorRef = useRef();
 
     const dropdownOptions = [
         { label: 'DESPESA', value: 'DESPESA' },
@@ -36,7 +39,27 @@ export default function AddTransacao({ setTransacoes, setShowModal }) {
         }
     }
 
-    console.log(tipo);
+    useEffect(() => {
+        if (!tipo?.value) return;
+        
+        if (tipo.value === 'DESPESA') {
+            setMax(0);
+            setMin(null);
+        } 
+
+        if (tipo.value === 'RECEITA') {
+            setMax(null);
+            setMin(0);
+        }
+    }, [valor]);
+
+    const handleChangeValue = (e) => {
+        if (!tipo?.value) {
+            return alert('Selecione o tipo da transação!');
+        }
+
+        setValor(e.target.value);
+    }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -56,15 +79,25 @@ export default function AddTransacao({ setTransacoes, setShowModal }) {
                         id='valorTransacao'
                         type='number'
                         value={valor}
-                        onChange={(e) => setValor(e.target.value)}
+                        onChange={(e) => handleChangeValue(e)}
+                        required
+                        ref={valorRef}
+                        min={min}
+                        max={max}
                     />
                 </div>
             </div>
-            <input
-                type='textbox'
-                value={descricao}
-                onChange={(e) => setDescricao(e.target.value)}
-            />
+            <div className='text-area-container'>
+                <label htmlFor='desc'>Descrição*:</label>
+                <textarea
+                    id='desc'
+                    type='textbox'
+                    value={descricao}
+                    onChange={(e) => setDescricao(e.target.value)}
+                    placeholder='Descrição para a receita ou despesa...'
+                    required
+                />
+            </div>
             <button type='submit' className='modal-confirm-button'>Confirmar</button>
         </form>
     );

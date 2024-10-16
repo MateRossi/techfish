@@ -70,8 +70,8 @@ export default function TransacoesPage() {
     </div>
 
     const addModal = (
-        <Modal onClose={handleModalClose} actionBar={actionBar}>
-            <AddTransacao setTransacoes={setTransacoes} setShowModal={setShowAddModal} />
+        <Modal onClose={handleModalClose} actionBar={actionBar} height='415px'>
+            <AddTransacao setTransacoes={setTransacoes} setShowModal={setShowAddModal}/>
         </Modal>
     )
 
