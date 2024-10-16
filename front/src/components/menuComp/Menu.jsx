@@ -41,9 +41,11 @@ function Menu() {
                 <MenuListItem to={`/users/${auth.id}/especies`} icon={EspeciesIcon}>
                     Espécies
                 </MenuListItem>
-                <MenuListItem to={`/users/${auth.id}/fases`} icon={TanqueIcon}>
+                {/*
+                    <MenuListItem to={`/users/${auth.id}/fases`} icon={TanqueIcon}>
                     Fases de Produção
                 </MenuListItem>
+                */}
                 <MenuListItem to={`/users/${auth.id}/financeiro`} icon={GanhosIcon}>
                     Finanças
                 </MenuListItem>

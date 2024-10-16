@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/use-auth";
+import PageTitle from "../components/pageTitleComp/PageTitle";
+import house from '../img/houseicone.svg';
 
 export default function HomePage() {
     const navigate = useNavigate();
@@ -21,7 +23,10 @@ export default function HomePage() {
 
     return (
         <main className="page">
-            <div>teste</div>
+            <PageTitle 
+                title={"Página em construção."}
+                img={house}
+            />
         </main>
     )
 }

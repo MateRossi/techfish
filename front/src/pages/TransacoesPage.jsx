@@ -74,27 +74,9 @@ export default function TransacoesPage() {
 
     const addModal = (
         <Modal onClose={handleModalClose} actionBar={actionBar} height='415px'>
-            <AddTransacao setTransacoes={setTransacoes} setShowModal={setShowAddModal}/>
+            <AddTransacao setTransacoes={setTransacoes} setShowModal={setShowAddModal} />
         </Modal>
     )
-
-    const renderedTransactions = () => {
-        if (searchTerm) {
-            return filtered.map((transacao) =>
-                <div key={transacao.id}>{JSON.stringify(transacao)}</div>
-            );
-        }
-
-        if (transacoes.length > 0) {
-            return transacoes.map((transacao) =>
-                <div key={transacao.id}>{JSON.stringify(transacao)}</div>
-            )
-        }
-
-        return <p>Você ainda não cadastrou nenhuma transação.
-            Adicione uma nova clicando em <b>Adicionar Transação</b>.
-        </p>
-    }
 
     if (loading) {
         return (
@@ -107,9 +89,31 @@ export default function TransacoesPage() {
     if (transacoes?.length === 0) {
         return (
             <p>Você ainda não possui transações para cadastradas.
-            Adicione novas clicando em <b>Adicionar Transação</b>.
-        </p>  
+                Adicione novas clicando em <b>Adicionar Transação</b>.
+            </p>
         );
+    }
+
+    const config = [
+        {
+            label: "ID da Transação",
+            render: (transacao) => transacao.id,
+            sortValue: (transacao) => transacao.id,
+        },
+        {
+            label: "Tipo",
+            render: (transacao) => <span className={transacao.tipo === 'DESPESA' ? 'span-despesa' : 'span-receita'}>{transacao.tipo}</span>,
+            sortValue: (transacao) => transacao.tipo,
+        },
+        {
+            label: "Descrição",
+            render: (transacao) => transacao.descricao,
+            sortValue: (transacao) => transacao.descricao,
+        },
+    ];
+
+    const keyFn = (transacao) => {
+        return transacao.id;
     }
 
     return (
@@ -123,9 +127,8 @@ export default function TransacoesPage() {
                 onChange={handleSearchChange}
             />
             <div className='transaction-list-container'>
-                <GraficoPizza data={transacoes} />
-                {renderedTransactions()}
-                {/*<SortableTable data={transacoes} config={config} keyFn={keyFn} />*/}
+                <SortableTable data={searchTerm ? filtered : transacoes} config={config} keyFn={keyFn} />
+                <GraficoPizza data={transacoes} className="grafico-pizza" />
             </div>
             {showAddModal && addModal}
         </main>

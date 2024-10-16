@@ -1,0 +1,22 @@
+.transaction-list-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.span-despesa {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: brown;
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.span-receita {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: limegreen;
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+}
