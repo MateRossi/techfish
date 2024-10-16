@@ -107,9 +107,14 @@ export default function TransacoesPage() {
         },
         {
             label: "Descrição",
-            render: (transacao) => transacao.descricao,
+            render: (transacao) => transacao.descricao, /*.length > 10 ? transacao.descricao.slice(0, 10)+'...' : transacao.descricao*/
             sortValue: (transacao) => transacao.descricao,
         },
+        {
+            label: "Valor",
+            render: (transacao) => transacao.valor,
+            sortValue: (transacao) => transacao.valor,
+        }
     ];
 
     const keyFn = (transacao) => {
