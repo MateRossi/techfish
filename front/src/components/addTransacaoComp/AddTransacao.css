@@ -1,0 +1,12 @@
+.line-container-select {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 16px;
+}
+
+.line-container-select input[type="number"] {
+    padding: 10px;
+    font-size: 21px;
+}

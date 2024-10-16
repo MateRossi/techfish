@@ -33,5 +33,8 @@ export const transacaoRules = {
             .trim()
             .notEmpty().withMessage("'valor' não pode estar vazio")
             .isDecimal().withMessage("'valor' deve ser um número válido"),
+        body('descricao')
+            .trim()
+            .notEmpty().withMessage("'descricao' não pode estar vaia")
     ],
 }

@@ -11,6 +11,7 @@ import EspeciesPage from './pages/EspeciesPage'
 import Faturamento from './pages/FaturamentoPage'
 import AparelhosPage from './pages/AparelhosPage'
 import HomePage from './pages/HomePage'
+import TransacoesPage from './pages/TransacoesPage'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path='/users/:userId/fases' element={<FasesPage />} />
           <Route path='/users/:userId/especies' element={<EspeciesPage />} />
           <Route path='/users/:userId/faturamento' element={<Faturamento />} />
+          <Route path='/users/:userId/financeiro' element={<TransacoesPage />} />
         </Route>
       </Route>
 

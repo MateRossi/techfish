@@ -44,8 +44,8 @@ function Menu() {
                 <MenuListItem to={`/users/${auth.id}/fases`} icon={TanqueIcon}>
                     Fases de Produção
                 </MenuListItem>
-                <MenuListItem to={`/users/${auth.id}/faturamento`} icon={GanhosIcon}>
-                    Faturamento
+                <MenuListItem to={`/users/${auth.id}/financeiro`} icon={GanhosIcon}>
+                    Finanças
                 </MenuListItem>
             </div>
 

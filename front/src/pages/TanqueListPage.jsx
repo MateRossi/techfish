@@ -18,7 +18,7 @@ function TanqueListPage() {
     const [destaque, setDestaque] = useState(null);
     const [changed, setChanged] = useState(false);
 
-    const [searchTerm, setSerchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
     const [filtered, setFiltered] = useState([]);
 
     const [showAddModal, setShowAddModal] = useState(false);
@@ -124,7 +124,7 @@ function TanqueListPage() {
     }
 
     const handleSearchChange = (value) => {
-        setSerchTerm(value);
+        setSearchTerm(value);
 
         const filteredItems = tanques.filter(item =>
             Object.values(item).some(val =>
@@ -163,7 +163,7 @@ function TanqueListPage() {
         }
 
         return <p>Você ainda não cadastrou nenhum tanque.
-            Adicione um novo clicando em <b>Adicionar Aparelho</b>.
+            Adicione um novo clicando em <b>Adicionar Tanque</b>.
         </p>
     }
 

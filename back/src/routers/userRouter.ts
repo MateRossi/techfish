@@ -9,6 +9,7 @@ import { aparelhoRules } from '../validation/aparelhoRules';
 import { tanqueRules } from '../validation/tanqueRules';
 import upload from '../middleware/multer';
 import { transacaoController } from '../controller/transacaoController';
+import { transacaoRules } from '../validation/transacaoRules';
 
 const userRouter = express.Router();
 
@@ -16,9 +17,9 @@ userRouter.get('/', userController.getAllUsers);
 userRouter.get('/:id', userController.getUserById);
 
 //TRANSAÇÕES
-userRouter.get('/:userId/transacoes', transacaoController.getTransacoesByUserId);
-userRouter.get('/:userId/transacoes/:transacaoId', transacaoController.getTransacaoByUserId);
-userRouter.post('/:userId/transacoes', transacaoController.createTransacaoByUserId);
+userRouter.get('/:userId/transacoes', transacaoRules.getTransacoesByUserId, transacaoController.getTransacoesByUserId);
+userRouter.get('/:userId/transacoes/:transacaoId', transacaoRules.getTransacaoByUserId, transacaoController.getTransacaoByUserId);
+userRouter.post('/:userId/transacoes', transacaoRules.createTransacaoByUserId, transacaoController.createTransacaoByUserId);
 userRouter.put('/:userId/transacoes/:transacaoId', transacaoController.updateTransacaoByUserId);
 userRouter.delete('/:userId/transacoes/:transacaoId', transacaoController.deleteTransacaoByUserId);
 
