@@ -62,7 +62,7 @@ Leitura.init(
             type: DataTypes.DOUBLE,
             validate: {
                 min: 0,
-                max: 200,
+                max: 2000,
             },
         },
         o2_mg: {

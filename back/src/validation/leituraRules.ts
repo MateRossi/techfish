@@ -77,7 +77,7 @@ export const leituraRules = {
 
         body('o2')
             .optional()
-            .isFloat({ min: 0, max: 200 }).withMessage("'o2' deve ser um valor entre 0 e 200"),
+            .isFloat({ min: 0, max: 2000 }).withMessage("'o2' deve ser um valor entre 0 e 200"),
 
         body('o2_mg')
             .optional()

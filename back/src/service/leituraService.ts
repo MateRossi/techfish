@@ -71,7 +71,7 @@ export class LeituraService {
             temperatura,
             orp,
             tds,
-            o2,
+            o2: o2 > 200 ? 200 : o2,
             o2_mg,
             turbidez,
             aparelhoId,

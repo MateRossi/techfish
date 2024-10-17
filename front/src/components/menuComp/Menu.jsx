@@ -27,7 +27,7 @@ function Menu() {
         <nav className="nav-bar">
             <header>
                 <img src={logo} alt="logo tecfish" />
-                <h2>tec<span style={{ color: '#0A84FF' }}>fish</span></h2>
+                <h2>tec<span style={{ color: '#0A84FF' }}>4fish</span></h2>
             </header>
             <div className='nav-content'>
                 <MenuListItem to='/' icon={CasaIcon}>
