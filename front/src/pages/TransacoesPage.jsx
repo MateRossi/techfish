@@ -88,9 +88,20 @@ export default function TransacoesPage() {
 
     if (transacoes?.length === 0) {
         return (
-            <p>Você ainda não possui transações para cadastradas.
-                Adicione novas clicando em <b>Adicionar Transação</b>.
-            </p>
+            <main className='page'>
+                {errMsg && <p className="errMsg">{errMsg}</p>}
+                <PageTitle title="Finanças" description="Faça o controle dos gastos e receitas da suas fazenda." img={ganhoIcon} />
+                <SearchBar
+                    elementToAdd={"Transação"}
+                    handleAdd={handleAddClick}
+                    searchTerm={searchTerm}
+                    onChange={handleSearchChange}
+                />
+                <p>Você ainda não possui transações cadastradas.
+                    Adicione novas clicando em <b>Adicionar Transação</b>.
+                </p>
+                {showAddModal && addModal}
+            </main>
         );
     }
 

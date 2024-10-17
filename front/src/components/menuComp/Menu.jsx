@@ -11,6 +11,7 @@ import DeviceIcon from '../../icons/DeviceIcon';
 import { useNavigate } from 'react-router-dom';
 import useLogout from '../../hooks/use-logout';
 import PerfilIcon from '../../icons/PerfilIcon';
+import AparelhoIcon from '../../icons/AparelhoIcon';
 
 function Menu() {
     const { auth } = useAuth();
@@ -35,7 +36,7 @@ function Menu() {
                 <MenuListItem to={`/users/${auth.id}/tanques`} icon={TanqueIcon}>
                     Meus Tanques
                 </MenuListItem>
-                <MenuListItem to={`/users/${auth.id}/aparelhos`} icon={DeviceIcon}>
+                <MenuListItem to={`/users/${auth.id}/aparelhos`} icon={AparelhoIcon}>
                     Meus Aparelhos
                 </MenuListItem>
                 <MenuListItem to={`/users/${auth.id}/especies`} icon={EspeciesIcon}>

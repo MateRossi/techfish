@@ -44,6 +44,10 @@ export class TransacaoService {
 
         let valor = transacao.valor;
 
+        if (tipo === 'DESPESA') {
+            valor = valor * -1;
+        }
+
         return await Transacao.create({
             tipo,
             valor,

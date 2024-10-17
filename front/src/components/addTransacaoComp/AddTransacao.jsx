@@ -9,8 +9,6 @@ export default function AddTransacao({ setTransacoes, setShowModal }) {
     const [tipo, setTipo] = useState(null);
     const [valor, setValor] = useState('');
     const [descricao, setDescricao] = useState('');
-    const [min, setMin] = useState(null);
-    const [max, setMax] = useState(null);
     const [errMsg, setErrMsg] = useState('');
     const axiosPrivate = useAxiosPrivate();
     const { auth } = useAuth();
@@ -38,20 +36,6 @@ export default function AddTransacao({ setTransacoes, setShowModal }) {
             setErrMsg('Erro ao adicionar transação');
         }
     }
-
-    useEffect(() => {
-        if (!tipo?.value) return;
-        
-        if (tipo.value === 'DESPESA') {
-            setMax(0);
-            setMin(null);
-        } 
-
-        if (tipo.value === 'RECEITA') {
-            setMax(null);
-            setMin(0);
-        }
-    }, [valor]);
 
     const handleChangeValue = (e) => {
         if (!tipo?.value) {
@@ -82,8 +66,8 @@ export default function AddTransacao({ setTransacoes, setShowModal }) {
                         onChange={(e) => handleChangeValue(e)}
                         required
                         ref={valorRef}
-                        min={min}
-                        max={max}
+                        min={0}
+                        step={".01"}
                     />
                 </div>
             </div>
