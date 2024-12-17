@@ -81,7 +81,7 @@ button[type="submit"].modal-confirm-button {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-shadow: none;
   position: absolute;
-  font-size: 16px;
+  font-size: 1rem;
   bottom: 20px;
   right: 20px;
   width: calc(50% - 28px);
