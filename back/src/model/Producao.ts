@@ -16,7 +16,9 @@ class Producao extends Model {
     public pesoTotalInicial!: number;
     public quantidadeEstimadaPeixes!: number;
     public status!: string;
-
+    
+    //quantidade estimada de peixes ao ~finalizar a produção
+    public quantidadeFinalEstimadaPeixes?: number;
     public gastosTotais?: number;
     public totalRacaoFornecida?: number;
     public pesoIndividualFinal?: number;
@@ -102,6 +104,11 @@ Producao.init(
             type: DataTypes.ENUM('EM ANDAMENTO', 'FINALIZADA'),
             defaultValue: 'EM ANDAMENTO',
             allowNull: false,
+        },
+
+        quantidadeFinalEstimadaPeixes: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
         },
 
         //valor total gasto - calculado apenas quando a produção é finalizada.
