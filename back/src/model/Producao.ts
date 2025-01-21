@@ -17,7 +17,7 @@ class Producao extends Model {
     public quantidadeEstimadaPeixes!: number;
     public status!: string;
     
-    //quantidade estimada de peixes ao ~finalizar a produção
+    //quantidade estimada de peixes ao finalizar a produção
     public quantidadeFinalEstimadaPeixes?: number;
     public gastosTotais?: number;
     public totalRacaoFornecida?: number;
