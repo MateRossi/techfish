@@ -17,6 +17,7 @@
     pointer-events: auto;
     overscroll-behavior: contain;
     z-index: 99999;
+    max-height: 96vh;
 }
 
 .modal button {
@@ -108,4 +109,5 @@
 
 .modal-content {
     height: 100%;
+    max-height: 94vh;
 }
