@@ -10,6 +10,13 @@
 
 .footer {
   margin-top: auto;
+  margin-bottom: 0;
+}
+
+.line {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 .table-actions {
@@ -242,8 +249,8 @@ input {
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .Subtitle {
