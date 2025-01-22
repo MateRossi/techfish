@@ -8,7 +8,7 @@ function MenuListItem({ to, icon: Icon, children }) {
             className={({ isActive }) => isActive ? 'selected' : 'menu-list-item-link'}
         >
             {Icon && <Icon className='menu-list-item-icon' />}
-            {children}
+            <span>{children}</span>
         </NavLink>
     );
 }

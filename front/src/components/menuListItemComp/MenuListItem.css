@@ -30,3 +30,21 @@
     background-color: #fff;
     border-radius: 5px;
 }
+
+@media (max-width: 860px) {
+    .menu-list-item-icon {
+        margin-right: 0;
+    }
+
+    .menu-list-item-link, .selected {
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .nav-content a:hover {
+        background-color: #fff;
+        color: #091242;
+        padding: 10px;
+    }
+}

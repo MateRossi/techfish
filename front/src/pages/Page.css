@@ -2,3 +2,9 @@
     padding-left: 300px;
     width: auto;
 }
+
+@media (max-width: 860px) {
+    .page {
+        padding-left: 60px;
+    }
+}

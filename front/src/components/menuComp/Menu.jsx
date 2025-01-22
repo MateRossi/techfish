@@ -59,7 +59,7 @@ function Menu() {
                         <span className='papel-user'>{auth.role}</span>
                     </span>
                 </div>
-                <button className='sair-button' onClick={signOut}><SairIcon className="sair-icon" />Sair</button>
+                <button className='sair-button' onClick={signOut}><SairIcon className="sair-icon" /><span>Sair</span></button>
             </div>
         </nav>
     );

@@ -1,14 +1,13 @@
 .nav-bar > header {
-    position: fixed;
-    height: 80px;
-    width: 300px;
-    margin: 0;
+    position: relative;
     display: flex;
-    flex-direction: row;   
-    justify-content: flex-start;
-    padding-left: 20px;
+    justify-content: center;
     align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    height: 60px;
+    width: 280px;
+    margin: 10px auto;
+    background-color: #fff;
+    border-radius: 5px;
 }
 
 .nav-bar>header>h2 {
@@ -34,26 +33,25 @@
 }
 
 .nav-content {
-    padding: 0px 16px;    
-}
-
-.nav-content a:first-of-type {
-    margin-top: 80px;
-}
-
-.nav-content a:last-of-type {
-    margin-bottom: 20px;
+    padding: 0px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;   
 }
 
 .user-profile-info {
     position: fixed;
     display: flex;
-    width: 300px;
+    left: 10px;
     bottom: 20px;
-    padding-left: 20px;
-    padding-top: 10px;
-    flex-direction: column;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+    width: 280px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-top: auto;
 }
 
 .user-name-and-pic {
@@ -65,7 +63,7 @@
 
 .sair-button {
     display: block;
-    color: #828282;
+    color: #091242;
     display: flex;
     align-items: center;
     width: auto;
@@ -79,25 +77,50 @@
     margin-right: 10px;
     width: 1.5rem;
     height: 2rem;
-    color: #fff;
+    color: #091242;
 }
 
 .perfil-icon {
     width: 44px;
     margin-right: 10px;
     height: 52.8px;
-    color: #fff;
+    color: #091242;
 }
 
 .nome-user {
     font-style: normal;
     font-weight: 400;
-    font-size: 1.2rem;
-    color: #fff;
+    font-size: 1rem;
+    color: #091242;
 }
 
 .papel-user {
     font-style: oblique;
-    color: #fff;
+    color: #091242;
     font-size: 0.8rem;
+}
+
+@media (max-width: 860px) {
+    .nav-bar, .user-profile-info, .nav-bar > header {
+        width: 60px;
+    }
+
+    span, .nav-bar>header>h2, .nome-user, .papel-user, .sair-button>span, .perfil-icon {
+        display: none;
+    }
+
+    .nav-content {
+        padding: 0;
+    }
+
+    .nav-bar>header {
+        border-radius: 50%;
+        padding: 10px;
+        height: 54px;
+        width: 54px;
+    }
+
+    .user-profile-info {
+        left: 0;
+    }
 }
