@@ -23,7 +23,7 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    background-color: #ffffff;
+    background-color: #091242;
     display: block;
     width: 300px;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -31,6 +31,10 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0;
+}
+
+.nav-content {
+    padding: 0px 16px;    
 }
 
 .nav-content a:first-of-type {
@@ -75,25 +79,25 @@
     margin-right: 10px;
     width: 1.5rem;
     height: 2rem;
-    color: #828282;
+    color: #fff;
 }
 
 .perfil-icon {
     width: 44px;
     margin-right: 10px;
     height: 52.8px;
-    color: #828282;
+    color: #fff;
 }
 
 .nome-user {
     font-style: normal;
     font-weight: 400;
     font-size: 1.2rem;
-    color: #828282;
+    color: #fff;
 }
 
 .papel-user {
     font-style: oblique;
-    color: #828282;
+    color: #fff;
     font-size: 0.8rem;
 }

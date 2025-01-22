@@ -9,7 +9,7 @@ import PageTitle from "../components/pageTitleComp/PageTitle";
 import SearchBar from "../components/searchBarComp/SearchBar";
 import { IoCloseOutline } from "react-icons/io5";
 import Tank from "../components/tankComp/Tank";
-import './TankListPage.css';
+import './TanqueListPage.css';
 import tanqueIcon from '../img/tanque.png';
 
 function TanqueListPage() {
@@ -122,6 +122,14 @@ function TanqueListPage() {
                 <Carregando width='50px' height='50px' />
             </main>
         )
+    }
+
+    if (tanques.length === 0 ) {
+        return (
+            <main className="Page">
+                <DadosVazios img={semTanqueIcon} />
+            </main>
+        );
     }
 
     const handleSearchChange = (value) => {

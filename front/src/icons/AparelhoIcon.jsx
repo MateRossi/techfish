@@ -6,7 +6,7 @@ function AparelhoIcon(props) {
         xmlns="http://www.w3.org/2000/svg"
         className={props.className}
         {...props}
-        strokeWidth="2px"
+        strokeWidth="1px"
         stroke="currentColor"
         fill="none"
         opacity="100"

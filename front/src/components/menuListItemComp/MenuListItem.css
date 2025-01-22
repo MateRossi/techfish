@@ -11,9 +11,9 @@
 
 .menu-list-item-link {
     display: flex;
-    padding: 10px 25px 10px;
+    padding: 10px 20px 10px;
     text-decoration: none;
-    color: #828282;
+    color: #fff;
     cursor: pointer;
     width: auto;
     align-items: center;
@@ -21,12 +21,12 @@
 
 .nav-content a:hover, .selected {
     display: flex;
-    padding: 10px 17px 10px;
+    padding: 10px 20px 10px;
     text-decoration: none;
     cursor: pointer;
     width: auto;
     align-items: center;
-    border-left: 8px solid #3949AB;
-    color: #3949AB;
-    background-color: #F3F4FC;
+    color: #091242;
+    background-color: #fff;
+    border-radius: 5px;
 }
