@@ -43,7 +43,7 @@
     position: fixed;
     display: flex;
     left: 10px;
-    bottom: 20px;
+    bottom: 10px;
     justify-content: space-around;
     align-items: center;
     height: 60px;
@@ -122,5 +122,24 @@
 
     .user-profile-info {
         left: 0;
+        width: 60px;
+        background-color: transparent;
+        color: #fff;
+    }
+
+    .user-profile-info button {
+        width: 60px;
+        background-color: transparent;
+        padding-left: 19px;
+        color: #fff;
+        border-color: #091242;
+    }
+
+    .user-profile-info button .sair-icon {
+        color: #fff;
+    }
+
+    .user-profile-info button:hover .sair-icon {
+        color: #091242;
     }
 }
