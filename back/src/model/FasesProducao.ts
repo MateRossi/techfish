@@ -35,7 +35,7 @@ FasesProducao.init(
             },
             allowNull: false,
         },
-        prpducaoId: {
+        producaoId: {
             type: DataTypes.INTEGER,
             references: {
                 model: Producao,

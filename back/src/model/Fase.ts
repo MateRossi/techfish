@@ -7,7 +7,7 @@ class Fase extends Model {
     public instrucoes!: string;
 
     static associate(models: any) {
-        this.hasMany(models.FasesProducao, { foreignKey: 'faseId' })
+        this.hasMany(models.FasesProducao, { as: 'fasesProducao', foreignKey: 'faseId' })
     }
 };
 
@@ -19,7 +19,7 @@ Fase.init(
             unique: true,
         },
         instrucoes: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
         },
     },
     {

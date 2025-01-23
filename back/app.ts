@@ -16,6 +16,7 @@ import verifyJwt from './src/middleware/verifyJwt';
 import router from './src/routes';
 import addLeitura from './src/routers/publicRoutes/AddLeituraRouter';
 import { userRules } from './src/validation/userRules';
+import seedFasesProducao from './src/seed/fasesSeeder';
 
 const uploadDir = path.join(__dirname, 'uploads');
 
@@ -49,6 +50,7 @@ app.use(router);
 (async () => {
     try {
         await sequelize.sync();
+        await seedFasesProducao();
         console.log('Conexão com o banco de dados estabelecida com sucesso.');
     } catch (error) {
         console.error('Erro ao conectar com o banco de dados.', error);
