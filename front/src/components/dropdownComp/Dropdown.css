@@ -25,7 +25,8 @@
     background-color: #fff;
     overflow-y: scroll;
     pointer-events: all;
-    max-height: 200px;
+    max-height: 100px;
+    overflow-y: auto;
 }
 
 .dropdown-option {

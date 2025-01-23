@@ -10,6 +10,13 @@
 
 .footer {
   margin-top: auto;
+  margin-bottom: 0;
+}
+
+.line {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 .table-actions {
@@ -81,7 +88,7 @@ button[type="submit"].modal-confirm-button {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-shadow: none;
   position: absolute;
-  font-size: 16px;
+  font-size: 1rem;
   bottom: 20px;
   right: 20px;
   width: calc(50% - 28px);
@@ -242,8 +249,8 @@ input {
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .Subtitle {

@@ -10,13 +10,22 @@ class Producao extends Model {
     public tanqueId!: number;
     public especieId!: number;
     public userId!: number;
-    public idadePeixes!: number;
-    public pesoMedioIndividual!: number;
-    public pesoTotal!: number;
-    public tca!: number;
-    public gpd!: number;
 
+    public idadeInicial!: number;
+    public pesoMedioIndividualInicial!: number;
+    public pesoTotalInicial!: number;
+    public quantidadeEstimadaPeixes!: number;
     public status!: string;
+    
+    //quantidade estimada de peixes ao finalizar a produção
+    public quantidadeFinalEstimadaPeixes?: number;
+    public gastosTotais?: number;
+    public totalRacaoFornecida?: number;
+    public pesoIndividualFinal?: number;
+    public pesoTotalFinal?: number;
+    public tcaGeral?: number;
+    public gpdGeral?: number;
+    public dataFim?: number;
 
     //Buscar a fase de produção atual através do último elemento na tabela de FasesProdução.
 
@@ -25,6 +34,7 @@ class Producao extends Model {
         this.belongsTo(models.Especie, { foreignKey: 'especieId', as: 'especie' })
         this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' })
         this.hasMany(models.FasesProducao, { foreignKey: 'producaoId' })
+        this.hasMany(models.Trato, { foreignKey: 'producaoId' })
     };
 };
 
@@ -55,43 +65,93 @@ Producao.init(
             allowNull: false,
         },
 
-        //https://www.cnabrasil.org.br/assets/arquivos/263-Piscicultura-Alimenta%C3%A7%C3%A3o_191025_203233.pdf
-
-        //idade expressa em dias
-        idadePeixes: {
+        //idade incial em quantidade de dias
+        idadeInicial: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            validate: {
+                min: 0,
+            },
         },
 
-        //peso médio individual em quilos
-        pesoMedioIndividual: {
-            type: DataTypes.DOUBLE,
-            allowNull: true,
-        },
-
-        //peso total em quilos
-        pesoTotal: {
+        //peso médio individual incial expresso em quilos
+        pesoMedioIndividualInicial: {
             type: DataTypes.DOUBLE,
             allowNull: false,
+            validate: {
+                min: 0,
+            },
         },
 
-        //taxa de conversão alimentar - quantidade total de ração fornecida(kg)/ganho de peso total dos peixes(kg)
-        tca: {
-            type: DataTypes.DOUBLE,
+        //peso total inicial - calculado ao criar a produção
+        pesoTotalInicial: {
+            type: DataTypes.DECIMAL,
             allowNull: false,
+            validate: {
+                min: 0,
+            },
         },
 
-        //ganho de peso diário - peso médio atual (g) - peso médio anterior(g) / número de dias de cresimento
-        gpd: {
-            type: DataTypes.DOUBLE,
+        quantidadeEstimadaPeixes: {
+            type: DataTypes.INTEGER,
             allowNull: false,
+            validate: {
+                min: 1,
+            },
         },
 
         status: {
-            type: DataTypes.ENUM('em andamento', 'finalizada'),
-            defaultValue: 'em andamento',
+            type: DataTypes.ENUM('EM ANDAMENTO', 'FINALIZADA'),
+            defaultValue: 'EM ANDAMENTO',
             allowNull: false,
-        }
+        },
+
+        quantidadeFinalEstimadaPeixes: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
+
+        //valor total gasto - calculado apenas quando a produção é finalizada.
+        gastosTotais: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+        },
+
+        //quantidade de ração total gasta em quilos (não leva em consideração o tipo de ração) - calculado ao finalizar a produção.
+        totalRacaoFornecida: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+        },
+
+        //peso final dos peixes (kg), obtido ao finalizar a producao.
+        pesoIndividualFinal: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+        },
+
+        //peso total final (quantidadePexies * pesoIndividual) = utilizado no cálculo do tca
+        pesoTotalFinal: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+        },
+
+        //TCA (taxa de conversão alimentar) geral = totalRacao(kg)/ganho de peso total
+        tcaGeral: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+        },
+
+        //GPD (ganho de peso diário) geral = peso inicial (g) - peso final (g) / dias de crescimento.
+        gpdGeral: {
+            type: DataTypes.DECIMAL,
+            allowNull: true,
+        },
+
+        //data fim - valor armazenado quando a produção é finalizada.
+        dataFim: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
     },
     {
         sequelize,

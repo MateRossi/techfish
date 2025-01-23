@@ -1,4 +1,10 @@
 .page {
-    padding-left: 300px;
+    padding-left: 254px;
     width: auto;
+}
+
+@media (max-width: 860px) {
+    .page {
+        padding-left: 60px;
+    }
 }

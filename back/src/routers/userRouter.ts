@@ -10,6 +10,8 @@ import { tanqueRules } from '../validation/tanqueRules';
 import upload from '../middleware/multer';
 import { transacaoController } from '../controller/transacaoController';
 import { transacaoRules } from '../validation/transacaoRules';
+import { producaoRules } from '../validation/producaoRules';
+import { producaoController } from '../controller/producaoController';
 
 const userRouter = express.Router();
 
@@ -44,8 +46,11 @@ userRouter.get('/:userId/especies/:especieId', especieController.getEspecieByUse
 userRouter.post('/:userId/especies', especieController.createEspecieByUserId);
 userRouter.put('/:userId/especies/:especieId', especieController.updateEspecieByUserId);
 userRouter.delete('/:userId/especies/:especieId', especieController.deleteEspecieByUserId);
-//upload de imagem de especie
 
+//PRODUÇÕES
+userRouter.post('/:userId/producoes', producaoRules.createProducao, producaoController.createProducao);
+
+//upload de imagem de especie
 userRouter.post('/:userId/especies/:especieId/upload', upload.single('image'), especieController.uploadEspecieImage);
 
 userRouter.put('/:id', verifyRoles('cliente'), userController.updateUser);

@@ -80,7 +80,7 @@ function LogonPage() {
 
     return (
         <main className="Content">
-            <section className="LoginContainer">
+            <section className="LogonContainer">
                 <header className="LoginHeader">
                     <h2>tecfish</h2>
                     <Link to={'/auth'}>
@@ -125,30 +125,32 @@ function LogonPage() {
                         />
                     </div>
 
-                    <div className="InputContainer">
-                        <label htmlFor="senha">Senha: </label>
-                        <input
-                            id="senha"
-                            type="password"
-                            placeholder="Insira sua senha"
-                            onChange={(e) => setPwd(e.target.value)}
-                            value={pwd}
-                            required
-                            autoComplete="off"
-                        />
-                    </div>
+                    <div className="line">
+                        <div className="InputContainer">
+                            <label htmlFor="senha">Senha: </label>
+                            <input
+                                id="senha"
+                                type="password"
+                                placeholder="Insira sua senha"
+                                onChange={(e) => setPwd(e.target.value)}
+                                value={pwd}
+                                required
+                                autoComplete="off"
+                            />
+                        </div>
 
-                    <div className="InputContainer">
-                        <label htmlFor="confirmarSenha">Confirmar senha: </label>
-                        <input
-                            id="confirmarSenha"
-                            type="password"
-                            placeholder="Insira sua senha novamente"
-                            onChange={(e) => setMatchPwd(e.target.value)}
-                            value={matchPwd}
-                            required
-                            autoComplete="off"
-                        />
+                        <div className="InputContainer">
+                            <label htmlFor="confirmarSenha">Confirmar senha: </label>
+                            <input
+                                id="confirmarSenha"
+                                type="password"
+                                placeholder="Insira sua senha novamente"
+                                onChange={(e) => setMatchPwd(e.target.value)}
+                                value={matchPwd}
+                                required
+                                autoComplete="off"
+                            />
+                        </div>
                     </div>
 
                     <button type="submit">Cadastrar</button>

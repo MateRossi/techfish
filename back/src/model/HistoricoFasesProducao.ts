@@ -20,6 +20,7 @@ class HistoricoFasesProducao extends Model {
     };
 };
 
+//HISTÓRICO FASE - PRODUÇÃO
 HistoricoFasesProducao.init(
     {
         tipoRacao: {

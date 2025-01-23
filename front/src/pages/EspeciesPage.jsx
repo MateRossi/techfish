@@ -14,6 +14,8 @@ import EditEspecie from "../components/editEspecieComp/EditEspecie";
 import Confirm from "../components/confirmDeleteComp/Confirm";
 import { BsExclamationCircle } from "react-icons/bs";
 import peixeIcon from '../img/peixeIcone.png';
+import DadosVazios from "../components/dadosVaziosComp/DadosVazios";
+import semEspecieIcon from '../img/semConteudo/semEspecies.png';
 
 function EspeciesPage() {
     const [errMsg, setErrMsg] = useState('');
@@ -25,6 +27,9 @@ function EspeciesPage() {
     const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filtered, setFiltered] = useState([]);
 
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
@@ -129,6 +134,48 @@ function EspeciesPage() {
         </Modal>
     )
 
+    const handleSearchChange = (value) => {
+        setSearchTerm(value);
+
+        const filteredItems = especies.filter(item =>
+            Object.values(item).some(val =>
+                String(val).toLocaleLowerCase().includes(value.toLowerCase())
+            )
+        );
+
+        setFiltered(filteredItems);
+    }
+
+    const renderedEspecies = () => {
+        if (searchTerm) {
+            return (
+                <EspeciesAccordion
+                    value={filtered}
+                    setValue={setEspecies}
+                    setSelected={setSelected}
+                    handleImageClick={handleImageClick}
+                    handleEditClick={handleEditClick}
+                    handleDeleteClick={handleDeleteClick}
+                />
+            );
+        }
+
+        if (especies.length > 0) {
+            return (
+                <EspeciesAccordion
+                    value={especies}
+                    setValue={setEspecies}
+                    setSelected={setSelected}
+                    handleImageClick={handleImageClick}
+                    handleEditClick={handleEditClick}
+                    handleDeleteClick={handleDeleteClick}
+                />
+            );
+        }
+
+        return <DadosVazios img={semEspecieIcon} string={'Especie'} />
+    }
+
     return (
         <main className="page">
             {errMsg && <p className="errMsg">{errMsg}</p>}
@@ -140,15 +187,10 @@ function EspeciesPage() {
             <SearchBar
                 elementToAdd={"Espécie"}
                 handleAdd={handleAddClick}
+                searchTerm={searchTerm}
+                onChange={handleSearchChange}
             />
-            <EspeciesAccordion
-                value={especies}
-                setValue={setEspecies}
-                setSelected={setSelected}
-                handleImageClick={handleImageClick}
-                handleEditClick={handleEditClick}
-                handleDeleteClick={handleDeleteClick}
-            />
+            {renderedEspecies()}
             {showAddModal && addModal}
             {showImageModal && imageModal}
             {showEditModal && editModal}

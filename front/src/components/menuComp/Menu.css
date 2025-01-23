@@ -1,14 +1,13 @@
 .nav-bar > header {
-    position: fixed;
-    height: 80px;
-    width: 300px;
-    margin: 0;
+    position: relative;
     display: flex;
-    flex-direction: row;   
-    justify-content: flex-start;
-    padding-left: 20px;
+    justify-content: center;
     align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    height: 60px;
+    width: 234px;
+    margin: 10px auto;
+    background-color: #fff;
+    border-radius: 5px;
 }
 
 .nav-bar>header>h2 {
@@ -23,9 +22,9 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    background-color: #ffffff;
+    background-color: #0A84FF;
     display: block;
-    width: 300px;
+    width: 254px;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
     height: 100%;
     overflow-y: auto;
@@ -33,23 +32,27 @@
     padding: 0;
 }
 
-.nav-content a:first-of-type {
-    margin-top: 80px;
-}
-
-.nav-content a:last-of-type {
-    margin-bottom: 20px;
+.nav-content {
+    padding: 0px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;   
 }
 
 .user-profile-info {
     position: fixed;
     display: flex;
-    width: 300px;
-    bottom: 20px;
-    padding-left: 20px;
-    padding-top: 10px;
+    left: 10px;
+    bottom: 10px;
     flex-direction: column;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    justify-content: space-around;
+    align-items: flex-start;
+    height: fit-content;
+    width: 234px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-top: auto;
 }
 
 .user-name-and-pic {
@@ -57,14 +60,14 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    margin-left: 10px;
 }
 
 .sair-button {
     display: block;
-    color: #828282;
+    color: rgba(9, 18, 66, 0.8);
     display: flex;
     align-items: center;
-    width: auto;
     border-color: transparent;
     width: fit-content;
     padding: 5px;
@@ -75,25 +78,69 @@
     margin-right: 10px;
     width: 1.5rem;
     height: 2rem;
-    color: #828282;
+    color: rgba(9, 18, 66, 0.8);;
 }
 
 .perfil-icon {
     width: 44px;
     margin-right: 10px;
     height: 52.8px;
-    color: #828282;
+    color: rgba(9, 18, 66, 0.8);
 }
 
 .nome-user {
     font-style: normal;
     font-weight: 400;
-    font-size: 1.2rem;
-    color: #828282;
+    font-size: 1rem;
+    color: rgba(9, 18, 66, 0.8);
 }
 
 .papel-user {
     font-style: oblique;
-    color: #828282;
+    color: rgba(9, 18, 66, 0.8);
     font-size: 0.8rem;
+}
+
+@media (max-width: 860px) {
+    .nav-bar, .user-profile-info, .nav-bar > header {
+        width: 60px;
+    }
+
+    span, .nav-bar>header>h2, .nome-user, .papel-user, .sair-button>span, .perfil-icon {
+        display: none;
+    }
+
+    .nav-content {
+        padding: 0;
+    }
+
+    .nav-bar>header {
+        border-radius: 50%;
+        padding: 10px;
+        height: 54px;
+        width: 54px;
+    }
+
+    .user-profile-info {
+        left: 0;
+        width: 60px;
+        background-color: transparent;
+        color: #fff;
+    }
+
+    .user-profile-info button {
+        width: 60px;
+        background-color: transparent;
+        padding-left: 19px;
+        color: #fff;
+        border-color: #0A84FF;
+    }
+
+    .user-profile-info button .sair-icon {
+        color: #fff;
+    }
+
+    .user-profile-info button:hover .sair-icon {
+        color: #091242;
+    }
 }

@@ -9,8 +9,10 @@ import PageTitle from "../components/pageTitleComp/PageTitle";
 import SearchBar from "../components/searchBarComp/SearchBar";
 import { IoCloseOutline } from "react-icons/io5";
 import Tank from "../components/tankComp/Tank";
-import './TankListPage.css';
+import './TanqueListPage.css';
 import tanqueIcon from '../img/tanque.png';
+import DadosVazios from "../components/dadosVaziosComp/DadosVazios";
+import semTanqueIcon from '../img/semConteudo/semTanque.png';
 
 function TanqueListPage() {
     const [tanques, setTanques] = useState([]);
@@ -61,7 +63,7 @@ function TanqueListPage() {
         const getTanques = async () => {
             try {
                 const response = await axiosPrivate.get(`/users/${auth.id}/tanques`);
-                console.log('rodou'); 
+                console.log('rodou');
                 if (isMounted) {
                     setTanques(response.data);
                     setLoading(false);
@@ -71,7 +73,7 @@ function TanqueListPage() {
                     navigate('/auth', { state: { from: location }, replace: true });
                 }
             }
-        }  
+        }
 
         getTanques(); // Faz a primeira chamada imediatamente
 
@@ -129,7 +131,7 @@ function TanqueListPage() {
 
         const filteredItems = tanques.filter(item =>
             Object.values(item).some(val =>
-                String(val).toLowerCase().includes(value)
+                String(val).toLowerCase().includes(value.toLowerCase())
             )
         );
 
@@ -163,15 +165,13 @@ function TanqueListPage() {
             );
         }
 
-        return <p>Você ainda não cadastrou nenhum tanque.
-            Adicione um novo clicando em <b>Adicionar Tanque</b>.
-        </p>
+        return <DadosVazios img={semTanqueIcon} string={'Tanque'}/>
     }
 
     return (
         <main className="page">
             {errMsg && <p className="errMsg">{errMsg}</p>}
-            <PageTitle title="Meus Tanques" description="Adicione, edite, monitore ou exclua tanques." img={tanqueIcon}/>
+            <PageTitle title="Meus Tanques" description="Adicione, edite, monitore ou exclua tanques." img={tanqueIcon} />
             <SearchBar
                 elementToAdd={"Tanque"}
                 handleAdd={handleAddClick}
