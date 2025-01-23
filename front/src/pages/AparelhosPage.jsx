@@ -16,6 +16,8 @@ import EditAparelho from "../components/editAparelhoComp/EditAparelho";
 import Confirm from "../components/confirmDeleteComp/Confirm";
 import { BsExclamationCircle } from "react-icons/bs";
 import aparelhoIcon from '../img/device.png';
+import DadosVazios from "../components/dadosVaziosComp/DadosVazios";
+import semAparelhoIcon from '../img/semConteudo/semAparelhos.png';
 
 function AparelhosPage() {
     const { auth } = useAuth()
@@ -81,7 +83,7 @@ function AparelhosPage() {
 
         const filteredItems = aparelhos.filter(item =>
             Object.values(item).some(val =>
-                String(val).toLowerCase().includes(value)
+                String(val).toLowerCase().includes(value.toLowerCase())
             )
         );
 
@@ -196,6 +198,14 @@ function AparelhosPage() {
         )
     }
 
+    const renderedAparelhos = () => {
+        if (aparelhos.length > 0) {
+            return <SortableTable data={searchTerm ? filtered : aparelhos} config={config} keyFn={keyFn} />
+        }
+
+        return <DadosVazios img={semAparelhoIcon} string={'Aparelho'}/>
+    }
+
     return (
         <main className="page">
             {errMsg && <p className="errMsg">{errMsg}</p>}
@@ -206,12 +216,7 @@ function AparelhosPage() {
                 searchTerm={searchTerm}
                 onChange={handleSearchChange}
             />
-            {aparelhos.length !== 0 ?
-                <SortableTable data={searchTerm ? filtered : aparelhos} config={config} keyFn={keyFn} />
-                : <p>Você ainda não possui aparelhos para monitorar a qualidade da água.
-                    Adicione um novo clicando em <b>Adicionar Aparelho</b>.
-                </p>
-            }
+            {renderedAparelhos()}
             {showAddModal && addModal}
             {showEditModal && editModal}
             {showDeleteModal && deleteModal}

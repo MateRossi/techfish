@@ -27,7 +27,7 @@ Especie.init(
         nome: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
+            unique: false,
         },
         phIdeal: {
             type: DataTypes.DECIMAL,

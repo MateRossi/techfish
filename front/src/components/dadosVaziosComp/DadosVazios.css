@@ -1,0 +1,15 @@
+.sem-dados-img {
+    height: 200px;
+    width: 200px;
+    margin: auto auto;
+}
+
+.sem-dados-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.sem-dados-container p {
+    text-align: center;
+}
