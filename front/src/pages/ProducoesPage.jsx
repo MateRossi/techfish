@@ -7,6 +7,10 @@ import aparelhoIcon from '../img/device.png';
 import SearchBar from "../components/searchBarComp/SearchBar";
 import DadosVazios from '../components/dadosVaziosComp/DadosVazios';
 import semProducaoIcon from '../img/semConteudo/semProducao.png';
+import Producao from "../components/producao/Producao";
+import { IoCloseOutline } from "react-icons/io5";
+import Modal from "../components/modalComp/Modal";
+import AddProducao from "../components/addProducao/AddProducao";
 
 function ProducoesPage() {
     const { auth } = useAuth();
@@ -18,6 +22,8 @@ function ProducoesPage() {
 
     const [searchTerm, setSerchTerm] = useState('');
     const [filtered, setFiltered] = useState([]);
+
+    const [showAddModal, setShowAddModal] = useState(false);
 
     const handleSearchChange = (value) => {
         setSerchTerm(value);
@@ -35,7 +41,7 @@ function ProducoesPage() {
         let isMounted = true;
         const getProducoes = async () => {
             try {
-                const response = await axiosPrivate.get(`/users/${auth?.id}/producoes`);
+                const response = await axiosPrivate.get(`/users/${auth.id}/producoes`);
                 if (isMounted) {
                     setProducoes(response.data);
                     setLoading(false);
@@ -51,9 +57,24 @@ function ProducoesPage() {
         return () => isMounted = false;
     }, [auth?.id, axiosPrivate]);
 
-    const handleAddClick = () => {
-        console.log('Clicked');
+    const handleModalClose = () => {
+        setShowAddModal(false);
     }
+
+    const handleAddClick = () => {
+        setShowAddModal(true);
+    }
+
+    const actionBar = <div>
+        <button onClick={handleModalClose} className="modal-close-button">Cancelar</button>
+        <button onClick={handleModalClose} className="modal-X-close-button"><IoCloseOutline size={30} /></button>
+    </div>
+
+    const addModal = (
+        <Modal onClose={handleModalClose} actionBar={actionBar} height="450px">
+            <AddProducao setProducoes={setProducoes} setShowModal={setShowAddModal} />
+        </Modal>
+    );
 
     if (loading) {
         return (
@@ -67,12 +88,18 @@ function ProducoesPage() {
         if (searchTerm) {
             return <p>{JSON.stringify(filtered)}</p>
         }
-        
+
         if (producoes.length > 0) {
-            return <p>{JSON.stringify(producoes)}</p>
+            return (
+                <div>
+                    {producoes.map(producao => (
+                        <Producao key={producao.id} producao={producao} />
+                    ))}
+                </div>
+            );
         }
 
-        return <DadosVazios img={semProducaoIcon} string={'Producão'}/>
+        return <DadosVazios img={semProducaoIcon} string={'Producão'} />
     }
 
     return (
@@ -83,13 +110,14 @@ function ProducoesPage() {
                 description={"Gerencie suas produções em andamento, adicione novas ou consulte dados de cada fase específica."}
                 img={aparelhoIcon}
             />
-            <SearchBar 
+            <SearchBar
                 elementToAdd={'Producao'}
                 handleAdd={handleAddClick}
                 searchTerm={searchTerm}
                 onChange={handleSearchChange}
             />
             {renderedProducoes()}
+            {showAddModal && addModal}
         </main>
     )
 }

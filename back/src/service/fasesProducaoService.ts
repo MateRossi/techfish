@@ -3,10 +3,8 @@ import { ServerError } from "../error/ServerError";
 import { Especie, Fase, FasesProducao, Producao, Tanque, User } from "../model";
 
 export class FasesProducaoService {
-    static async getUserProductions(userId: number, filter: { status: string|undefined, fase: string|undefined }) {
+    static async getUserProductions(userId: number, filter: { status: string | undefined, fase: string | undefined }) {
         const { status, fase } = filter;
-
-        console.log(`\n\nStatus: ${status}, Fase: ${fase}\n\n`);
 
         const user = await User.findByPk(userId);
 
@@ -19,17 +17,27 @@ export class FasesProducaoService {
                 {
                     model: Producao,
                     as: 'producao',
-                    include: [{
-                        model: User,
-                        as: 'user',
-                        where: { id: userId }
-                    }],
-                    where: status ? { status } : undefined
+                    where: status ? { status } : undefined,
+                    include: [
+                        {
+                            model: Tanque,
+                            as: 'tanque'
+                        },
+                        {
+                            model: Especie,
+                            as: 'especie'
+                        }
+                    ]
                 },
                 {
                     model: Fase,
                     as: 'fase',
                     where: fase ? { nome: fase } : undefined
+                },
+                {
+                    model: User,
+                    as: 'user',
+                    attributes: ['nome', 'id'],
                 }
             ]
         });
@@ -78,6 +86,7 @@ export class FasesProducaoService {
         if (!producao) throw new ServerError('Erro ao criar producao.');
 
         return await FasesProducao.create({
+            userId: userId,
             faseId: fase.id,
             producaoId: producao.id,
             dataInicio: new Date(),
