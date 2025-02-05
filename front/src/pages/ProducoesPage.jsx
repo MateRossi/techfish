@@ -11,6 +11,7 @@ import Producao from "../components/producao/Producao";
 import { IoCloseOutline } from "react-icons/io5";
 import Modal from "../components/modalComp/Modal";
 import AddProducao from "../components/addProducao/AddProducao";
+import './ProducoesPage.css'
 
 function ProducoesPage() {
     const { auth } = useAuth();
@@ -79,7 +80,7 @@ function ProducoesPage() {
     if (loading) {
         return (
             <main className="page">
-                <Carregando width='50px' height='50p' />
+                <Carregando width='50px' height='50px' />
             </main>
         )
     }
@@ -91,7 +92,7 @@ function ProducoesPage() {
 
         if (producoes.length > 0) {
             return (
-                <div>
+                <div className="producoes">
                     {producoes.map(producao => (
                         <Producao key={producao.id} producao={producao} />
                     ))}

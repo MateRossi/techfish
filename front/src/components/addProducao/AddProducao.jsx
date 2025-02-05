@@ -13,7 +13,7 @@ export default function AddProducao({ setProducoes, setShowModal }) {
         { label: 'Recria', value: 'Recria' },
         { label: 'Engorda', value: 'Engorda' }
     ];
-    
+
     const { auth } = useAuth();
     const axiosPrivate = useAxiosPrivate();
 
@@ -73,7 +73,24 @@ export default function AddProducao({ setProducoes, setShowModal }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        
+        const novaProducao = {
+            userId: auth.id,
+            tanqueId: tanque.id,
+            especieId: especie.id,
+            idadeInicial: dados.idadeInicial,
+            pesoMedioIndividualInicial: dados.pesoMedioIndividualInicial,
+            quantidadeEstimadaPeixes: dados.quantidadeEstimadaPeixes,
+            faseInicial: fase.label
+        }
+
+        try {
+            const response = await axiosPrivate.post(`/users/${auth.id}/producoes`, novaProducao);
+            setProducoes(prevProducoes => [...prevProducoes, response.data]);
+            setShowModal(false);
+        } catch (err) {
+            console.error(err);
+            setErrMsg('Erro ao adicionar produção.');
+        }
     }
 
     if (loading) {

@@ -26,7 +26,6 @@ function Dropdown({ options, value, onChange, label }) {
 
     const handleClick = () => {
         setIsOpen((currentIsOpen) => !currentIsOpen);
-        console.log(isOpen)
     };
 
     const handleOptionClick = (option) => {
@@ -36,7 +35,7 @@ function Dropdown({ options, value, onChange, label }) {
 
     const renderedOptions = options.map((option) => {
         return (
-            <div className='dropdown-option' onClick={() => handleOptionClick(option)} key={option.id}>
+            <div className='dropdown-option' onClick={() => handleOptionClick(option)} key={option.id || option[label]}>
                 {option[label] || option.id}
             </div>
         );

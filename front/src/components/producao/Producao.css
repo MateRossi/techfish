@@ -5,12 +5,13 @@
     align-items: center;
     max-width: 900px;
     margin: 0 auto;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0px 2px 8px 0px #091242;
     border-radius: 8px;
     padding: 16px;
     gap: 1rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
 }
 
 .producao-item h2 {
