@@ -19,7 +19,7 @@ export class EspecieService {
             throw new NotFoundError('Usuário não encontrado');
         }
 
-        return Especie.findAll({
+        return await Especie.findAll({
             where: {
                 userId
             }

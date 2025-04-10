@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import './AddTransacao.css';
 import useAxiosPrivate from '../../hooks/use-axios-private';
 import useAuth from '../../hooks/use-auth';

@@ -18,6 +18,7 @@
     overscroll-behavior: contain;
     z-index: 99999;
     max-height: 96vh;
+    padding-bottom: 60px;
 }
 
 .modal button {

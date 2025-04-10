@@ -7,7 +7,6 @@ import useAuth from '../../hooks/use-auth';
 import MenuListItem from '../menuListItemComp/MenuListItem';
 import GanhosIcon from '../../icons/GanhosIcon';
 import SairIcon from '../../icons/SairIcon';
-import DeviceIcon from '../../icons/DeviceIcon';
 import { useNavigate } from 'react-router-dom';
 import useLogout from '../../hooks/use-logout';
 import PerfilIcon from '../../icons/PerfilIcon';
@@ -42,11 +41,9 @@ function Menu() {
                 <MenuListItem to={`/users/${auth.id}/especies`} icon={EspeciesIcon}>
                     Espécies
                 </MenuListItem>
-                {/*
-                    <MenuListItem to={`/users/${auth.id}/fases`} icon={TanqueIcon}>
-                    Fases de Produção
+                <MenuListItem to={`/users/${auth.id}/producoes`} icon={TanqueIcon}>
+                    Produções de Peixes
                 </MenuListItem>
-                */}
                 <MenuListItem to={`/users/${auth.id}/financeiro`} icon={GanhosIcon}>
                     Finanças
                 </MenuListItem>

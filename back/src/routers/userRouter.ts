@@ -12,6 +12,7 @@ import { transacaoController } from '../controller/transacaoController';
 import { transacaoRules } from '../validation/transacaoRules';
 import { producaoRules } from '../validation/producaoRules';
 import { producaoController } from '../controller/producaoController';
+import { fasesProducaoController } from '../controller/fasesProducaoController';
 
 const userRouter = express.Router();
 
@@ -48,7 +49,9 @@ userRouter.put('/:userId/especies/:especieId', especieController.updateEspecieBy
 userRouter.delete('/:userId/especies/:especieId', especieController.deleteEspecieByUserId);
 
 //PRODUÇÕES
-userRouter.post('/:userId/producoes', producaoRules.createProducao, producaoController.createProducao);
+//userRouter.post('/:userId/producoes', producaoRules.createProducao, producaoController.createProducao);
+userRouter.get('/:userId/producoes', fasesProducaoController.getUserProductions);
+userRouter.post('/:userId/producoes', fasesProducaoController.createProducao);
 
 //upload de imagem de especie
 userRouter.post('/:userId/especies/:especieId/upload', upload.single('image'), especieController.uploadEspecieImage);

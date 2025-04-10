@@ -33,7 +33,7 @@ class Producao extends Model {
         this.belongsTo(models.Tanque, { foreignKey: 'tanqueId', as: 'tanque' })
         this.belongsTo(models.Especie, { foreignKey: 'especieId', as: 'especie' })
         this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' })
-        this.hasMany(models.FasesProducao, { foreignKey: 'producaoId' })
+        this.hasMany(models.FasesProducao, { as: 'fasesProducao', foreignKey: 'producaoId' })
         this.hasMany(models.Trato, { foreignKey: 'producaoId' })
     };
 };

@@ -25,6 +25,10 @@
     font-size: 16px;
 }
 
+.add-aparelho-container {
+    padding: 0;
+}
+
 .radio-input-container {
     display: flex;
     justify-content: flex-start;

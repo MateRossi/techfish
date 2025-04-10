@@ -1,0 +1,25 @@
+.line-container-select {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    color: rgba(52, 64, 84, 0.5);
+    font-weight: 600;
+    gap: 1rem;
+}
+
+.line-container-select>.InputContainer>input {
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.sem-dados-dropdown {
+    margin-bottom: 0;
+}
+
+.sem-dados-dropdown a {
+    color: #0A84FF;
+}
